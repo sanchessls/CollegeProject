@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ScrumPokerPlanning.Models;
+using ScrumPokerAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerPlanning.Context
+namespace ScrumPokerAPI.Context
 {
     public class ApplicationContext : DbContext
     {
@@ -15,7 +15,7 @@ namespace ScrumPokerPlanning.Context
         }
 
         public DbSet<TableOne> TableOne { get; set; }
-        public DbSet<TableOne> TableTwo { get; set; }
+        public DbSet<TableTwo> TableTwo { get; set; }
 
     }
 }

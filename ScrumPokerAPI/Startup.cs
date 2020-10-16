@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ScrumPokerPlanning.Context;
-using ScrumPokerPlanning.Repositories.Implementation;
-using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerAPI.Context;
+using ScrumPokerAPI.Repositories.Implementation;
+using ScrumPokerAPI.Repositories.Interface;
 
-namespace ScrumPokerPlanning
+namespace ScrumPokerAPI
 {
     public class Startup
     {

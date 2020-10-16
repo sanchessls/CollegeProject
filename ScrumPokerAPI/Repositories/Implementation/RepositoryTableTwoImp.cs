@@ -1,8 +1,8 @@
-﻿using ScrumPokerPlanning.Context;
-using ScrumPokerPlanning.Models;
-using ScrumPokerPlanning.Repositories.Interface;
+﻿using ScrumPokerAPI.Context;
+using ScrumPokerAPI.Models;
+using ScrumPokerAPI.Repositories.Interface;
 
-namespace ScrumPokerPlanning.Repositories.Implementation
+namespace ScrumPokerAPI.Repositories.Implementation
 {
     public class RepositoryTableTwoImp : RepositoryImp<TableTwo>, IRepositoryTableTwo
     {

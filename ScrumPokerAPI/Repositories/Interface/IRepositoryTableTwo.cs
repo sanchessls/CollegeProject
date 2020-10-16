@@ -1,10 +1,10 @@
-﻿using ScrumPokerPlanning.Models;
+﻿using ScrumPokerAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerPlanning.Repositories.Interface
+namespace ScrumPokerAPI.Repositories.Interface
 {
     public interface IRepositoryTableTwo : IRepository<TableTwo>
     {

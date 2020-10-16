@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ScrumPokerPlanning.Repositories.Interface
+namespace ScrumPokerAPI.Repositories.Interface
 {
     public interface IRepository<T> where T : class
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using ScrumPokerPlanning.Models;
-using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerAPI.Models;
+using ScrumPokerAPI.Repositories.Interface;
 
-namespace ScrumPokerPlanning.Controllers
+namespace ScrumPokerAPI.Controllers
 {
     [ApiController]
     [Route("api/TableTwo")]

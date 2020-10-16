@@ -1,10 +1,10 @@
-﻿using ScrumPokerPlanning.Context;
-using ScrumPokerPlanning.Repositories.Interface;
+﻿using ScrumPokerAPI.Context;
+using ScrumPokerAPI.Repositories.Interface;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ScrumPokerPlanning.Repositories.Implementation
+namespace ScrumPokerAPI.Repositories.Implementation
 {
     public class RepositoryImp<T> : IRepository<T> where T : class
     {
