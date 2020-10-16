@@ -15,7 +15,6 @@ namespace ScrumPokerAPI.Controllers
             _repository = repository;
         }
 
-
         //GET api/TableOne/
         [HttpGet]
         public ActionResult <IEnumerable<TableOne>> GetAll()

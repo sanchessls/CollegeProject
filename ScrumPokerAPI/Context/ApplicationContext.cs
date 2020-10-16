@@ -14,6 +14,7 @@ namespace ScrumPokerAPI.Context
         
         }
 
+        //Here we set the Objects that are a table in our Database Context
         public DbSet<TableOne> TableOne { get; set; }
         public DbSet<TableTwo> TableTwo { get; set; }
 
