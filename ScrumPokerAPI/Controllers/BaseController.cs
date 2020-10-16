@@ -1,0 +1,36 @@
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using ScrumPokerAPI.Models;
+using ScrumPokerAPI.Repositories.Interface;
+
+namespace ScrumPokerAPI.Controllers
+{
+    [ApiController]
+    [Route("api/" + T.ToString())]
+    public class BaseController<T> : ControllerBase where T : class
+    {
+        private readonly IRepositoryTableOne _repository;
+        public TableOneController(IRepositoryTableOne repository)
+        {
+            _repository = repository;
+        }
+
+        //GET api/TableOne/
+        [HttpGet]
+        public ActionResult <IEnumerable<TableOne>> GetAll()
+        {
+            var obj = _repository.GetAll();
+            return Ok(obj);
+        }
+
+        //GET api/TableOne/{id}
+        [HttpGet("{id}")]
+        public ActionResult <TableOne> GetById(int id)
+        {
+            var obj = _repository.GetWhere(x => x.Id == id);
+            return Ok(obj);
+        }
+
+
+    }
+}
