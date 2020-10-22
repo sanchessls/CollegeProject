@@ -7,7 +7,7 @@ namespace ScrumPokerAPI.Controllers
 {
     [ApiController]
     [Route("api/TableTwo")]
-    public class TableTwoController : ControllerBase
+    public class TableTwoController : APIBaseController
     {
         private readonly IRepositoryTableTwo _repository;
         public TableTwoController(IRepositoryTableTwo repository)

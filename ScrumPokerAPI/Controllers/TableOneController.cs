@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScrumPokerAPI.Models;
 using ScrumPokerAPI.Repositories.Interface;
 
 namespace ScrumPokerAPI.Controllers
 {
-    [ApiController]
     [Route("api/TableOne")]
-    public class TableOneController : ControllerBase
+    public class TableOneController : APIBaseController
     {
         private readonly IRepositoryTableOne _repository;
         public TableOneController(IRepositoryTableOne repository)
