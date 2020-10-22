@@ -4,8 +4,7 @@ using ScrumPokerAPI.Models;
 using ScrumPokerAPI.Repositories.Interface;
 
 namespace ScrumPokerAPI.Controllers
-{
-    [ApiController]
+{    
     [Route("api/TableTwo")]
     public class TableTwoController : APIBaseController
     {
