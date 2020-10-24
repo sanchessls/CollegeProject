@@ -6,26 +6,26 @@ using ScrumPokerAPI.Repositories.Interface;
 
 namespace ScrumPokerAPI.Controllers
 {
-    [Route("api/TableOne")]
-    public class TableOneController : APIBaseController
+    [Route("api/PlanningSession")]
+    public class PlanningSessionController : APIBaseController
     {
-        private readonly IRepositoryTableOne _repository;
-        public TableOneController(IRepositoryTableOne repository)
+        private readonly IRepositoryPlanningSession _repository;
+        public PlanningSessionController(IRepositoryPlanningSession repository)
         {
             _repository = repository;
         }
 
-        //GET api/TableOne/
+        //GET api/PlanningSession/
         [HttpGet]
-        public ActionResult <IEnumerable<TableOne>> GetAll()
+        public ActionResult <IEnumerable<PlanningSession>> GetAll()
         {
             var obj = _repository.GetAll();
             return Ok(obj);
         }
 
-        //GET api/TableOne/{id}
+        //GET api/PlanningSession/{id}
         [HttpGet("{id}")]
-        public ActionResult <TableOne> GetById(int id)
+        public ActionResult <PlanningSession> GetById(int id)
         {
             var obj = _repository.GetWhere(x => x.Id == id);
             return Ok(obj);

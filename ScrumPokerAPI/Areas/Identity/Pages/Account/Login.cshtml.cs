@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ScrumPokerAPI.Context;
 
-namespace ToDelete.Areas.Identity.Pages.Account
+namespace ScrumPokerAPI.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel

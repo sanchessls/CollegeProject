@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScrumPokerAPI.Repositories.Interface
 {
-    public interface IRepositoryTableTwo : IRepository<TableTwo>
+    public interface IRepositoryPlanningSession : IRepository<PlanningSession>
     {
 
     }

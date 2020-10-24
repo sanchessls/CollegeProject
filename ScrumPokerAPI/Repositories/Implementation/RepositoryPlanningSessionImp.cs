@@ -4,9 +4,9 @@ using ScrumPokerAPI.Repositories.Interface;
 
 namespace ScrumPokerAPI.Repositories.Implementation
 {
-    public class RepositoryTableOneImp : RepositoryImp<TableOne>, IRepositoryTableOne
+    public class RepositoryPlanningSessionImp : RepositoryImp<PlanningSession>, IRepositoryPlanningSession
     {
-        public RepositoryTableOneImp(ApplicationContext context) : base(context)
+        public RepositoryPlanningSessionImp(ApplicationContext context) : base(context)
         {            
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ScrumPokerAPI.Models;
 
 namespace ToDelete.Data
 {
@@ -12,5 +13,8 @@ namespace ToDelete.Data
             : base(options)
         {
         }
+
+        public DbSet<TableOne> TableOne { get; set; }
+        public DbSet<TableOne> TableTwo { get; set; }
     }
 }

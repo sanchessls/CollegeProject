@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +12,12 @@ namespace ScrumPokerAPI.Models
     {
         public int Id { get; set; }
         [Required]
-        public string HowTo2 { get; set; }
+        public string HowTo { get; set; }
         [Required]
-        public string Line2 { get; set; }
+        public string Line { get; set; }
         [Required]
-        public string Plataform2 { get; set; }
+        public string Plataform { get; set; }
+
     }
+
 }

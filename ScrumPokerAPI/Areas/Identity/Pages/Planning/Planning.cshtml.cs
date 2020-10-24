@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
+namespace ScrumPokerAPI.Areas.Identity.Pages
 {
-    public partial class IndexModel : PageModel
+    public class PlanningModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public IndexModel(
+        public PlanningModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager)
         {
@@ -28,9 +25,9 @@ namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel2 Input2 { get; set; }
 
-        public class InputModel
+        public class InputModel2
         {
             [Phone]
             [Display(Name = "Phone number")]
@@ -44,7 +41,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
-            Input = new InputModel
+            Input2 = new InputModel2
             {
                 PhoneNumber = phoneNumber
             };
@@ -77,9 +74,9 @@ namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (Input2.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input2.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";

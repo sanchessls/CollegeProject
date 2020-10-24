@@ -1,4 +1,5 @@
-﻿using ScrumPokerAPI.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using ScrumPokerAPI.Context;
 using ScrumPokerAPI.Repositories.Interface;
 using System;
 using System.Linq;

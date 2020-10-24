@@ -76,7 +76,7 @@ namespace ScrumPokerAPI
             //Everytime that the system ask for the first param, the system will serve an instance of the second one
             //This allow us to change the repository without haveing to change the original one.
 
-            services.AddScoped<IRepositoryTableOne, RepositoryTableOneImp>();
+            services.AddScoped<IRepositoryPlanningSession, RepositoryPlanningSessionImp>();
             services.AddScoped<IRepositoryTableTwo, RepositoryTableTwoImp>();
 
             
