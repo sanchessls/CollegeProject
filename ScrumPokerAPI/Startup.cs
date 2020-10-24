@@ -32,32 +32,38 @@ namespace ScrumPokerAPI
         {
             //Here we are adding to the Entity Framework our Db Context with our connection string 
             services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnection")));
+            //services.AddDbContext<UserContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnection")));
 
-            //Adding the identity for autorization and autenticaton
-            services.AddIdentity<IdentityUser, IdentityRole>(options => { options.Password.RequireDigit = true;
-                 options.Password.RequiredLength = 6;
-                                                                        
-                }).AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders(); // Configure token generator
+            ////Adding the identity for autorization and autenticaton
+            //services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            //{ /*options.SignIn.RequireConfirmedAccount*/
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequiredLength = 6;
 
-            services.AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //}).AddEntityFrameworkStores<ApplicationContext>()
+            //     .AddDefaultUI()
+            //    .AddDefaultTokenProviders(); // Configure token generator
 
-            }).AddJwtBearer(OptionsBuilderConfigurationExtensions => {
 
-                OptionsBuilderConfigurationExtensions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = Configuration["AuthSettings:Audience"],
-                    ValidIssuer = Configuration["AuthSettings:Issuer"],
-                    //RequireExpirationTime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"])),
-                    ValidateIssuerSigningKey = true
-                };
-            });
+            //services.AddAuthentication(auth =>
+            //{                
+            //    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            //}).AddJwtBearer(OptionsBuilderConfigurationExtensions =>
+            //{
+
+            //    OptionsBuilderConfigurationExtensions.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidAudience = Configuration["AuthSettings:Audience"],
+            //        ValidIssuer = Configuration["AuthSettings:Issuer"],
+            //        //RequireExpirationTime = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"])),
+            //        ValidateIssuerSigningKey = true
+            //    };
+            //});
 
             //Injection dependence for the User service to manage Users
             services.AddScoped<IUserService, UserService>();
@@ -73,6 +79,11 @@ namespace ScrumPokerAPI
             services.AddScoped<IRepositoryTableOne, RepositoryTableOneImp>();
             services.AddScoped<IRepositoryTableTwo, RepositoryTableTwoImp>();
 
+            
+            //Adding The Web Pages
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +92,7 @@ namespace ScrumPokerAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
             app.UseExceptionHandler(appBuilder =>
@@ -118,14 +130,21 @@ namespace ScrumPokerAPI
             });
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
+                //endpoints.MapControllers();
             });
         }
     }
