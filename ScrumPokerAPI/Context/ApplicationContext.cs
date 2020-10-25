@@ -15,8 +15,54 @@ namespace ScrumPokerAPI.Context
         
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {     
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<PlanningSessionUser>()
+                        .HasKey(pc => new { pc.UserId, pc.PlanningSessionId });
+
+            modelBuilder.Entity<PlanningSessionUser>()
+                .HasOne(pc => pc.User)
+                .WithMany(p => p.PlanningSessionUser)
+                .HasForeignKey(pc => pc.UserId);
+
+            modelBuilder.Entity<PlanningSessionUser>()
+                .HasOne(pc => pc.PlanningSession)
+                .WithMany(c => c.PlanningSessionUser)
+                .HasForeignKey(pc => pc.PlanningSessionId); 
+
+
+            modelBuilder.Entity<FeatureUser>()
+                        .HasKey(pc => new { pc.UserId, pc.FeatureId });
+
+            modelBuilder.Entity<FeatureUser>()
+                .HasOne(pc => pc.User)
+                .WithMany(p => p.FeatureUser)
+                .HasForeignKey(pc => pc.UserId);
+
+            modelBuilder.Entity<FeatureUser>()
+                .HasOne(pc => pc.Feature)
+                .WithMany(c => c.FeatureUser)
+                .HasForeignKey(pc => pc.FeatureId);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+        }
+
+
         //Here we set the Objects that are a table in our Database Context
         public DbSet<PlanningSession> PlanningSession { get; set; }
+
+        public DbSet<PlanningSessionUser> PlanningSessionUser { get; set; }
+        public DbSet<Feature> Feature { get; set; }
+
+
+
 
     }
 }

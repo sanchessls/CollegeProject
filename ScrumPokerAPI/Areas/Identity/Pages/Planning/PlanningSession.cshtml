@@ -1,14 +1,14 @@
 ﻿@page
 @model PlanningSessionInfoModel
 
-<h4>Nova Pagina7</h4>
+<h4>Nova Pagina8</h4>
 
-<h4>Table One Data: </h4>
+<h4>Planning Sessions For that User: </h4>
 
 @{
     foreach (var item in @Model.PlanningSessionList)
     {
-        <h4>@item.HowTo</h4>
+        <h4>@item.Description</h4>
     }
 }
 

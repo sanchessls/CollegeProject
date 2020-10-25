@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace ScrumPokerAPI.Models
 {
-    public class PlanningSession
+    public class Feature
     {
         public int Id { get; set; }
-              
-        
         [Required]
         public DateTime CreationDate { get; set; }
         [Required]
@@ -20,17 +18,10 @@ namespace ScrumPokerAPI.Models
         [Required]
         public int Status { get; set; }
         [Required]
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser UserCreator { get; internal set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
-        public virtual ICollection<Feature> Features { get; set; }
-        public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
-    }
-
-    public class ApplicationUser : IdentityUser
-    {
-        public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
+        public int SessionId { get; set; }
+        [ForeignKey("SessionId")]
+        public PlanningSession PlanningSession { get; set; }
+        
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
     }
 }

@@ -77,8 +77,6 @@ namespace ScrumPokerAPI
             //This allow us to change the repository without haveing to change the original one.
 
             services.AddScoped<IRepositoryPlanningSession, RepositoryPlanningSessionImp>();
-            services.AddScoped<IRepositoryTableTwo, RepositoryTableTwoImp>();
-
             
             //Adding The Web Pages
             services.AddControllersWithViews();

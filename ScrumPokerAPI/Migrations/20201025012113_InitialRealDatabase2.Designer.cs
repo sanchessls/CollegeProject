@@ -10,8 +10,8 @@ using ScrumPokerAPI.Context;
 namespace ScrumPokerAPI.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201024182023_Initial")]
-    partial class Initial
+    [Migration("20201025012113_InitialRealDatabase2")]
+    partial class InitialRealDatabase2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -227,6 +227,51 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ScrumPokerAPI.Models.Feature", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Feature");
+                });
+
+            modelBuilder.Entity("ScrumPokerAPI.Models.FeatureUser", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "FeatureId");
+
+                    b.HasIndex("FeatureId");
+
+                    b.ToTable("FeatureUser");
+                });
+
             modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSession", b =>
                 {
                     b.Property<int>("Id")
@@ -234,19 +279,18 @@ namespace ScrumPokerAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("HowTo")
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Line")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Plataform")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -256,33 +300,32 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("PlanningSession");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.TableTwo", b =>
+            modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSessionUser", b =>
                 {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PlanningSessionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<string>("HowTo2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("UserId", "PlanningSessionId");
 
-                    b.Property<string>("Line2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("PlanningSessionId");
 
-                    b.Property<string>("Plataform2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TableTwo");
+                    b.ToTable("PlanningSessionUser");
                 });
 
             modelBuilder.Entity("ScrumPokerAPI.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("PlanningSessionId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PlanningSessionId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -292,7 +335,7 @@ namespace ScrumPokerAPI.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -301,7 +344,7 @@ namespace ScrumPokerAPI.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -310,7 +353,7 @@ namespace ScrumPokerAPI.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -319,13 +362,13 @@ namespace ScrumPokerAPI.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -334,15 +377,64 @@ namespace ScrumPokerAPI.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ScrumPokerAPI.Models.Feature", b =>
+                {
+                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", "PlanningSession")
+                        .WithMany("Features")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ScrumPokerAPI.Models.FeatureUser", b =>
+                {
+                    b.HasOne("ScrumPokerAPI.Models.Feature", "Feature")
+                        .WithMany("FeatureUser")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "User")
+                        .WithMany("FeatureUser")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSession", b =>
                 {
-                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "Usuario")
+                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "UserCreator")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSessionUser", b =>
+                {
+                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", "PlanningSession")
+                        .WithMany("PlanningSessionUser")
+                        .HasForeignKey("PlanningSessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "User")
+                        .WithMany("PlanningSessionUser")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ScrumPokerAPI.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", null)
+                        .WithMany("Users")
+                        .HasForeignKey("PlanningSessionId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
