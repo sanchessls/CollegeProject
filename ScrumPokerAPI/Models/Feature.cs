@@ -23,5 +23,22 @@ namespace ScrumPokerAPI.Models
         public PlanningSession PlanningSession { get; set; }
         
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
+
+        public float Average() 
+        {
+            //If Feature Finished
+            if (Status == 1)
+            {
+                if (FeatureUser != null) 
+                {
+                    if (FeatureUser.Any())
+                    {
+                        return FeatureUser.Average(x => x.SelectedValue);
+                    }
+                }
+            }
+
+            return 0;
+        }
     }
 }

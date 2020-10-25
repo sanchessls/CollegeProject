@@ -119,7 +119,8 @@ namespace ScrumPokerAPI
                         await context.Response.WriteAsync(JsonConvert.SerializeObject(new
                         {
                             State = "Internal Server Error",
-                            Msg = error.Error.Message
+                            Msg = error.Error.Message,                            
+                            Msg2 = error.Error.InnerException.Message
                         }));
                     }
                     //when no error, do next.

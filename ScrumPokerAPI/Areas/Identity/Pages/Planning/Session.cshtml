@@ -2,16 +2,56 @@
 @model Session
 
 @{
-    ViewData["Title"] = "Session" + Model.SessionObject.Id;
+    ViewData["Title"] = "Session: " + Model.PlanningSessionId;
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="col-md-auto-12" style="background-color:red">
+    @{
+        <h4>Feature : @Model.DescriptionSession</h4>
+    }
 
-<h4>Planning Sessions For that User: </h4>
+    @if (Model.UserCreator)
+    {
+        <div class="col-md-12" style="background-color:orange">
 
-@{
-        <h4>@Model.SessionObject.Description</h4>
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FeatureDescription" class="control-label"></label>
+                        <input asp-for="FeatureDescription" class="form-control" />
+                        <span asp-validation-for="FeatureDescription" class="text-danger"></span>
+                        @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
+                        @Html.Hidden("DescriptionSession", Model.DescriptionSession)
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-2" style="background-color:lightcyan;">Identification</div>
+        <div class="col-sm-6" style="background-color:lightcyan;">Description</div>
+        <div class="col-sm-2" style="background-color:lightcyan;">Status</div>
+        <div class="col-sm-2" style="background-color:lightcyan;">Average</div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.FeaturesList)
+        {
+            <div class="col-sm-2" style="background-color:lightcyan;"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Description</a></div>
+            <div class="col-sm-6" style="background-color:lightcyan;">@item.Description</div>
+            <div class="col-sm-2" style="background-color:lightcyan;">@item.Status</div>
+            <div class="col-sm-2" style="background-color:lightcyan;">@item.Average()</div>
+        }
+        <div class="col-sm-12" style="background-color:lightcyan;">Total: @Model.FeaturesList.Count</div>
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
-

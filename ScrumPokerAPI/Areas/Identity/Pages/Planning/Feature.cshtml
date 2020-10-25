@@ -1,0 +1,96 @@
+﻿@page
+@model Feature
+
+@{
+    ViewData["Title"] = "Session: " + Model.PlanningSessionId;
+}
+
+<div class="col-md-auto-12" style="background-color:red">
+    @{
+        <h4>Session : @Model.DescriptionSession</h4>
+        <h4>Feature : @Model.DescriptionFeature</h4>
+    }
+
+    @if (Model.UserCreator)
+    {
+
+    }
+
+    <button type="submit" onclick="updatePostID(0.5);">0.5</button>
+    <button type="submit" onclick="updatePostID(2);">2</button>
+    <button type="submit" onclick="updatePostID(3);">3</button>
+
+    <div class="row">
+        <div class="col-sm-2" style="background-color:lightcyan;">Identification</div>
+        <div class="col-sm-6" style="background-color:lightcyan;">Description</div>
+        <div class="col-sm-4" style="background-color:lightcyan;">Status</div>
+    </div>
+
+</div>
+
+<div class="col-md-12" style="background-color:green">
+
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.SelectedValue)
+                @Html.HiddenFor(model => model.FeatureId)
+                @Html.HiddenFor(model => model.PlanningSessionId)
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.UserCreator)
+{
+    <div class="col-md-12" style="background-color:red">
+        <div class="row">
+            <div class="col-md-6" style="background-color:purple">
+                <div class="col-md-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Close Feature" class="btn btn-primary" />
+                            <input type="submit" value="Cancel" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6" style="background-color:burlywood">
+
+                <div class="row">
+                    <div class="col-sm-4" style="background-color:lightcyan;">User</div>
+                    <div class="col-sm-2" style="background-color:lightcyan;">Status</div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.UsersVoting)
+                    {
+                        <div class="col-sm-4" style="background-color:lightcyan;">@item.UserName</div>
+                        <div class="col-sm-2" style="background-color:lightcyan;">@item.Status</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script type="text/javascript">
+            function updatePostID(val) {
+                console.log("sanches");
+                console.log(val);
+                document.getElementById('SelectedValue').value = val;
+                console.log(document.getElementById('SelectedValue'));
+            }
+        </script>
+
+    }

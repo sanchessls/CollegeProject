@@ -20,9 +20,6 @@ namespace ScrumPokerAPI.Models
         [Required]
         public int Status { get; set; }
         [Required]
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser UserCreator { get; internal set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Feature> Features { get; set; }
         public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
@@ -30,6 +27,7 @@ namespace ScrumPokerAPI.Models
 
     public class ApplicationUser : IdentityUser
     {
+        public string UserName { get; set; }
         public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
     }

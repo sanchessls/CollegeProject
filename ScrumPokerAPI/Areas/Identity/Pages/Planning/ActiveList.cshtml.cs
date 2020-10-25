@@ -24,7 +24,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {            
-            PlanningSessionList = _appContext.PlanningSession.Where(x => x.UserId == userIdentity().Id && x.Status == 1).ToList();
+            PlanningSessionList = _appContext.PlanningSessionUser.Include(a => a.PlanningSession).Where(x => x.UserId == userIdentity().Id && x.PlanningSession.Status == 1).Select(g => g.PlanningSession).ToList();
             return base.LoadAsync();
         }
     }

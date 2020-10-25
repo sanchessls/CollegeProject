@@ -2,7 +2,7 @@
 
 namespace ScrumPokerAPI.Migrations
 {
-    public partial class InitialRealDatabase2 : Migration
+    public partial class InitialRealDatabas2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

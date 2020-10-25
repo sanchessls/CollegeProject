@@ -10,6 +10,7 @@ namespace ScrumPokerAPI.Models
 {
     public class PlanningSessionUser
     {
+
         public int Id { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
@@ -17,5 +18,6 @@ namespace ScrumPokerAPI.Models
         public int? PlanningSessionId { get; set; }
         [ForeignKey("PlanningSessionId")]
         public PlanningSession PlanningSession { get; set; }
+        public bool UserIsCreator { get; internal set; }
     }  
 }

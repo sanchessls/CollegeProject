@@ -17,8 +17,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
         }   
 
         [BindProperty]
-        public PlanningSession PlanningSession { get; set; }
-
+        public string PlanningSessionDescription { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
 
@@ -27,13 +26,28 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
                 return Page();
             }
 
-            PlanningSession.CreationDate = DateTime.Now;
-            PlanningSession.Status = 1;
-            PlanningSession.UserId = userIdentity().Id;
-            _appContext.PlanningSession.Add(PlanningSession);
+            PlanningSession planningSession = new PlanningSession
+            {
+                CreationDate = DateTime.Now,
+                Description = PlanningSessionDescription,
+                Status = 1
+            };
+            _appContext.PlanningSession.Add(planningSession);
+
             await _appContext.SaveChangesAsync();
 
-            return RedirectToPage("./Session", new { id = PlanningSession.Id });
+            PlanningSessionUser planningSessionUser = new PlanningSessionUser()
+            {
+                PlanningSessionId = planningSession.Id,
+                UserId = userIdentity().Id,
+                UserIsCreator = true
+            };
+
+            _appContext.PlanningSessionUser.Add(planningSessionUser);
+
+            await _appContext.SaveChangesAsync();
+
+            return RedirectToPage("./Session", new { id = planningSession.Id });
         }
     }
 }

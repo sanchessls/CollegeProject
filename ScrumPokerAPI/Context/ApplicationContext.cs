@@ -11,8 +11,8 @@ namespace ScrumPokerAPI.Context
     public class ApplicationContext : IdentityDbContext
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        { 
-        
+        {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace ScrumPokerAPI.Context
 
 
             modelBuilder.Entity<PlanningSessionUser>()
-                        .HasKey(pc => new { pc.UserId, pc.PlanningSessionId });
+                        .HasKey(pc => new { pc.Id });
 
             modelBuilder.Entity<PlanningSessionUser>()
                 .HasOne(pc => pc.User)
@@ -35,7 +35,7 @@ namespace ScrumPokerAPI.Context
 
 
             modelBuilder.Entity<FeatureUser>()
-                        .HasKey(pc => new { pc.UserId, pc.FeatureId });
+                        .HasKey(pc => new { pc.Id });
 
             modelBuilder.Entity<FeatureUser>()
                 .HasOne(pc => pc.User)
@@ -57,9 +57,10 @@ namespace ScrumPokerAPI.Context
 
         //Here we set the Objects that are a table in our Database Context
         public DbSet<PlanningSession> PlanningSession { get; set; }
-
         public DbSet<PlanningSessionUser> PlanningSessionUser { get; set; }
         public DbSet<Feature> Feature { get; set; }
+
+        public DbSet<FeatureUser> FeatureUser { get; set; }
 
 
 
