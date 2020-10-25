@@ -6,19 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ScrumPokerAPI.Context;
 
 namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+    public partial class IndexModel : BaseModelUser
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
-        public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public IndexModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) : base(userManager)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
         }
 
@@ -37,10 +33,10 @@ namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        public override async Task LoadAsync()
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var userName = await _userManager.GetUserNameAsync(userIdentity());
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(userIdentity());
 
             Username = userName;
 
@@ -50,29 +46,17 @@ namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
             };
         }
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            await LoadAsync(user);
-            return Page();
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage(".Login");
             }
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                await LoadAsync();
                 return Page();
             }
 

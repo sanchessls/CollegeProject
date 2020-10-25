@@ -1,0 +1,17 @@
+﻿@page
+@model Session
+
+@{
+    ViewData["Title"] = "Session" + Model.SessionObject.Id;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Planning Sessions For that User: </h4>
+
+@{
+        <h4>@Model.SessionObject.Description</h4>
+}
+
+
+

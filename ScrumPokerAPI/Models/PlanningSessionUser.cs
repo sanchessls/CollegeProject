@@ -11,7 +11,7 @@ namespace ScrumPokerAPI.Models
     public class PlanningSessionUser
     {
         public int Id { get; set; }
-        public string? UserId { get; set; }
+        public string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         public int? PlanningSessionId { get; set; }
