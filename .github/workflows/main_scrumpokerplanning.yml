@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish -c Release 
+      run: dotnet publish -c Release - o publishdir
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
@@ -32,4 +32,4 @@ jobs:
         app-name: 'scrumpokerplanning'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_2f8f0f69d2474d5eb53ef27890a4d76c }}
-     
+        package: ./publishdir
