@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Models
+namespace ScrumPokerPlanning.Models
 {
     public class PlanningSession
     {
@@ -18,7 +18,7 @@ namespace ScrumPokerAPI.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        public int Status { get; set; }
+        public EnumPlanningSession Status { get; set; }
         [Required]
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Feature> Features { get; set; }
@@ -27,8 +27,13 @@ namespace ScrumPokerAPI.Models
 
     public class ApplicationUser : IdentityUser
     {
-        public string UserName { get; set; }
         public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
+    }
+
+    public enum EnumPlanningSession
+    {
+        Open,
+        Close
     }
 }

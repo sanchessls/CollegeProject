@@ -1,8 +1,8 @@
-﻿using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
-using ScrumPokerAPI.Repositories.Interface;
+﻿using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Repositories.Interface;
 
-namespace ScrumPokerAPI.Repositories.Implementation
+namespace ScrumPokerPlanning.Repositories.Implementation
 {
     public class RepositoryPlanningSessionImp : RepositoryImp<PlanningSession>, IRepositoryPlanningSession
     {

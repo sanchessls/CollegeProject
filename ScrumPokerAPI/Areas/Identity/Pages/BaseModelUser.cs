@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ScrumPokerAPI.Context;
+using ScrumPokerPlanning.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public class BaseModelUser : PageModel
     {

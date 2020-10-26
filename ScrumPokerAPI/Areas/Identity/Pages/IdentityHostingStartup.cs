@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ScrumPokerAPI.Context;
+using ScrumPokerPlanning.Context;
 
-[assembly: HostingStartup(typeof(ScrumPokerAPI.Areas.Identity.IdentityHostingStartup))]
-namespace ScrumPokerAPI.Areas.Identity
+[assembly: HostingStartup(typeof(ScrumPokerPlanning.Areas.Identity.IdentityHostingStartup))]
+namespace ScrumPokerPlanning.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

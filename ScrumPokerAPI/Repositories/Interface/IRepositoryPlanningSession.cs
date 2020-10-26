@@ -1,10 +1,10 @@
-﻿using ScrumPokerAPI.Models;
+﻿using ScrumPokerPlanning.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Repositories.Interface
+namespace ScrumPokerPlanning.Repositories.Interface
 {
     public interface IRepositoryPlanningSession : IRepository<PlanningSession>
     {

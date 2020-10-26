@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ScrumPokerAPI.Context;
+using ScrumPokerPlanning.Context;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
+namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : BaseModelUser
     {

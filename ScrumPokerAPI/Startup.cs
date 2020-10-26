@@ -10,13 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Repositories.Implementation;
-using ScrumPokerAPI.Repositories.Interface;
-using ScrumPokerAPI.Services;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Repositories.Implementation;
+using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerPlanning.Services;
 using System.Text;
 
-namespace ScrumPokerAPI
+namespace ScrumPokerPlanning
 {
     public class Startup
     {

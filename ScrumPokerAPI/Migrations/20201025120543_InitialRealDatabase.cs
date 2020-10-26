@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ScrumPokerAPI.Migrations
+namespace ScrumPokerPlanning.Migrations
 {
     public partial class InitialRealDatabase : Migration
     {

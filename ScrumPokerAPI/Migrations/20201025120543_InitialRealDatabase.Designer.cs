@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ScrumPokerAPI.Context;
+using ScrumPokerPlanning.Context;
 
-namespace ScrumPokerAPI.Migrations
+namespace ScrumPokerPlanning.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     [Migration("20201025120543_InitialRealDatabase")]
@@ -227,7 +227,7 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.Feature", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.Feature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -254,7 +254,7 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("Feature");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.FeatureUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.FeatureUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -280,7 +280,7 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("FeatureUser");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSession", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.PlanningSession", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -302,7 +302,7 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("PlanningSession");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSessionUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.PlanningSessionUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -327,7 +327,7 @@ namespace ScrumPokerAPI.Migrations
                     b.ToTable("PlanningSessionUser");
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -390,46 +390,46 @@ namespace ScrumPokerAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.Feature", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.Feature", b =>
                 {
-                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", "PlanningSession")
+                    b.HasOne("ScrumPokerPlanning.Models.PlanningSession", "PlanningSession")
                         .WithMany("Features")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.FeatureUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.FeatureUser", b =>
                 {
-                    b.HasOne("ScrumPokerAPI.Models.Feature", "Feature")
+                    b.HasOne("ScrumPokerPlanning.Models.Feature", "Feature")
                         .WithMany("FeatureUser")
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "User")
+                    b.HasOne("ScrumPokerPlanning.Models.ApplicationUser", "User")
                         .WithMany("FeatureUser")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.PlanningSessionUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.PlanningSessionUser", b =>
                 {
-                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", "PlanningSession")
+                    b.HasOne("ScrumPokerPlanning.Models.PlanningSession", "PlanningSession")
                         .WithMany("PlanningSessionUser")
                         .HasForeignKey("PlanningSessionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ScrumPokerAPI.Models.ApplicationUser", "User")
+                    b.HasOne("ScrumPokerPlanning.Models.ApplicationUser", "User")
                         .WithMany("PlanningSessionUser")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("ScrumPokerAPI.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ScrumPokerPlanning.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("ScrumPokerAPI.Models.PlanningSession", null)
+                    b.HasOne("ScrumPokerPlanning.Models.PlanningSession", null)
                         .WithMany("Users")
                         .HasForeignKey("PlanningSessionId")
                         .OnDelete(DeleteBehavior.Restrict);

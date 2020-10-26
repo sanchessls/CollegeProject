@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScrumPokerAPI.Models;
-using ScrumPokerAPI.Repositories.Interface;
-using ScrumPokerAPI.Services;
+using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerPlanning.Services;
 using ScrumPokerShared.SharedModels;
 
-namespace ScrumPokerAPI.Controllers
+namespace ScrumPokerPlanning.Controllers
 {
     [ApiController]
     [Route("api/Auth")]

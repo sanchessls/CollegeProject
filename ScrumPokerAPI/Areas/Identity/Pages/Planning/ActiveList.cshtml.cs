@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
-using ScrumPokerAPI.Repositories.Implementation;
-using ScrumPokerAPI.Repositories.Interface;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Repositories.Implementation;
+using ScrumPokerPlanning.Repositories.Interface;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class ActiveList : BaseModelDatabaseUser
     {
@@ -24,7 +24,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {            
-            PlanningSessionList = _appContext.PlanningSessionUser.Include(a => a.PlanningSession).Where(x => x.UserId == userIdentity().Id && x.PlanningSession.Status == 1).Select(g => g.PlanningSession).ToList();
+            PlanningSessionList = _appContext.PlanningSessionUser.Include(a => a.PlanningSession).Where(x => x.UserId == userIdentity().Id && x.PlanningSession.Status == EnumPlanningSession.Open).Select(g => g.PlanningSession).ToList();
             return base.LoadAsync();
         }
     }

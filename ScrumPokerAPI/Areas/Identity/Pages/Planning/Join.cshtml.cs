@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 using Sketch7.Core;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public class JoinModel : BaseModelDatabaseUser
     {

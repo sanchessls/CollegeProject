@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Repositories.Interface;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Repositories.Interface;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ScrumPokerAPI.Repositories.Implementation
+namespace ScrumPokerPlanning.Repositories.Implementation
 {
     /*
  This class is our base Implementation for all repositories class that get information from the database

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Models
+namespace ScrumPokerPlanning.Models
 {
     public class Feature
     {
@@ -16,20 +16,20 @@ namespace ScrumPokerAPI.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        public int Status { get; set; }
+        public EnumFeature Status { get; set; }
         [Required]
         public int SessionId { get; set; }
         [ForeignKey("SessionId")]
         public PlanningSession PlanningSession { get; set; }
-        
+
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
 
-        public float Average() 
+        public float Average()
         {
-            //If Feature Finished
-            if (Status == 1)
+            //If Feature Finished or fully voted
+            if (Status == EnumFeature.Voted || Status == EnumFeature.Closed)
             {
-                if (FeatureUser != null) 
+                if (FeatureUser != null)
                 {
                     if (FeatureUser.Any())
                     {
@@ -40,5 +40,13 @@ namespace ScrumPokerAPI.Models
 
             return 0;
         }
+    }
+
+    public enum EnumFeature
+    {
+        Open,
+        Voted,
+        Closed
+            
     }
 }

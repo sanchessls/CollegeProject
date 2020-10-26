@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Services
+namespace ScrumPokerPlanning.Services
 {
     public interface  IUserService
     {

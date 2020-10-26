@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="ScrumPokerAPI.sln" />
+    <None Include="ScrumPokerPlanning.sln" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,11 +32,6 @@
     <ProjectReference Include="..\ScrumPokerWeb\ScrumPokerShared\ScrumPokerShared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Areas\Identity\Pages\Planning\Create - Copy.cshtml.cs">
-      <DependentUpon>Create.cshtml.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
 
 
 </Project>

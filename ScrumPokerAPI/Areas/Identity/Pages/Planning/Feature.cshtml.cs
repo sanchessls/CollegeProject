@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Feature : BaseModelDatabaseUser
     {        
@@ -31,7 +31,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
         public override Task LoadAsync()
         {
             int idFeature = Convert.ToInt32(Request.Query["id"]);
-            ScrumPokerAPI.Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.PlanningSession).FirstOrDefault();
+            ScrumPokerPlanning.Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.PlanningSession).FirstOrDefault();
             
             PlanningSessionId = FeatureObject.PlanningSession.Id;
             FeatureId = FeatureObject.Id;
@@ -42,13 +42,20 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
             //We will offer more features            
             UserCreator = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == FeatureObject.PlanningSession.Id).FirstOrDefault().UserIsCreator;
 
-            UsersVoting = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == PlanningSessionId).Select(g => new UsersVoting() { Status = g.PlanningSession.Features.Where(x => x.Status == 1).Any(),UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName }).ToList();
+            
 
-
+            UsersVoting = _appContext.PlanningSessionUser.
+                                      Where(x => x.PlanningSessionId == PlanningSessionId).
+                                      Select(g => new UsersVoting() 
+                                             { 
+                                               Status = (_appContext.FeatureUser.Where(a => a.FeatureId == FeatureId && a.UserId == g.UserId).Sum(p => p.SelectedValue) > 0), 
+                                               UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName
+                                             }).ToList();
 
             return base.LoadAsync();
         }
 
+ 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

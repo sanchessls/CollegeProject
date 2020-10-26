@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ScrumPokerAPI": {
+    "ScrumPokerPlanning": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

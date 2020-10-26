@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScrumPokerAPI.Models;
-using ScrumPokerAPI.Repositories.Interface;
+using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Repositories.Interface;
 
-namespace ScrumPokerAPI.Controllers
+namespace ScrumPokerPlanning.Controllers
 {
     [Route("api/PlanningSession")]
     public class PlanningSessionController : APIBaseController

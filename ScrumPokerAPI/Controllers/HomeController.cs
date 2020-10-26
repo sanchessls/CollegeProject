@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ScrumPokerAPI.Models;
+using ScrumPokerPlanning.Models;
 
-namespace ScrumPokerAPI.Controllers
+namespace ScrumPokerPlanning.Controllers
 {
     [Authorize]
     public class HomeController : Controller

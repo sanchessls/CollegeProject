@@ -1,6 +1,6 @@
 using System;
 
-namespace ScrumPokerAPI.Models
+namespace ScrumPokerPlanning.Models
 {
     public class ErrorViewModel
     {

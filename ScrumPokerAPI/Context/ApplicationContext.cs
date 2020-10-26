@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ScrumPokerAPI.Models;
+using ScrumPokerPlanning.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerAPI.Context
+namespace ScrumPokerPlanning.Context
 {
     public class ApplicationContext : IdentityDbContext
     {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ScrumPokerAPI.Context;
+using ScrumPokerPlanning.Context;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages.Account.Manage
+namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : BaseModelUser
     {

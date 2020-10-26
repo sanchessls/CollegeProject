@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public class CreateModel : BaseModelDatabaseUser
     {
@@ -30,7 +30,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
             {
                 CreationDate = DateTime.Now,
                 Description = PlanningSessionDescription,
-                Status = 1
+                Status = EnumPlanningSession.Open
             };
             _appContext.PlanningSession.Add(planningSession);
 

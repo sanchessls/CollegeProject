@@ -10,8 +10,8 @@ using ScrumPokerPlanning.Context;
 namespace ScrumPokerPlanning.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201025124336_InitialRealDatabas2")]
-    partial class InitialRealDatabas2
+    [Migration("20201025151516_InitialRealDatabas3")]
+    partial class InitialRealDatabas3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

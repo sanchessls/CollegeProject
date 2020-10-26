@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrumPokerAPI", "ScrumPokerAPI.csproj", "{71474500-8D0F-4FAE-98FD-8348B1302D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrumPokerPlanning", "ScrumPokerPlanning.csproj", "{71474500-8D0F-4FAE-98FD-8348B1302D1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrumPokerShared", "..\ScrumPokerWeb\ScrumPokerShared\ScrumPokerShared.csproj", "{9157946B-E39C-408E-BB81-54E447A68E44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{71474500-8D0F-4FAE-98FD-8348B1302D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71474500-8D0F-4FAE-98FD-8348B1302D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71474500-8D0F-4FAE-98FD-8348B1302D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9157946B-E39C-408E-BB81-54E447A68E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9157946B-E39C-408E-BB81-54E447A68E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9157946B-E39C-408E-BB81-54E447A68E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9157946B-E39C-408E-BB81-54E447A68E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

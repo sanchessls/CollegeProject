@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using ScrumPokerAPI.Context;
-using ScrumPokerAPI.Models;
-using ScrumPokerAPI.Repositories.Implementation;
-using ScrumPokerAPI.Repositories.Interface;
+using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Repositories.Implementation;
+using ScrumPokerPlanning.Repositories.Interface;
 
-namespace ScrumPokerAPI.Areas.Identity.Pages
+namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Session : BaseModelDatabaseUser
     {        
@@ -25,7 +25,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
         public int PlanningSessionId { get; set; }
         public string DescriptionSession { get; set; }
         public bool UserCreator { get; set; }
-        public List<ScrumPokerAPI.Models.Feature> FeaturesList { get; set; }
+        public List<ScrumPokerPlanning.Models.Feature> FeaturesList { get; set; }
 
         public override Task LoadAsync()
         {
@@ -50,10 +50,10 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
                 return Page();
             }
 
-            ScrumPokerAPI.Models.Feature feature = new ScrumPokerAPI.Models.Feature
+            ScrumPokerPlanning.Models.Feature feature = new ScrumPokerPlanning.Models.Feature
             {
                 SessionId = PlanningSessionId,
-                Status = 1,
+                Status = EnumFeature.Open,
                 CreationDate = DateTime.Now,
                 Description = FeatureDescription
             };
@@ -62,7 +62,7 @@ namespace ScrumPokerAPI.Areas.Identity.Pages
             await _appContext.SaveChangesAsync();
             
 
-            ScrumPokerAPI.Models.FeatureUser featureUser = new ScrumPokerAPI.Models.FeatureUser
+            ScrumPokerPlanning.Models.FeatureUser featureUser = new ScrumPokerPlanning.Models.FeatureUser
             {
                 FeatureId = feature.Id,
                 UserId = userIdentity().Id,                

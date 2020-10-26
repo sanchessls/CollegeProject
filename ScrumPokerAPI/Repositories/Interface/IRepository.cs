@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ScrumPokerAPI.Repositories.Interface
+namespace ScrumPokerPlanning.Repositories.Interface
 {
     /*
      This class is our base Interface for all repositories class that get information from the database
