@@ -30,6 +30,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'scrumpokerplanning'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F8F0F69D2474D5EB53EF27890A4D76C }}
+        publish-profile: ${{ secrets.POKERPLANNINGSECRET }}
         package: ./publishdir
