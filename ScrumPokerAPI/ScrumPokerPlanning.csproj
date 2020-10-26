@@ -28,10 +28,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ScrumPokerWeb\ScrumPokerShared\ScrumPokerShared.csproj" />
-  </ItemGroup>
-
 
 
 </Project>

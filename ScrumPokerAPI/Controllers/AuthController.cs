@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ScrumPokerPlanning.Models;
-using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerPlanning.APIViewModel;
 using ScrumPokerPlanning.Services;
-using ScrumPokerShared.SharedModels;
 
 namespace ScrumPokerPlanning.Controllers
 {
