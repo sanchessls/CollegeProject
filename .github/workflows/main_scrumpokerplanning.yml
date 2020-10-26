@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'scrumpokerplanning'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2f8f0f69d2474d5eb53ef27890a4d76c }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F8F0F69D2474D5EB53EF27890A4D76C }}
         package: ./publishdir
