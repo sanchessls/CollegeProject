@@ -29,6 +29,6 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'scrumpokerplanning'
-        publish-profile: ${{ secrets.POKERPLANNINGSECRET }}
+        app-name: 'scrumpokerplanningtest'
+        publish-profile: ${{ secrets.POKERPLANNINGSECRETTEST }}
         package: ./publishdir
