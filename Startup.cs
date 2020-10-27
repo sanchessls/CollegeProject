@@ -14,6 +14,7 @@ using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
 using ScrumPokerPlanning.Services;
+using System;
 using System.Text;
 
 namespace ScrumPokerPlanning
@@ -31,7 +32,15 @@ namespace ScrumPokerPlanning
         public void ConfigureServices(IServiceCollection services)
         {
             //Here we are adding to the Entity Framework our Db Context with our connection string 
-            services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnection")));
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnectionAzure")));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnection")));
+            }
+            
             //services.AddDbContext<UserContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnection")));
 
             ////Adding the identity for autorization and autenticaton
