@@ -19,7 +19,8 @@ html {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 960px;  
+  /*background-color:red;*/
 }
 
 .pricing-header {
@@ -52,14 +53,24 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  /*background-color:olivedrab;*/  
 }
 .footer {
   position: absolute;
   bottom: 0;
-  width: 100%;
-  overflow: scroll;
+  width: 100%;  
   white-space: nowrap;
+  overflow:hidden;
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
+}
+.card-content
+{
+   margin:10px;       
+}
+.row
+{
+    min-height: 300px;
+    /*background-color:yellow;*/
 }
