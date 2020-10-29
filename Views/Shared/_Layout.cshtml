@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
+    var Version = @Configuration["SoftwareInformation:Version"];
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,9 +18,9 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ScrumPokerPlanning</a>
-               
+
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                   
+
                     <partial name="_LoginPartial.cshtml" />
 
                 </div>
@@ -29,7 +35,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - ScrumPokerPlanning - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - ScrumPokerPlanning - @Version
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
