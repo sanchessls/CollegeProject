@@ -134,7 +134,7 @@ namespace RazorPagesProject.Tests
             Assert.Null(response.Headers.Location?.OriginalString);
         }
 
-        [Fact]
+        [Fact(Skip = "Not Ready Yet")]
         public async Task Post_AddMessageHandler_ReturnsSuccess_WhenMessageTextTooLong()
         {
             // Arrange
