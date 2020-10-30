@@ -17,8 +17,11 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
 
+    - name: Test with dotnet
+      run: dotnet test
+
     - name: dotnet publish
-      run: dotnet publish -c Release -o publishdir
+      run: dotnet publish ScrumPokerPlanning.csproj -c Release -o publishdir
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
