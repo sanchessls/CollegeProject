@@ -29,7 +29,7 @@ namespace RazorPagesProject.Tests
         {
             return new List<IdentityUser>()
             {
-                new IdentityUser(){ Id = "id1" , UserName = "Test user",Email = "email@eemail.com" ,EmailConfirmed = true,}
+                //new IdentityUser(){ Id = "id1" , UserName = "Test user",Email = "email@eemail.com" ,EmailConfirmed = true,}
             };
         }
 
