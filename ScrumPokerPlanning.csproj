@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="RazorPagesProject.Tests\**" />
+    <Compile Remove="RazorPagesTestSample.Tests\**" />
+    <Content Remove="RazorPagesProject.Tests\**" />
+    <Content Remove="RazorPagesTestSample.Tests\**" />
+    <EmbeddedResource Remove="RazorPagesProject.Tests\**" />
+    <EmbeddedResource Remove="RazorPagesTestSample.Tests\**" />
+    <None Remove="RazorPagesProject.Tests\**" />
+    <None Remove="RazorPagesTestSample.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentlyHttpClient.Entity" Version="3.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />

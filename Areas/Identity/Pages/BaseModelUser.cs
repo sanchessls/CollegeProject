@@ -45,12 +45,16 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             return Page();
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task<RedirectToPageResult> Validator()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             return null;
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task LoadAsync()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             //Must be overrided
         }
