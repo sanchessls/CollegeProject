@@ -28,7 +28,7 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 3px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
@@ -71,6 +71,38 @@ body {
 }
 .row
 {
-    min-height: 300px;
+    /*min-height: 300px;*/
     /*background-color:yellow;*/
 }
+
+.sessionHeader
+{
+    padding:15px;
+	margin:5px;
+	/*background-color:yellow;	*/
+	border-radius: .25rem;	
+	border: 1px solid rgba(0,0,0,0.125);
+
+}
+
+
+.col-md-12, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
+{
+	/*
+	border-width:1px;
+	border-style:solid;
+	border-color:green;	
+	*/
+}
+
+.pad-minus-15{
+	padding:0px!important;
+}
+
+.ColumnsOfTable
+{
+	background-color:rgba(200,0,0,0.125);
+	margin-bottom: 2px;
+}
+
+

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ScrumPokerPlanning.Context
 {
-    public class ApplicationContext : IdentityDbContext
+     public class ApplicationContext : IdentityDbContext
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

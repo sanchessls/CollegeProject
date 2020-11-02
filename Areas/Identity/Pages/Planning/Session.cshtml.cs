@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,15 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         {
         }
         [BindProperty]
-        public string FeatureDescription { get; set; }        
+        [Display(Name = "New feature description")]
+        public string FeatureDescription { get; set; }
+
+        [BindProperty]
+        [Display(Name = "Identification")]
+        [MaxLength(15)]
+        public string FeatureIdentification { get; set; }
+
+
         [BindProperty]
         public int PlanningSessionId { get; set; }
         public string DescriptionSession { get; set; }
@@ -33,6 +42,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             PlanningSession SessionObject = _appContext.PlanningSession.Where(x => x.Id == idSession).Include(x => x.PlanningSessionUser).FirstOrDefault();
             PlanningSessionId = SessionObject.Id;
             DescriptionSession = SessionObject.Description;
+            
             FeaturesList = _appContext.Feature.Where(x => x.SessionId == SessionObject.Id).Include(x => x.FeatureUser).ToList();
 
             //If the Creator is the one Logged
@@ -55,7 +65,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 SessionId = PlanningSessionId,
                 Status = EnumFeature.Open,
                 CreationDate = DateTime.Now,
-                Description = FeatureDescription
+                Description = FeatureDescription,
+                Identification = FeatureIdentification
             };
 
             _appContext.Feature.Add(feature);
