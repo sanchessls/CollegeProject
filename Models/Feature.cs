@@ -14,7 +14,11 @@ namespace ScrumPokerPlanning.Models
         [Required]
         public DateTime CreationDate { get; set; }
         [Required]
+        [MaxLength(15)]
+        public string Identification { get; set; }
+        [Required]
         public string Description { get; set; }
+
         [Required]
         public EnumFeature Status { get; set; }
         [Required]

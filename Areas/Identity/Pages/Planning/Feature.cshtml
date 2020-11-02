@@ -21,9 +21,9 @@
     <button type="submit" onclick="updatePostID(3);">3</button>
 
     <div class="row">
-        <div class="col-sm-2" style="background-color:lightcyan;">Identification</div>
-        <div class="col-sm-6" style="background-color:lightcyan;">Description</div>
-        <div class="col-sm-4" style="background-color:lightcyan;">Status</div>
+        <div class="col-sm-2">Identification</div>
+        <div class="col-sm-6">Description</div>
+        <div class="col-sm-4">Status</div>
     </div>
 
 </div>
@@ -65,14 +65,14 @@
             <div class="col-md-6" style="background-color:burlywood">
 
                 <div class="row">
-                    <div class="col-sm-4" style="background-color:lightcyan;">User</div>
-                    <div class="col-sm-2" style="background-color:lightcyan;">Status</div>
+                    <div class="col-sm-4" >User</div>
+                    <div class="col-sm-2" >Status</div>
                 </div>
                 <div class="row">
                     @foreach (var item in Model.UsersVoting)
                     {
-                        <div class="col-sm-4" style="background-color:lightcyan;">@item.UserName</div>
-                        <div class="col-sm-2" style="background-color:lightcyan;">@item.Status</div>
+                        <div class="col-sm-4" >@item.UserName</div>
+                        <div class="col-sm-2" >@item.Status</div>
                     }
                 </div>
             </div>

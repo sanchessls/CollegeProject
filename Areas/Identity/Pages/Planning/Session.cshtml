@@ -5,50 +5,88 @@
     ViewData["Title"] = "Session: " + Model.PlanningSessionId;
 }
 
-<div class="col-md-auto-12" style="background-color:red">
+<div class="col-md-12" style="padding-bottom:15px;">
     @{
-        <h4>Feature : @Model.DescriptionSession</h4>
+        <h4 style="margin-left:5px;"> @Model.DescriptionSession</h4>
     }
+
 
     @if (Model.UserCreator)
     {
-        <div class="col-md-12" style="background-color:orange">
+        <div class="sessionHeader">
+            <div class="row">
+                <form id="formSession" method="post" class="col-md-12">
 
-            <div class="col-md-4">
-                <form id="formSession" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="FeatureDescription" class="control-label"></label>
-                        <input asp-for="FeatureDescription" class="form-control" />
-                        <span asp-validation-for="FeatureDescription" class="text-danger"></span>
-                        @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
-                        @Html.Hidden("DescriptionSession", Model.DescriptionSession)
-                    </div>
-                    <div class="form-group">
-                        <input id="idButtonSession"type="submit" value="Create" class="btn btn-primary" />
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="FeatureIdentification" class="control-label"></label>
+                                <input asp-for="FeatureIdentification" class="form-control" />
+                                <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
+
+                                <label asp-for="FeatureDescription" class="control-label"></label>
+                                <input asp-for="FeatureDescription" class="form-control" />
+                                <span asp-validation-for="FeatureDescription" class="text-danger"></span>
+
+                                @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
+                                @Html.Hidden("DescriptionSession", Model.DescriptionSession)
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <br>
+                                <input id="idButtonSession" type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </div>
                     </div>
                 </form>
             </div>
+
         </div>
     }
-    <div class="row">
-        <div class="col-sm-2" style="background-color:lightcyan;">Identification</div>
-        <div class="col-sm-6" style="background-color:lightcyan;">Description</div>
-        <div class="col-sm-2" style="background-color:lightcyan;">Status</div>
-        <div class="col-sm-2" style="background-color:lightcyan;">Average</div>
-    </div>
-    <div class="row">
+
+
+    <div class="sessionHeader">
+        <div class="row">
+            <div class="col-md-2">Identification</div>
+            <div class="col-md-6">Description</div>
+            <div class="col-md-2">Status</div>
+            <div class="col-md-2">Average</div>
+        </div>
+        <hr>
+
+
         @foreach (var item in Model.FeaturesList)
         {
-            <div class="col-sm-2" style="background-color:lightcyan;"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Description</a></div>
-            <div class="col-sm-6" style="background-color:lightcyan;">@item.Description</div>
-            <div class="col-sm-2" style="background-color:lightcyan;">@item.Status</div>
-            <div class="col-sm-2" style="background-color:lightcyan;">@item.Average()</div>
+    <div class="row ColumnsOfTable">
+        <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Identification</a></div>
+        <div class="col-md-6">@item.Description</div>
+        <div class="col-md-2">@item.Status</div>
+
+        @{
+            var average = @item.Average();
+            if (average > 0)
+            {
+                <div class="col-md-2">average</div>
+            }
+            else
+            {
+                <div class="col-md-2">N/A</div>
+            }
         }
-        <div class="col-sm-12" style="background-color:lightcyan;">Total: @Model.FeaturesList.Count</div>
 
 
     </div>
+        }
+        <div class="col-md-12">Total: @Model.FeaturesList.Count</div>
+
+
+    </div>
+
+
 </div>
 
 
