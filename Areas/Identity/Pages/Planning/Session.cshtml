@@ -2,12 +2,12 @@
 @model Session
 
 @{
-    ViewData["Title"] = "Session: " + Model.PlanningSessionId;
+    ViewData["Title"] = "Session";
 }
 
 <div class="col-md-12" style="padding-bottom:15px;">
     @{
-        <h4 style="margin-left:5px;"> @Model.DescriptionSession</h4>
+        <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
     }
 
 
@@ -37,7 +37,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <br>
-                                <input id="idButtonSession" type="submit" value="Create" class="btn btn-primary" />
+                                <input id="idButtonSession" type="submit" value="Create new feature" class="btn btn-primary" />
                             </div>
 
                         </div>
@@ -49,42 +49,57 @@
     }
 
 
-    <div class="sessionHeader">
-        <div class="row">
-            <div class="col-md-2">Identification</div>
-            <div class="col-md-6">Description</div>
-            <div class="col-md-2">Status</div>
-            <div class="col-md-2">Average</div>
+<div class="sessionHeader">
+    <div class="row">
+        <div class="col-md-2 title">Identification</div>
+        <div class="col-md-6 title">Description</div>
+        <div class="col-md-2 title">Status</div>
+        <div class="col-md-2 title">Average</div>
+    </div>
+    <hr class="separator">
+
+    @{
+        var colour = "";
+    }
+
+    @foreach (var item in Model.FeaturesList)
+    {
+
+        // if (colour == "") { colour = "rgba(200,0,0,0.125)"; } else { colour = ""; }
+
+
+        <div class="row ColumnsOfTable" style="background-color:@colour">
+            <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Identification</a></div>
+            <div class="col-md-6">@item.Description</div>
+
+
+
+            <div class="col-md-2">
+                <div class="buttonStatus" style="background-color:@item.StatusColor()">
+                    @item.Status
+                </div>
+
+            </div>
+
+            @{
+                var average = @item.Average();
+                if (average > 0)
+                {
+                    <div class="col-md-2">average</div>
+                }
+                else
+                {
+                    <div class="col-md-2">N/A</div>
+                }
+            }
+
+
         </div>
-        <hr>
+        <hr class="separator">
+    }
 
 
-        @foreach (var item in Model.FeaturesList)
-        {
-    <div class="row ColumnsOfTable">
-        <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Identification</a></div>
-        <div class="col-md-6">@item.Description</div>
-        <div class="col-md-2">@item.Status</div>
-
-        @{
-            var average = @item.Average();
-            if (average > 0)
-            {
-                <div class="col-md-2">average</div>
-            }
-            else
-            {
-                <div class="col-md-2">N/A</div>
-            }
-        }
-
-
-    </div>
-        }
-        <div class="col-md-12">Total: @Model.FeaturesList.Count</div>
-
-
-    </div>
+</div>
 
 
 </div>

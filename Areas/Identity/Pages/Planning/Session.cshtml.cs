@@ -21,11 +21,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         {
         }
         [BindProperty]
-        [Display(Name = "New feature description")]
+        [Display(Name = "Feature description(*)")]
         public string FeatureDescription { get; set; }
 
         [BindProperty]
-        [Display(Name = "Identification")]
+        [Display(Name = "Feature Identification(*)")]
         [MaxLength(15)]
         public string FeatureIdentification { get; set; }
 

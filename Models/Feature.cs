@@ -44,6 +44,21 @@ namespace ScrumPokerPlanning.Models
 
             return 0;
         }
+
+        public string StatusColor()
+        {
+            switch (this.Status)
+            {
+                case EnumFeature.Open:
+                    return "green";
+                case EnumFeature.Voted:
+                    return "blue";
+                case EnumFeature.Closed:
+                    return "red";
+                default:
+                    return "yellow";
+            }       
+        }
     }
 
     public enum EnumFeature
