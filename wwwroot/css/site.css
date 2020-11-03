@@ -86,7 +86,17 @@ body {
 }
 
 
-.col-md-12, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
+.sessionHeaderIntern
+{    
+	/*background-color:yellow;	*/
+	border-radius: .25rem;	
+	border: 1px solid rgba(0,0,0,0.125);
+
+}
+
+
+
+.col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
 {	
 	/*
 	border-width:1px;
@@ -116,9 +126,40 @@ body {
 	margin-top:0px!important;
 	margin-bottom:0px!important;
 }
+.separatorHead
+{	
+	margin-top:0px!important;
+	margin-bottom:0px!important;
+	border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}
 
 .title
 {
 	 font-weight: bold;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+
+.scrum-card {
+	position: relative; 
+	font-family: 'Oswald', sans-serif;
+	font-size: 5em;
+	border: 1px #000 solid;
+	border-radius: 10px;
+	margin: 0 auto;
+	padding: 0;
+	width: 100px;
+	height: 150px;
+	line-height: 150px;
+	white-space: nowrap;
+	text-align: center;
+}
+.cardSelected
+{
+	background-color:yellow;
 }
 
