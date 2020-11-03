@@ -4,6 +4,14 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/hubs/clock").build
 
 //Disable send button until connection is established
 
+
+connection.on("FeatureUpdated", function (FeatureId,Id) {
+    console.log("FeatureUpdated");
+    console.log("Feature ID : " + FeatureId);
+    console.log("User ID : " + Id);
+
+});
+
 connection.on("ShowTime", function (datetime) {
     console.log("ShowTime");
     console.log(datetime);

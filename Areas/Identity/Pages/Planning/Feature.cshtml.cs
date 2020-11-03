@@ -1,6 +1,6 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +66,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
+
+
             var ObjectFeatureUser = _appContext.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == FeatureId).FirstOrDefault();
 
             if (ObjectFeatureUser != null)
@@ -84,8 +86,16 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 _appContext.FeatureUser.Add(featureUser);
             }
 
+            //If we make an estimate we send a note from everyone that is on the
+            //session page and on the feature page that belongs to it
 
-            await _clockHub.Clients.All.ShowTime(DateTime.Now);
+            var idList = _appContext.FeatureUser.Where(x => x.FeatureId == this.FeatureId).Select(x => x.UserId);
+            await idList.ForEachAsync(x =>
+            {
+                _clockHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
+            });
+
+            
 
 
             await _appContext.SaveChangesAsync();

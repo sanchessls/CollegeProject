@@ -7,6 +7,7 @@ namespace ScrumPokerPlanning.SignalRServerSide
     public interface IClock
     {
         Task ShowTime(DateTime currentTime);
+        Task FeatureUpdated(int featureId, string id);
     }
 #endregion
 }
