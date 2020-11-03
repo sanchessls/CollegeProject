@@ -70,7 +70,6 @@
         </div>
         <br>
 
-
         <div style="align-content:center;">
 
             <form method="post">
@@ -121,7 +120,7 @@
                         <div class="row">
                             <div class="col-md-8">@item.UserName</div>
 
-                            @{ 
+                            @{
                                 if (@item.Status)
                                 {
                                     <div class="col-md-4" style="padding-left:0px;">
@@ -134,7 +133,7 @@
                                 else
                                 {
                                     <div class="buttonStatus" style="background-color:lightcoral">
-                                       Waiting
+                                        Waiting
                                     </div>
                                 }
                             }
@@ -157,9 +156,15 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script type="text/javascript">
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/test.js"></script>
+
+
+    <script type="text/javascript">
         //var scrumCardElement = $(".scrum-card");
         //scrumCardElement.text(8);
+
+
 
 
         function updatePostID(val) {
@@ -179,7 +184,8 @@
             }
         }
 
-</script>
+
+    </script>
 
 }
 

@@ -4,16 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.SignalRServerSide;
 
 namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Feature : BaseModelDatabaseUser
-    {        
-        public Feature(ApplicationContext context, UserManager<IdentityUser> userManager) : base(context, userManager)
+    {
+        private readonly IHubContext<ClockHub, IClock> _clockHub;
+        public Feature(ApplicationContext context, UserManager<IdentityUser> userManager, IHubContext<ClockHub, IClock> clockHub) : base(context, userManager)
         {
+            _clockHub = clockHub;
         }
         [BindProperty]
         public float SelectedValue { get; set; }
@@ -40,9 +44,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             //If the Creator is the one Logged
             //We will offer more features            
-            UserCreator = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == FeatureObject.PlanningSession.Id).FirstOrDefault().UserIsCreator;
-
-            
+            UserCreator = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == FeatureObject.PlanningSession.Id).FirstOrDefault().UserIsCreator;          
 
             UsersVoting = _appContext.PlanningSessionUser.
                                       Where(x => x.PlanningSessionId == PlanningSessionId).
@@ -81,6 +83,9 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 };
                 _appContext.FeatureUser.Add(featureUser);
             }
+
+
+            await _clockHub.Clients.All.ShowTime(DateTime.Now);
 
 
             await _appContext.SaveChangesAsync();

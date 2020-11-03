@@ -14,6 +14,7 @@ using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
 using ScrumPokerPlanning.Services;
+using ScrumPokerPlanning.SignalRServerSide;
 using System;
 using System.Text;
 
@@ -91,11 +92,15 @@ namespace ScrumPokerPlanning
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //Adding SignalR
+            services.AddSignalR();
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ApplicationContext context)
-        {
+        {            
 
             if (env.IsDevelopment())
             {
@@ -154,13 +159,19 @@ namespace ScrumPokerPlanning
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapHub<ClockHub>("/hubs/clock");
+
                 endpoints.MapControllerRoute(
                    name: "default",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
                 //endpoints.MapControllers();
+
             });
+
+        
         }
     }
 }

@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\test.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentlyHttpClient.Entity" Version="3.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
@@ -34,6 +38,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SignalRClientSide\" />
   </ItemGroup>
 
 
