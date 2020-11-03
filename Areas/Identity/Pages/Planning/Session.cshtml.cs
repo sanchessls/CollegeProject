@@ -29,6 +29,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [MaxLength(15)]
         public string FeatureIdentification { get; set; }
 
+        [BindProperty]
+        [Display(Name = "Feature Identification1(*)")]
+        [MaxLength(15)]
+        public string FeatureIdentification1 { get; set; }
+
 
         [BindProperty]
         public int PlanningSessionId { get; set; }
@@ -66,7 +71,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 Status = EnumFeature.Open,
                 CreationDate = DateTime.Now,
                 Description = FeatureDescription,
-                Identification = FeatureIdentification
+                Identification = FeatureIdentification,
+                Identification1 = FeatureIdentification1
             };
 
             _appContext.Feature.Add(feature);
