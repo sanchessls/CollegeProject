@@ -17,10 +17,6 @@ namespace ScrumPokerPlanning.Models
         [MaxLength(15)]
         public string Identification { get; set; }
         [Required]
-        [MaxLength(15)]
-        public string Identification1 { get; set; }
-
-        [Required]
         public string Description { get; set; }
 
         [Required]
