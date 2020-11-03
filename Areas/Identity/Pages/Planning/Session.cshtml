@@ -22,6 +22,11 @@
                         <div class="col-md-8">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
+                                <label asp-for="FeatureIdentification1" class="control-label"></label>
+                                <input asp-for="FeatureIdentification1" class="form-control" />
+                                <span asp-validation-for="FeatureIdentification1" class="text-danger"></span>
+
+
                                 <label asp-for="FeatureIdentification" class="control-label"></label>
                                 <input asp-for="FeatureIdentification" class="form-control" />
                                 <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
