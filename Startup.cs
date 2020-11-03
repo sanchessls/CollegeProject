@@ -97,14 +97,16 @@ namespace ScrumPokerPlanning
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ApplicationContext context)
         {
 
-            //Migration automatic
-            context.Database.Migrate();
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                //Migration automatic
+                context.Database.Migrate();
+
             }
 
             app.UseExceptionHandler(appBuilder =>
