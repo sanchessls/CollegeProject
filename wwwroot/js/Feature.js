@@ -17,4 +17,6 @@ connection.on("FeatureUpdated", function (FeatureId,Id) {
     console.log("FeatureUpdated");
     console.log("Feature ID : " + FeatureId);
     console.log("User ID : " + Id);   
+
+    CallFunctionFromJS();
 });
