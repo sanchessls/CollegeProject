@@ -12,12 +12,19 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public class BaseModelUser : PageModel
     {
         protected readonly UserManager<IdentityUser> _userManager;
+
+        public string UserGroup = "";
         private IdentityUser _userIdentity = null;
         protected IdentityUser userIdentity() 
         {
             if (User != null)
             {
-                _userIdentity = _userManager.GetUserAsync(User).Result;
+                _userIdentity = _userManager.GetUserAsync(User).Result;                
+            }
+
+            if (_userIdentity != null)
+            {
+                UserGroup = _userIdentity.Id;
             }
 
             return _userIdentity;
@@ -26,6 +33,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public BaseModelUser(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
+            userIdentity();
         }
 
         public async Task<IActionResult> OnGetAsync()

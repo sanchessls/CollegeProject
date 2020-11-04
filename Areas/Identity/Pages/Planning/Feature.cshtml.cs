@@ -14,10 +14,10 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Feature : BaseModelDatabaseUser
     {
-        private readonly IHubContext<ClockHub, IClock> _clockHub;
-        public Feature(ApplicationContext context, UserManager<IdentityUser> userManager, IHubContext<ClockHub, IClock> clockHub) : base(context, userManager)
+        private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
+        public Feature(ApplicationContext context, UserManager<IdentityUser> userManager, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
-            _clockHub = clockHub;
+            _FeatureHub = FeatureHub;            
         }
         [BindProperty]
         public float SelectedValue { get; set; }
@@ -29,8 +29,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string DescriptionFeature { get; set; }
         public bool UserCreator { get; set; }
         public List<UsersVoting> UsersVoting { get; set; }
-
-
 
         public override Task LoadAsync()
         {
@@ -84,21 +82,19 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                     SelectedValue = this.SelectedValue
                 };
                 _appContext.FeatureUser.Add(featureUser);
-            }
+            }          
+           
+            await _appContext.SaveChangesAsync();
 
             //If we make an estimate we send a note from everyone that is on the
             //session page and on the feature page that belongs to it
-
-            var idList = _appContext.FeatureUser.Where(x => x.FeatureId == this.FeatureId).Select(x => x.UserId);
+            var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == this.PlanningSessionId).Select(x => x.UserId);
             await idList.ForEachAsync(x =>
             {
-                _clockHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
+                _FeatureHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
             });
 
-            
 
-
-            await _appContext.SaveChangesAsync();
 
             return RedirectToPage("./Session", new { id = PlanningSessionId });
         }

@@ -85,8 +85,6 @@
     </div>
 </div>
 
-
-
 @if (Model.UserCreator)
 {
     <h4>Session options</h4>
@@ -156,13 +154,16 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/test.js"></script>
 
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Feature.js"></script>
+    
 
     <script type="text/javascript">
-        //var scrumCardElement = $(".scrum-card");
-        //scrumCardElement.text(8);
+        console.log("EnterInGroup");
+        EnterInGroup("@Model.UserGroup");
+
 
         function updatePostID(val) {
             clearCards();

@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 namespace ScrumPokerPlanning.SignalRServerSide
 {
 #region IClock
-    public interface IClock
+    public interface IFeature
     {
-        Task ShowTime(DateTime currentTime);
         Task FeatureUpdated(int featureId, string id);
     }
 #endregion

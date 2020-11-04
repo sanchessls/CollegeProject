@@ -160,7 +160,7 @@ namespace ScrumPokerPlanning
             app.UseEndpoints(endpoints =>
             {
 
-                endpoints.MapHub<ClockHub>("/hubs/clock");
+                endpoints.MapHub<FeatureHub>("/hubs/clock");
 
                 endpoints.MapControllerRoute(
                    name: "default",
