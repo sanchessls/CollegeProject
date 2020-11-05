@@ -44,13 +44,13 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             //We will offer more features            
             UserCreator = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == FeatureObject.PlanningSession.Id).FirstOrDefault().UserIsCreator;          
 
-            UsersVoting = _appContext.PlanningSessionUser.
-                                      Where(x => x.PlanningSessionId == PlanningSessionId).
-                                      Select(g => new UsersVoting() 
-                                             { 
-                                               Status = (_appContext.FeatureUser.Where(a => a.FeatureId == FeatureId && a.UserId == g.UserId).Sum(p => p.SelectedValue) > 0), 
-                                               UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName
-                                             }).ToList();
+            //UsersVoting = _appContext.PlanningSessionUser.
+            //                          Where(x => x.PlanningSessionId == PlanningSessionId).
+            //                          Select(g => new UsersVoting() 
+            //                                 { 
+            //                                   Status = (_appContext.FeatureUser.Where(a => a.FeatureId == FeatureId && a.UserId == g.UserId).Sum(p => p.SelectedValue) > 0), 
+            //                                   UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName
+            //                                 }).ToList();
 
             return base.LoadAsync();
         }

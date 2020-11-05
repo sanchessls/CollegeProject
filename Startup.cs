@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.PartialCar;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
 using ScrumPokerPlanning.Services;
@@ -94,7 +95,10 @@ namespace ScrumPokerPlanning
 
             //Adding SignalR
             services.AddSignalR();
-            
+
+
+            services.AddMvc();
+            services.AddTransient<ICarService, CarService>();
 
         }
 

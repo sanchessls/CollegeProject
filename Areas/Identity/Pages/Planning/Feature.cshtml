@@ -106,63 +106,42 @@
             </div>
             <div class="col-md-6">
 
-                <div class="col-md-12 sessionHeaderIntern">
-                    <div class="row">
-                        <div class="col-md-8">User</div>
-                        <div class="col-md-4">Status</div>
-                    </div>
-                    <hr class="separatorHead">
-
-                    @foreach (var item in Model.UsersVoting)
-                    {
-                        <div class="row">
-                            <div class="col-md-8">@item.UserName</div>
-
-                            @{
-                                if (@item.Status)
-                                {
-                                    <div class="col-md-4" style="padding-left:0px;">
-                                        <div class="buttonStatus" style="background-color:lightgreen">
-                                            Voted
-                                        </div>
-
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="buttonStatus" style="background-color:lightcoral">
-                                        Waiting
-                                    </div>
-                                }
-                            }
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <hr class="separator">
-                            </div>
-                        </div>
-                    }
+                <div id="grid" class="col-md-12 sessionHeaderIntern">                    
                 </div>
             </div>
         </div>
     </div>
 }
 
+<div>
+
+    <h2>Ajax</h2>
+    <p><button class="btn btn-primary" id="load">Load</button></p>
+
+
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
-
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Feature.js"></script>
-    
+
 
     <script type="text/javascript">
         console.log("EnterInGroup");
         EnterInGroup("@Model.UserGroup");
+
+        $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
+
+        console.log("sanches2");
+        $(function () {
+            $('#load').on('click', function () {
+                $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
+            });
+        });
 
 
         function updatePostID(val) {
@@ -184,8 +163,7 @@
 
 
         function CallFunctionFromJS() {
-
-            alert("CallFunctionFromJS");
+            $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
         }
 
 

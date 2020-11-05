@@ -1,0 +1,39 @@
+﻿@using ScrumPokerPlanning.Areas.Identity.Pages
+@model List<UsersVoting>
+<div class="row">
+    <div class="col-md-8">User</div>
+    <div class="col-md-4">Status</div>
+</div>
+<hr class="separatorHead">
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-8">@item.UserName</div>
+
+        @{
+            if (@item.Status)
+            {
+                <div class="col-md-4" style="padding-left:0px;">
+                    <div class="buttonStatus" style="background-color:lightgreen">
+                        Voted
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="buttonStatus" style="background-color:lightcoral">
+                    Waiting
+                </div>
+            }
+        }
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr class="separator">
+        </div>
+    </div>
+}
