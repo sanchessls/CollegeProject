@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Session";
+
 }
 
 <div class="col-md-12" style="padding-bottom:15px;">
@@ -49,57 +50,71 @@
     }
 
 
-<div class="sessionHeader">
-    <div class="row">
-        <div class="col-md-2 title">Identification</div>
-        <div class="col-md-6 title">Description</div>
-        <div class="col-md-2 title">Status</div>
-        <div class="col-md-2 title">Average</div>
-    </div>
-    <hr class="separatorHead">
+    <div class="sessionHeader">
+        <div class="row">
+            <div class="col-md-2 title">Identification</div>
+            <div class="col-md-4 title">Description</div>
+            <div class="col-md-2 title">Status</div>
+            <div class="col-md-2 title">Average</div>
+            <div class="col-md-2 title">Full voted</div>
+        </div>
+        <hr class="separatorHead">
 
-    @{
-        var colour = "";
-    }
+        @{
+            var colour = "";
+        }
 
-    @foreach (var item in Model.FeaturesList)
-    {
-
-        // if (colour == "") { colour = "rgba(200,0,0,0.125)"; } else { colour = ""; }
-
-
-        <div class="row ColumnsOfTable" style="background-color:@colour">
-            <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Identification</a></div>
-            <div class="col-md-6">@item.Description</div>
+        @foreach (var item in Model.FeaturesList)
+        {
 
 
+    <div class="row ColumnsOfTable" style="background-color:@colour">
+        <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id="+item.Id)">@item.Identification</a></div>
+        <div class="col-md-4">@item.Description</div>
 
-            <div class="col-md-2">
-                <div class="buttonStatus" style="background-color:@item.StatusColor()">
-                    @item.Status
-                </div>
 
+
+        <div class="col-md-2">
+            <div class="buttonStatus" style="background-color:@item.StatusColor()">
+                @item.Status
             </div>
 
-            @{
-                var average = @item.Average();
-                if (average > 0)
-                {
-                    <div class="col-md-2">average</div>
-                }
-                else
-                {
-                    <div class="col-md-2">N/A</div>
-                }
-            }
-
-
         </div>
-        <hr class="separator">
-    }
+
+        @{
+            var average = @item.Average();
+            if (average > 0)
+            {
+                <div class="col-md-2">@average.ToString("0.00")</div>
+            }
+            else
+            {
+                <div class="col-md-2">N/A</div>
+            }
+        }
+
+        @{
+
+            if (item.FullVoted)
+            {
+                <div class="col-md-2">
+                    <img style='height: 65%; width: 26%; object-fit: contain' src="../../greenCheck.png" />
+
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2"></div>
+
+            }
+        }
+
+    </div>
+            <hr class="separator">
+        }
 
 
-</div>
+    </div>
 
 
 </div>

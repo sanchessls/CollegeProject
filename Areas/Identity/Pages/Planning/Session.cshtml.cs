@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.HashFunction.xxHash;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +43,22 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             PlanningSessionId = SessionObject.Id;
             DescriptionSession = SessionObject.Description;
             
-            FeaturesList = _appContext.Feature.Where(x => x.SessionId == SessionObject.Id).Include(x => x.FeatureUser).ToList();
+            FeaturesList = _appContext.Feature.Where(x => x.SessionId == SessionObject.Id).Include(x => x.FeatureUser).
+                Select(g => new Models.Feature() {CreationDate = g.CreationDate,
+                                                  Description = g.Description,
+                                                  FeatureUser = g.FeatureUser,
+                                                  Id = g.Id,
+                                                  Identification = g.Identification,
+                                                  PlanningSession = g.PlanningSession,
+                                                  SessionId =g.SessionId,
+                                                  Status = g.Status,
+                                                  FullVoted = (!_appContext.PlanningSessionUser.
+                                      Where(x => x.PlanningSessionId == g.PlanningSession.Id).
+                                      Select(k => new UsersVoting()
+                                      {
+                                          Status = (_appContext.FeatureUser.Where(a => a.FeatureId == g.Id && a.UserId == k.UserId).Sum(p => p.SelectedValue) > 0),
+                                      }).Where(v => v.Status == false).Any())
+                }).ToList();
 
             //If the Creator is the one Logged
             //We will offer the option of create features

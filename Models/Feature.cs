@@ -18,7 +18,6 @@ namespace ScrumPokerPlanning.Models
         public string Identification { get; set; }
         [Required]
         public string Description { get; set; }
-
         [Required]
         public EnumFeature Status { get; set; }
         [Required]
@@ -26,12 +25,16 @@ namespace ScrumPokerPlanning.Models
         [ForeignKey("SessionId")]
         public PlanningSession PlanningSession { get; set; }
 
+        [NotMapped]
+        public bool FullVoted { get; set; }
+
+
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
 
         public float Average()
         {
-            //If Feature Finished or fully voted
-            if (Status == EnumFeature.Voted || Status == EnumFeature.Closed)
+            //If everyone voted then we can see
+            if (Status != EnumFeature.Canceled)
             {
                 if (FeatureUser != null)
                 {
@@ -41,7 +44,6 @@ namespace ScrumPokerPlanning.Models
                     }
                 }
             }
-
             return 0;
         }
 
@@ -51,21 +53,14 @@ namespace ScrumPokerPlanning.Models
             {
                 case EnumFeature.Open:
                     return "green";
-                case EnumFeature.Voted:
-                    return "blue";
-                case EnumFeature.Closed:
+                case EnumFeature.Canceled:
                     return "red";
+                case EnumFeature.Closed:
+                    return "brown";
                 default:
                     return "yellow";
             }       
         }
     }
 
-    public enum EnumFeature
-    {
-        Open,
-        Voted,
-        Closed
-            
-    }
 }
