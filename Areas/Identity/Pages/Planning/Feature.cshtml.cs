@@ -17,7 +17,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
         public Feature(ApplicationContext context, UserManager<IdentityUser> userManager, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
-            _FeatureHub = FeatureHub;            
+            _FeatureHub = FeatureHub;
         }
         [BindProperty]
         public float SelectedValue { get; set; }
@@ -55,7 +55,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             return base.LoadAsync();
         }
 
- 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

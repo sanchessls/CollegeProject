@@ -7,14 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrumPokerPlanning.PartialCar
+namespace ScrumPokerPlanning.ModelServices
 {
-    public interface ICarService
+    public interface IFeatureService
     {
         List<UsersVoting> GetAll(ApplicationContext _appContext, int sessionid, int featureid);
-        List<UsersVoting> GetAll2();
     }
-    public class CarService : ICarService
+    public class FeatureService : IFeatureService
     {
         public List<UsersVoting> GetAll(ApplicationContext _appContext, int sessionid,int featureid)
         {
@@ -29,20 +28,5 @@ namespace ScrumPokerPlanning.PartialCar
             return usersVoting;
 
         }
-
-        public List<UsersVoting> GetAll2()
-        {
-            List<UsersVoting> cars = new List<UsersVoting>
-            {
-            new UsersVoting{Status = true, UserName="Audi"}
-            };
-            
-            return cars;
-        }
-
-
-
-
-    }
-
+   }
 }

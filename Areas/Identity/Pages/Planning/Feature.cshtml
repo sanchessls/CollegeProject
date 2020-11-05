@@ -134,12 +134,12 @@
         console.log("EnterInGroup");
         EnterInGroup("@Model.UserGroup");
 
-        $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
+        CallFunctionFromJS();
 
         console.log("sanches2");
         $(function () {
             $('#load').on('click', function () {
-                $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
+                CallFunctionFromJS();
             });
         });
 
@@ -163,11 +163,11 @@
 
 
         function CallFunctionFromJS() {
-            $('#grid').load('/Identity/Planning/ajaxpartial/CarPartial?sessionid='+@Model.PlanningSessionId+'&featureid='+@Model.FeatureId);
+            $('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
+            $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);            
         }
 
 
     </script>
 
 }
-
