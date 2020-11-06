@@ -6,13 +6,13 @@ using ScrumPokerPlanning.ModelServices;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ScrumPokerPlanning.UsersVotingPartial
+namespace ScrumPokerPlanning.SessionFeaturesPartial
 {
-    public class UsersVotingModel : PageModel
+    public class SessionFeaturesModel : PageModel
     {
         private IFeatureService _featureService;
         private readonly ApplicationContext _appContext;
-        public UsersVotingModel(IFeatureService FeatureService, ApplicationContext appContext)
+        public SessionFeaturesModel(IFeatureService FeatureService, ApplicationContext appContext)
         {
             _featureService = FeatureService;
             _appContext = appContext;
@@ -21,19 +21,11 @@ namespace ScrumPokerPlanning.UsersVotingPartial
         {
         }
 
-        public PartialViewResult OnGetUsersVoting(int sessionid,int featureid)
+        public PartialViewResult OnGetSessionFeatures(int sessionid)
         {
-            List<UsersVoting> usersVoting = _featureService.GetUsersVoting(_appContext, sessionid, featureid);
-            return Partial("_UsersVotingPartial", usersVoting);
+            List<Models.Feature> SessionFeatures = _featureService.GetFeatures(_appContext, sessionid);
+            return Partial("_SessionFeaturesPartial", SessionFeatures);
         }
-
-
-        public PartialViewResult OnGetLoading()
-        {
-            return Partial("_LoadingPartial");
-        }
-
-
     }
 
 }

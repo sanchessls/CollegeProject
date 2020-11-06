@@ -98,28 +98,18 @@
                 <form method="post" class="sessionHeaderIntern">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <input type="submit" value="Close Feature" class="btn btn-primary" />
-                        <input type="submit" value="Cancel Feature" class="btn btn-primary" />
+                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CancelFeature" value="Cancel Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
                     </div>
                 </form>
 
             </div>
             <div class="col-md-6">
-
-                <div id="grid" class="col-md-12 sessionHeaderIntern">                    
-                </div>
+                <div id="grid" class="col-md-12 sessionHeader"/>                    
             </div>
         </div>
     </div>
 }
-
-<div>
-
-    <h2>Ajax</h2>
-    <p><button class="btn btn-primary" id="load">Load</button></p>
-
-
-</div>
 
 
 @section Scripts {
@@ -131,18 +121,9 @@
 
 
     <script type="text/javascript">
-        console.log("EnterInGroup");
         EnterInGroup("@Model.UserGroup");
 
         CallFunctionFromJS();
-
-        console.log("sanches2");
-        $(function () {
-            $('#load').on('click', function () {
-                CallFunctionFromJS();
-            });
-        });
-
 
         function updatePostID(val) {
             clearCards();

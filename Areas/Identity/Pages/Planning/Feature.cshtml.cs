@@ -28,12 +28,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string DescriptionSession { get; set; }
         public string DescriptionFeature { get; set; }
         public bool UserCreator { get; set; }
-        public List<UsersVoting> UsersVoting { get; set; }
 
         public override Task LoadAsync()
         {
             int idFeature = Convert.ToInt32(Request.Query["id"]);
-            ScrumPokerPlanning.Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.PlanningSession).FirstOrDefault();
+            Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.PlanningSession).FirstOrDefault();
             
             PlanningSessionId = FeatureObject.PlanningSession.Id;
             FeatureId = FeatureObject.Id;
@@ -44,16 +43,51 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             //We will offer more features            
             UserCreator = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == FeatureObject.PlanningSession.Id).FirstOrDefault().UserIsCreator;          
 
-            //UsersVoting = _appContext.PlanningSessionUser.
-            //                          Where(x => x.PlanningSessionId == PlanningSessionId).
-            //                          Select(g => new UsersVoting() 
-            //                                 { 
-            //                                   Status = (_appContext.FeatureUser.Where(a => a.FeatureId == FeatureId && a.UserId == g.UserId).Sum(p => p.SelectedValue) > 0), 
-            //                                   UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName
-            //                                 }).ToList();
 
             return base.LoadAsync();
         }
+        public async Task<IActionResult> OnPostCloseFeatureAsync(int featureid,int sessionid)
+        {
+            var feature = _appContext.Feature.Where(x => x.Id == featureid).FirstOrDefault();
+
+            if (feature != null)
+            {
+                feature.Status = EnumFeature.Closed;
+                _appContext.Feature.Update(feature);
+                await _appContext.SaveChangesAsync();
+
+                //If we make that change we send it to the session page , so that the features can be updated in the view                
+                var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == sessionid).Select(x => x.UserId).ToList();
+                idList.ForEach(x =>
+                {
+                    _FeatureHub.Clients.Group(x).StatusFeatureUpdated(sessionid, userIdentity().Id);
+                });
+
+            }
+
+            return RedirectToPage("./Session", new { id = sessionid });
+        }
+        public async Task<IActionResult> OnPostCancelFeatureAsync(int featureid, int sessionid)
+        {
+            var feature = _appContext.Feature.Where(x => x.Id == featureid).FirstOrDefault();
+
+            if (feature != null)
+            {
+                feature.Status = EnumFeature.Canceled;
+                _appContext.Feature.Update(feature);
+                await _appContext.SaveChangesAsync();
+
+                //If we make that change we send it to the session page , so that the features can be updated in the view                
+                var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == sessionid).Select(x => x.UserId).ToList();
+                idList.ForEach(x =>
+                {
+                    _FeatureHub.Clients.Group(x).StatusFeatureUpdated(sessionid, userIdentity().Id);
+                });
+            }
+
+            return RedirectToPage("./Session", new { id = sessionid });
+        }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -87,13 +121,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             //If we make an estimate we send a note from everyone that is on the
             //session page and on the feature page that belongs to it
-            var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == this.PlanningSessionId).Select(x => x.UserId);
-            await idList.ForEachAsync(x =>
+            var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == this.PlanningSessionId).Select(x => x.UserId).ToList();
+            idList.ForEach(x =>
             {
                 _FeatureHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
             });
-
-
 
             return RedirectToPage("./Session", new { id = PlanningSessionId });
         }

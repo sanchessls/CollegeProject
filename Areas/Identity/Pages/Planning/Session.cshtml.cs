@@ -34,7 +34,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public int PlanningSessionId { get; set; }
         public string DescriptionSession { get; set; }
         public bool UserCreator { get; set; }
-        public List<ScrumPokerPlanning.Models.Feature> FeaturesList { get; set; }
+        //public List<Models.Feature> FeaturesList { get; set; }
 
         public override Task LoadAsync()
         {
@@ -43,22 +43,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             PlanningSessionId = SessionObject.Id;
             DescriptionSession = SessionObject.Description;
             
-            FeaturesList = _appContext.Feature.Where(x => x.SessionId == SessionObject.Id).Include(x => x.FeatureUser).
-                Select(g => new Models.Feature() {CreationDate = g.CreationDate,
-                                                  Description = g.Description,
-                                                  FeatureUser = g.FeatureUser,
-                                                  Id = g.Id,
-                                                  Identification = g.Identification,
-                                                  PlanningSession = g.PlanningSession,
-                                                  SessionId =g.SessionId,
-                                                  Status = g.Status,
-                                                  FullVoted = (!_appContext.PlanningSessionUser.
-                                      Where(x => x.PlanningSessionId == g.PlanningSession.Id).
-                                      Select(k => new UsersVoting()
-                                      {
-                                          Status = (_appContext.FeatureUser.Where(a => a.FeatureId == g.Id && a.UserId == k.UserId).Sum(p => p.SelectedValue) > 0),
-                                      }).Where(v => v.Status == false).Any())
-                }).ToList();
+            //FeaturesList = 
 
             //If the Creator is the one Logged
             //We will offer the option of create features
@@ -75,7 +60,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-            ScrumPokerPlanning.Models.Feature feature = new ScrumPokerPlanning.Models.Feature
+            Models.Feature feature = new Models.Feature
             {
                 SessionId = PlanningSessionId,
                 Status = EnumFeature.Open,
@@ -88,7 +73,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             await _appContext.SaveChangesAsync();
             
 
-            ScrumPokerPlanning.Models.FeatureUser featureUser = new ScrumPokerPlanning.Models.FeatureUser
+            Models.FeatureUser featureUser = new Models.FeatureUser
             {
                 FeatureId = feature.Id,
                 UserId = userIdentity().Id,                
@@ -96,9 +81,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             _appContext.FeatureUser.Add(featureUser);
             await _appContext.SaveChangesAsync();
-
-
-
 
             return RedirectToPage("./session", new { id = PlanningSessionId });
         }

@@ -7,6 +7,7 @@ namespace ScrumPokerPlanning.SignalRServerSide
     public interface IFeature
     {
         Task FeatureUpdated(int featureId, string id);
+        Task StatusFeatureUpdated(int sessionId, string id);
     }
 #endregion
 }
