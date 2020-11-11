@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Internal;
 using ScrumPokerPlanning.Areas.Identity.Pages;
 using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.ModelServices;
@@ -24,7 +25,18 @@ namespace ScrumPokerPlanning.SessionFeaturesPartial
         public PartialViewResult OnGetSessionFeatures(int sessionid)
         {
             List<Models.Feature> SessionFeatures = _featureService.GetFeatures(_appContext, sessionid);
-            return Partial("_SessionFeaturesPartial", SessionFeatures);
+#pragma warning disable EF1001 // Internal EF Core API usage.
+            if (SessionFeatures.Any())
+#pragma warning restore EF1001 // Internal EF Core API usage.
+            {
+                return Partial("_SessionFeaturesPartial", SessionFeatures);
+
+            }
+            else
+            {
+                return Partial("_SessionFeaturesPartialEmpty", SessionFeatures);
+
+            }
         }
     }
 

@@ -7,9 +7,32 @@
 }
 
 <div class="col-md-12" style="padding-bottom:15px;">
-    @{
-        <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
-    }
+
+
+
+    <div class="col-md-12">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                @{
+                    <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                }
+            </div>
+
+            <div class="col-md-4">
+
+                @{
+                    <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
     @if (Model.UserCreator)
@@ -22,17 +45,21 @@
 
                         <div class="col-md-8">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            
                             <div class="form-group">
                                 <label asp-for="FeatureIdentification" class="control-label"></label>
                                 <input asp-for="FeatureIdentification" class="form-control" />
                                 <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
 
+                                <br>
                                 <label asp-for="FeatureDescription" class="control-label"></label>
                                 <input asp-for="FeatureDescription" class="form-control" />
                                 <span asp-validation-for="FeatureDescription" class="text-danger"></span>
 
                                 @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
                                 @Html.Hidden("DescriptionSession", Model.DescriptionSession)
+                                @Html.Hidden("UserCreator", true)
+                                @Html.Hidden("SessionCode", Model.SessionCode)
                             </div>
                         </div>
                         <div class="col-md-4">

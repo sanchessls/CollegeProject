@@ -179,3 +179,9 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.EmptyMessage {
+	white-space: normal;
+	text-align: center;
+	word-break: break-all;
+}

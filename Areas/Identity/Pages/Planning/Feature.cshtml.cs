@@ -97,8 +97,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-
-
             var ObjectFeatureUser = _appContext.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == FeatureId).FirstOrDefault();
 
             if (ObjectFeatureUser != null)

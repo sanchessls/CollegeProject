@@ -55,7 +55,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             await _appContext.SaveChangesAsync();
 
-            return RedirectToPage("./Session", new { id = planningSession.Id });
+            return RedirectToPage("./Session", new { code = planningSession.SessionCode });
         }
     }
 }

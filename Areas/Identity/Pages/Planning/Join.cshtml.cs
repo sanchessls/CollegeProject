@@ -34,9 +34,17 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             //todo: Check if session EXISTS after all
 
             int sessionCode = 0;
+            if (SessionCode == null)
+            {
+                SessionCode = "";
+            }
+            else
+            {
+                SessionCode = SessionCode.Trim();
+            }
             var query = _appContext.PlanningSession.Where(x => x.SessionCode == SessionCode);
 
-            if (query != null)
+            if (query.Any())
             {
                 sessionCode = query.FirstOrDefault().Id;
             }
@@ -63,7 +71,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 await _appContext.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Session", new { id = SessionCode.ToString() });
+            return RedirectToPage("./Session", new { code = SessionCode });
         }
     }
 }

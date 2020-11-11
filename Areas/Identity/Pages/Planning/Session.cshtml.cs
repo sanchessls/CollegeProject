@@ -21,6 +21,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public Session(ApplicationContext context, UserManager<IdentityUser> userManager) : base(context, userManager)
         {
         }
+
         [BindProperty]
         [Display(Name = "Feature description(*)")]
         public string FeatureDescription { get; set; }
@@ -33,12 +34,62 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [BindProperty]
         public int PlanningSessionId { get; set; }
         public string DescriptionSession { get; set; }
+        [BindProperty]
         public bool UserCreator { get; set; }
+        [BindProperty]
+        public string SessionCode { get; set; }
         //public List<Models.Feature> FeaturesList { get; set; }
+
+
+        public async override Task<RedirectToPageResult> Validator()
+        {
+            string aSessionCode = Request.Query["code"];
+
+            int idSession = 0;
+
+            if (aSessionCode == null)
+            {
+                ModelState.AddModelError(string.Empty, "Null Session!");
+                return RedirectToPage(".Join");
+            }
+
+
+            var query = _appContext.PlanningSession.Where(x => x.SessionCode == aSessionCode);
+
+            if (query.Any())
+            {
+                idSession = query.FirstOrDefault().Id;
+            }
+
+            if (idSession <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Session!");
+                return RedirectToPage(".Join");
+            }
+
+            SessionCode = aSessionCode;
+
+            return null;
+        }
 
         public override Task LoadAsync()
         {
-            int idSession = Convert.ToInt32(Request.Query["id"]);
+            string SessionCode = Request.Query["code"];
+
+            int idSession = 0;
+
+            var query = _appContext.PlanningSession.Where(x => x.SessionCode == SessionCode);
+          
+            if (query.Any())
+            {
+                idSession = query.FirstOrDefault().Id;
+            }
+
+            if (idSession <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Session!");
+            }
+
             PlanningSession SessionObject = _appContext.PlanningSession.Where(x => x.Id == idSession).Include(x => x.PlanningSessionUser).FirstOrDefault();
             PlanningSessionId = SessionObject.Id;
             DescriptionSession = SessionObject.Description;
@@ -60,6 +111,20 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
+
+            if ((FeatureIdentification == null) || (FeatureIdentification.Trim() == ""))
+            {
+                ModelState.AddModelError("", "Invalid Identification!");
+                return Page();
+            }
+
+
+
+            if ((FeatureDescription == null) || (FeatureDescription.Trim() == ""))
+            {
+                ModelState.AddModelError("", "Invalid Description!");
+                return Page();
+            }
             Models.Feature feature = new Models.Feature
             {
                 SessionId = PlanningSessionId,
@@ -82,7 +147,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             _appContext.FeatureUser.Add(featureUser);
             await _appContext.SaveChangesAsync();
 
-            return RedirectToPage("./session", new { id = PlanningSessionId });
+            return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }
 
     }
