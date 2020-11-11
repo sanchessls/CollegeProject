@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }
 
         [BindProperty]
-        public int SessionCode { get; set; }
+        [Display(Name = "Session code(*)")]
+        public string SessionCode { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {           
@@ -31,13 +33,27 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             //todo: evaluate if user CAN JOIN first
             //todo: Check if session EXISTS after all
 
-            PlanningSessionUser planningSessionUser = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == SessionCode).FirstOrDefault();
+            int sessionCode = 0;
+            var query = _appContext.PlanningSession.Where(x => x.SessionCode == SessionCode);
+
+            if (query != null)
+            {
+                sessionCode = query.FirstOrDefault().Id;
+            }
+
+            if (sessionCode <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Session!");
+                return Page();
+            }
+
+            PlanningSessionUser planningSessionUser = _appContext.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id && x.PlanningSessionId == sessionCode).FirstOrDefault();
 
             if (planningSessionUser == null)
             {
                 planningSessionUser = new PlanningSessionUser()
                 {
-                    PlanningSessionId = SessionCode,
+                    PlanningSessionId = sessionCode,
                     UserId = userIdentity().Id,
                     UserIsCreator = false
                 };

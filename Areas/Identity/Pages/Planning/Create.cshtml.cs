@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }   
 
         [BindProperty]
+        [Display(Name = "Planning session description(*)")]
+        [StringLength(200)]
         public string PlanningSessionDescription { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -28,11 +31,14 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
+            string generatedKey = Helpers.CodeGenerator.Generate(userIdentity().Id);
+
             PlanningSession planningSession = new PlanningSession
             {
                 CreationDate = DateTime.Now,
                 Description = PlanningSessionDescription,
-                Status = EnumPlanningSession.Open
+                Status = EnumPlanningSession.Open,
+                SessionCode = generatedKey
             };
             _appContext.PlanningSession.Add(planningSession);
 

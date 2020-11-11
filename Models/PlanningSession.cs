@@ -23,6 +23,7 @@ namespace ScrumPokerPlanning.Models
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Feature> Features { get; set; }
         public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
+        public string SessionCode { get; internal set; }
     }
 
     public class ApplicationUser : IdentityUser
