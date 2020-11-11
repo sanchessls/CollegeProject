@@ -73,13 +73,21 @@
         <div style="align-content:center;">
 
             <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    @Html.HiddenFor(model => model.SelectedValue)
-                    @Html.HiddenFor(model => model.FeatureId)
-                    @Html.HiddenFor(model => model.PlanningSessionId)
-                    <input type="submit" value="Submit" class="btn btn-primary" />
-                </div>
+                @if (Model.TypeSelected == 0)
+                {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                }
+            <div class="form-group">
+                @Html.HiddenFor(model => model.SelectedValue)
+                @Html.HiddenFor(model => model.FeatureId)
+                @Html.HiddenFor(model => model.PlanningSessionId)
+                @Html.HiddenFor(model => model.DescriptionSession)
+                @Html.HiddenFor(model => model.DescriptionFeature)
+                @Html.HiddenFor(model => model.UserCreator)
+                @Html.HiddenFor(model => model.SessionCode)
+                @Html.HiddenFor(model => model.TypeSelected)
+                <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
+            </div>
             </form>
         </div>
     </div>
@@ -96,9 +104,29 @@
             <div class="col-md-6">
 
                 <form method="post" class="sessionHeaderIntern">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
+                        @Html.HiddenFor(model => model.SelectedValue)
+                        @Html.HiddenFor(model => model.FeatureId)
+                        @Html.HiddenFor(model => model.PlanningSessionId)
+                        @Html.HiddenFor(model => model.DescriptionSession)
+                        @Html.HiddenFor(model => model.DescriptionFeature)
+                        @Html.HiddenFor(model => model.UserCreator)
+                        @Html.HiddenFor(model => model.SessionCode)
+                        @Html.HiddenFor(model => model.TypeSelected)
+
+                        @if (Model.TypeSelected == 1)
+                        {
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        }
+
                         <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        <br>
+                        <hr>
+                        <br>
+                        @if (Model.TypeSelected == 2)
+                        {
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        }
                         <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CancelFeature" value="Cancel Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
                     </div>
                 </form>
@@ -110,6 +138,9 @@
         </div>
     </div>
 }
+<div>
+    <a href="@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)"> Back to Session </a>
+</div>
 
 
 @section Scripts {

@@ -19,7 +19,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }
 
         [BindProperty]
-        [Display(Name = "Session code(*)")]
+        [Display(Name = "Session code*")]
         public string SessionCode { get; set; }
 
         public async Task<IActionResult> OnPostAsync()

@@ -20,7 +20,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }   
 
         [BindProperty]
-        [Display(Name = "Planning session description(*)")]
+        [Display(Name = "Planning session description*")]
         [StringLength(200)]
         public string PlanningSessionDescription { get; set; }
         public async Task<IActionResult> OnPostAsync()
@@ -28,6 +28,13 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError(string.Empty, "Invalid Model!");
+                return Page();
+            }
+
+            if ((PlanningSessionDescription == null) || (PlanningSessionDescription.Trim() == ""))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Description!");
                 return Page();
             }
 

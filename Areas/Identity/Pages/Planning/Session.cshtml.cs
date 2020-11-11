@@ -23,16 +23,17 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }
 
         [BindProperty]
-        [Display(Name = "Feature description(*)")]
+        [Display(Name = "Feature description*")]
         public string FeatureDescription { get; set; }
 
         [BindProperty]
-        [Display(Name = "Feature Identification(*)")]
+        [Display(Name = "Feature Identification*")]
         [MaxLength(15)]
         public string FeatureIdentification { get; set; }
 
         [BindProperty]
         public int PlanningSessionId { get; set; }
+        [BindProperty]
         public string DescriptionSession { get; set; }
         [BindProperty]
         public bool UserCreator { get; set; }

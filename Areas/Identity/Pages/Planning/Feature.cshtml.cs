@@ -25,9 +25,16 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public int PlanningSessionId { get; set; }
         [BindProperty]
         public int FeatureId { get; set; }
+        [BindProperty]
         public string DescriptionSession { get; set; }
+        [BindProperty]
         public string DescriptionFeature { get; set; }
+        [BindProperty]
         public bool UserCreator { get; set; }
+        [BindProperty]
+        public string SessionCode { get; set; }
+        [BindProperty]
+        public int TypeSelected { get; set; }
 
         public override Task LoadAsync()
         {
@@ -38,6 +45,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             FeatureId = FeatureObject.Id;
             DescriptionSession = FeatureObject.PlanningSession.Description;
             DescriptionFeature = FeatureObject.Description;
+            SessionCode = FeatureObject.PlanningSession.SessionCode;
+
 
             //If the Creator is the one Logged
             //We will offer more features            
@@ -48,10 +57,19 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }
         public async Task<IActionResult> OnPostCloseFeatureAsync(int featureid,int sessionid)
         {
+            TypeSelected = 1;
             var feature = _appContext.Feature.Where(x => x.Id == featureid).FirstOrDefault();
 
             if (feature != null)
             {
+                if (feature.Status != EnumFeature.Open)
+                {
+                    ModelState.AddModelError("CloseError", "Feature is not in an open state!");
+                    return Page();
+                }
+
+
+
                 feature.Status = EnumFeature.Closed;
                 _appContext.Feature.Update(feature);
                 await _appContext.SaveChangesAsync();
@@ -65,14 +83,23 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             }
 
-            return RedirectToPage("./Session", new { id = sessionid });
+            return RedirectToPage("./Session", new { code = SessionCode });
         }
         public async Task<IActionResult> OnPostCancelFeatureAsync(int featureid, int sessionid)
         {
+            TypeSelected = 2;
             var feature = _appContext.Feature.Where(x => x.Id == featureid).FirstOrDefault();
 
             if (feature != null)
             {
+                if (feature.Status != EnumFeature.Open)
+                {
+                    ModelState.AddModelError("CancelError", "Feature is not in an open state!");
+                    return Page();
+                }
+
+
+
                 feature.Status = EnumFeature.Canceled;
                 _appContext.Feature.Update(feature);
                 await _appContext.SaveChangesAsync();
@@ -85,17 +112,34 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 });
             }
 
-            return RedirectToPage("./Session", new { id = sessionid });
+            return RedirectToPage("./Session", new { code = SessionCode });
         }
 
 
         public async Task<IActionResult> OnPostAsync()
         {
+            TypeSelected = 0;
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Invalid Model!");
                 return Page();
             }
+
+            if (this.SelectedValue <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Select a card before submit!");
+                return Page();
+            }
+
+            bool FeatureOpen = (_appContext.Feature.Where(x => x.Id == FeatureId).FirstOrDefault().Status == EnumFeature.Open);
+
+            if (!FeatureOpen)
+            {
+                ModelState.AddModelError(string.Empty, "Feature is not in an open state!");
+                return Page();
+
+            }
+
 
             var ObjectFeatureUser = _appContext.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == FeatureId).FirstOrDefault();
 
@@ -125,7 +169,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 _FeatureHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
             });
 
-            return RedirectToPage("./Session", new { id = PlanningSessionId });
+            return RedirectToPage("./Session", new { code = SessionCode });
         }
 
     }
