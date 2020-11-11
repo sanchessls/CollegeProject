@@ -8,23 +8,51 @@
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<div class="row">
-    <div class="col-md-12">
+<div class="sessionHeader col-md-12">
+    <div class="row">
 
-        <h4>Planning Sessions For that User: </h4>
-
-        @{
-            foreach (var item in @Model.PlanningSessionList)
-            {
-                <h4>@item.Description</h4>
-            }
-        }
-        <div>
-            <a asp-page="Index">Back to List</a>
+        <div class="col-md-2">
+            Code
+        </div>
+        <div class="col-md-8">
+            Description
+        </div>
+        <div class="col-md-2">
+            Creation
         </div>
     </div>
 
+    <hr class="separatorHead">
 
+    @{
+        @foreach (var item in @Model.PlanningSessionList)
+        {
+            <div class="row ColumnsOfTable">
+                <div class="col-md-2">
+                    <a href="@Url.Content("~/Identity/Planning/Session?code=" + item.SessionCode)"> @item.SessionCode</a>
+                </div>
+
+                <div class="col-md-8">
+                    @item.Description
+                </div>
+                <div class="col-md-2">
+                    @item.CreationDate
+                </div>
+
+            </div>
+
+            <hr class="separator">
+
+        }
+
+
+
+    }
+</div>
+
+
+<div>
+    <a asp-page="Index">Back to List</a>
 </div>
 
 

@@ -10,15 +10,12 @@
     </div>
     <hr class="separatorHead">
 
-    @{
-        var colour = "";
-    }
 
     @foreach (var item in Model)
     {
 
 
-        <div class="row ColumnsOfTable" style="background-color:@colour">
+        <div class="row ColumnsOfTable">
             <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id=" + item.Id)">@item.Identification</a></div>
             <div class="col-md-4">@item.Description</div>
 
