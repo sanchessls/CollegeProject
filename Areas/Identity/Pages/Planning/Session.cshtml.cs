@@ -39,8 +39,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public bool UserCreator { get; set; }
         [BindProperty]
         public string SessionCode { get; set; }
-        //public List<Models.Feature> FeaturesList { get; set; }
-
 
         public async override Task<RedirectToPageResult> Validator()
         {
