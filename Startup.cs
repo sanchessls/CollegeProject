@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.EmailSender;
 using ScrumPokerPlanning.ModelServices;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
@@ -86,7 +88,15 @@ namespace ScrumPokerPlanning
             //This allow us to change the repository without haveing to change the original one.
 
             services.AddScoped<IRepositoryPlanningSession, RepositoryPlanningSessionImp>();
+
             
+            //Email Sender
+            services.AddTransient<IEmailSender, EmailSender.EmailSender>();
+            services.AddTransient<IMailService, EmailSender.MailService>();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+
+
+
             //Adding The Web Pages
             services.AddControllersWithViews();
             services.AddRazorPages();
