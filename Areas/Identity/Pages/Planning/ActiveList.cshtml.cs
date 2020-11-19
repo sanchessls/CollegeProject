@@ -15,7 +15,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class ActiveList : BaseModelDatabaseUser
     {
-        public ActiveList(ApplicationContext context, UserManager<IdentityUser> userManager) : base(context, userManager)
+        public ActiveList(ApplicationContext context, UserManager<ApplicationUser> userManager) : base(context, userManager)
         {
         }
 

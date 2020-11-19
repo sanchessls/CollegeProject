@@ -15,7 +15,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public class CreateModel : BaseModelDatabaseUser
     {
 
-        public CreateModel(ApplicationContext context, UserManager<IdentityUser> userManager) : base(context, userManager)
+        public CreateModel(ApplicationContext context, UserManager<ApplicationUser> userManager) : base(context, userManager)
         {
         }   
 

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 
 [assembly: HostingStartup(typeof(ScrumPokerPlanning.Areas.Identity.IdentityHostingStartup))]
 namespace ScrumPokerPlanning.Areas.Identity
@@ -25,7 +26,8 @@ namespace ScrumPokerPlanning.Areas.Identity
                 //        .AddDefaultTokenProviders(); // Configure token generator
 
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationContext>();
+                services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
 
             });
 

@@ -15,7 +15,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public partial class Feature : BaseModelDatabaseUser
     {
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
-        public Feature(ApplicationContext context, UserManager<IdentityUser> userManager, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
+        public Feature(ApplicationContext context, UserManager<ApplicationUser> userManager, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
             _FeatureHub = FeatureHub;
         }

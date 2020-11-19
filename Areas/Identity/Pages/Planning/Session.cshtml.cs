@@ -20,7 +20,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public partial class Session : BaseModelDatabaseUser
     {
         IJiraService _JiraService;
-        public Session(ApplicationContext context, UserManager<IdentityUser> userManager, IJiraService jiraService) : base(context, userManager)
+        public Session(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService) : base(context, userManager)
         {
             _JiraService = jiraService;
         }
@@ -83,6 +83,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {
+            ApagaTudo();
             string SessionCode = Request.Query["code"];
 
             int idSession = 0;
@@ -111,6 +112,18 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             return base.LoadAsync();
         }
+
+        public void ApagaTudo()
+        {
+            //_appContext.Remove(_appContext.FeatureUser);
+            //_appContext.Remove(_appContext.Feature);
+            //_appContext.Remove(_appContext.PlanningSessionUser);
+            //_appContext.Remove(_appContext.PlanningSession);
+            //_appContext.Remove(_appContext.Users);
+
+
+        }
+
         public async Task<IActionResult> OnPostJiraImportAsync()
         {
             if ((JiraIdentification == null) || (JiraIdentification.Trim() == ""))

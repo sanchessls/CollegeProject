@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ScrumPokerPlanning.APIViewModel;
+using ScrumPokerPlanning.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -20,15 +21,14 @@ namespace ScrumPokerPlanning.Services
 
     public class UserService : IUserService
     {
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
 
-        public UserService(UserManager<IdentityUser> userManager,IConfiguration configuration)
+        public UserService(UserManager<ApplicationUser> userManager,IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
         }
-
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
         {
@@ -44,7 +44,7 @@ namespace ScrumPokerPlanning.Services
                 return validation;
             }
 
-            IdentityUser identityUser = new IdentityUser
+            ApplicationUser identityUser = new ApplicationUser
             {
                 Email = model.Email,
                 UserName = model.Email
@@ -74,7 +74,7 @@ namespace ScrumPokerPlanning.Services
 
         public async Task<UserManagerResponse> LoginUserAsync(LoginViewModel model)
         {
-            IdentityUser user = await _userManager.FindByEmailAsync(model.Email);
+            ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
 
             if (user == null)
             {

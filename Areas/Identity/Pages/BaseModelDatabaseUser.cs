@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     {
         protected readonly ApplicationContext _appContext;
 
-        public BaseModelDatabaseUser(ApplicationContext appContext, UserManager<IdentityUser> userManager) :base(userManager)
+        public BaseModelDatabaseUser(ApplicationContext appContext, UserManager<ApplicationUser> userManager) :base(userManager)
         {
             _appContext = appContext;
         }

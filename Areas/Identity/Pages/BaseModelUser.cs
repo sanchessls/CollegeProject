@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public class BaseModelUser : PageModel
     {
-        protected readonly UserManager<IdentityUser> _userManager;
+        protected readonly UserManager<ApplicationUser> _userManager;
 
         public string UserGroup = "";
-        private IdentityUser _userIdentity = null;
-        protected IdentityUser userIdentity() 
+        private ApplicationUser _userIdentity = null;
+        protected ApplicationUser userIdentity() 
         {
             if (User != null)
             {
@@ -30,7 +31,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             return _userIdentity;
         }
 
-        public BaseModelUser(UserManager<IdentityUser> userManager)
+        public BaseModelUser(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             userIdentity();

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ScrumPokerPlanning.Models;
 
 namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
         public static string Index => "Index";
+
+        public static string JiraIntegration => "JiraIntegration";
 
         public static string Email => "Email";
 
@@ -26,6 +29,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
+        
+        public static string JiraIntegrationNavClass(ViewContext viewContext) => PageNavClass(viewContext, JiraIntegration);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 

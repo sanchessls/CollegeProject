@@ -11,15 +11,14 @@ using ScrumPokerPlanning.Models;
 
 namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : BaseModelUser
+    public partial class JiraIntegrationModel : BaseModelUser
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public IndexModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : base(userManager)
+        public JiraIntegrationModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : base(userManager)
         {
             _signInManager = signInManager;
         }
 
-        public string Username { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -30,20 +29,17 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Display(Name = "Jira Web Site - COLOCAR EXEMPLO")]
+            public string JiraWebSite { get; set; }
         }
 
         public override async Task LoadAsync()
         {
-            var userName = await _userManager.GetUserNameAsync(userIdentity());
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(userIdentity());
-
-            Username = userName;
+            var jiraWebSite = userIdentity().JiraWebSite;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                JiraWebSite = jiraWebSite
             };
         }
 
@@ -61,16 +57,21 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
+            user.JiraWebSite = Input.JiraWebSite;
+
+
+            await _userManager.UpdateAsync(user);
+
+
+            //if (Input.JiraWebSite != jiraWebSite)
+            //{
+            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.JiraWebSite);
+            //    if (!setPhoneResult.Succeeded)
+            //    {
+            //        StatusMessage = "Unexpected error when trying to set phone number.";
+            //        return RedirectToPage();
+            //    }
+            //}
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

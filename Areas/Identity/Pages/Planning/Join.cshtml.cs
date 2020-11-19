@@ -14,7 +14,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public class JoinModel : BaseModelDatabaseUser
     {
 
-        public JoinModel(ApplicationContext context, UserManager<IdentityUser> userManager):base(context, userManager)
+        public JoinModel(ApplicationContext context, UserManager<ApplicationUser> userManager):base(context, userManager)
         {
         }
 
