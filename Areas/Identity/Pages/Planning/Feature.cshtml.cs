@@ -30,6 +30,9 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [BindProperty]
         public string DescriptionFeature { get; set; }
         [BindProperty]
+        public string FeatureIdentificator { get; set; }
+        
+        [BindProperty]
         public bool UserCreator { get; set; }
         [BindProperty]
         public string SessionCode { get; set; }
@@ -45,8 +48,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             FeatureId = FeatureObject.Id;
             DescriptionSession = FeatureObject.PlanningSession.Description;
             DescriptionFeature = FeatureObject.Description;
+            FeatureIdentificator = FeatureObject.Identification;
             SessionCode = FeatureObject.PlanningSession.SessionCode;
-
 
             //If the Creator is the one Logged
             //We will offer more features            
@@ -67,8 +70,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                     ModelState.AddModelError("CloseError", "Feature is not in an open state!");
                     return Page();
                 }
-
-
 
                 feature.Status = EnumFeature.Closed;
                 _appContext.Feature.Update(feature);

@@ -30,6 +30,10 @@ namespace ScrumPokerPlanning.Models
     {
         public virtual ICollection<PlanningSessionUser> PlanningSessionUser { get; set; }
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
+
+        public string JiraWebSite { get; set; }
+        public string JiraEmail { get; set; }
+        public string JiraKey { get; set; }
     }
 
     public enum EnumPlanningSession

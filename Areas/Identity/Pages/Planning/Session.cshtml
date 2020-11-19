@@ -7,9 +7,6 @@
 }
 
 <div class="col-md-12" style="padding-bottom:15px;">
-
-
-
     <div class="col-md-12">
 
         <div class="row">
@@ -30,31 +27,18 @@
         </div>
     </div>
 
-
-
-
-
-
     @if (Model.UserCreator)
     {
         <div class="sessionHeader">
             <div class="row">
                 <form id="formSession" method="post" class="col-md-12">
-
                     <div class="row">
-
                         <div class="col-md-8">
-                            
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>                            
+                            <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
                             <div class="form-group">
                                 <label asp-for="FeatureIdentification" class="control-label"></label>
                                 <input asp-for="FeatureIdentification" class="form-control" />
-                                <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
 
-                                <br>
-                                <label asp-for="FeatureDescription" class="control-label"></label>
-                                <input asp-for="FeatureDescription" class="form-control" />
-                                <span asp-validation-for="FeatureDescription" class="text-danger"></span>
 
                                 @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
                                 @Html.Hidden("DescriptionSession", Model.DescriptionSession)
@@ -62,12 +46,33 @@
                                 @Html.Hidden("SessionCode", Model.SessionCode)
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span asp-validation-for="FeatureDescription" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="FeatureDescription" class="control-label"></label>
+                                <input asp-for="FeatureDescription" class="form-control" />
+                            </div>
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <br>
-                                <input id="idButtonSession" type="submit" value="Create new feature" class="btn btn-primary" />
+                                <input id="idButtonSession" type="submit"  formaction="/Identity/Planning/Session" value="Create new feature" class="btn btn-primary" />
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span asp-validation-for="JiraIdentification" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="JiraIdentification" class="control-label"></label>
+                                <input asp-for="JiraIdentification" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input id="idButtonSessionJira"  type="submit"   formaction="/Identity/Planning/Session?code=@Model.SessionCode&amp;handler=JiraImport"  value="Import From Jira" class="btn btn-primary" />
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -91,13 +96,13 @@
     <script type="text/javascript">
         CallFunctionFromJSSession();
 
-        EnterInGroup("@Model.UserGroup");
+        EnterInGroupSession("@Model.UserGroup");
 
         function CallFunctionFromJSSession()
         {
             $('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
             $('#grid').load('/Identity/Planning/SessionFeaturesPartial/SessionFeatures?sessionid=' +@Model.PlanningSessionId);
-    }
+        }
 
     </script>
 }

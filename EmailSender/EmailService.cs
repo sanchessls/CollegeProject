@@ -24,7 +24,7 @@ namespace ScrumPokerPlanning.EmailSender
                 Subject = subject,
                 ToEmail = email
             };
-
+             
             return mailService.SendEmailAsync(ml);
         }
     

@@ -59,11 +59,6 @@ namespace ScrumPokerPlanning.Context
         public DbSet<PlanningSession> PlanningSession { get; set; }
         public DbSet<PlanningSessionUser> PlanningSessionUser { get; set; }
         public DbSet<Feature> Feature { get; set; }
-
         public DbSet<FeatureUser> FeatureUser { get; set; }
-
-
-
-
     }
 }

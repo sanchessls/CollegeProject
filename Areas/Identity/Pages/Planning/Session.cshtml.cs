@@ -13,13 +13,16 @@ using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Models;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
+using ScrumPokerPlanning.Services;
 
 namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Session : BaseModelDatabaseUser
-    {        
-        public Session(ApplicationContext context, UserManager<IdentityUser> userManager) : base(context, userManager)
+    {
+        IJiraService _JiraService;
+        public Session(ApplicationContext context, UserManager<IdentityUser> userManager, IJiraService jiraService) : base(context, userManager)
         {
+            _JiraService = jiraService;
         }
 
         [BindProperty]
@@ -27,7 +30,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string FeatureDescription { get; set; }
 
         [BindProperty]
-        [Display(Name = "Feature Identification*")]
+        [Display(Name = "Jira Identificator")]
+        public string JiraIdentification { get; set; }
+        
+
+        [BindProperty]
+        [Display(Name = "Feature Identificator*")]
         [MaxLength(15)]
         public string FeatureIdentification { get; set; }
 
@@ -103,6 +111,63 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             return base.LoadAsync();
         }
+        public async Task<IActionResult> OnPostJiraImportAsync()
+        {
+            if ((JiraIdentification == null) || (JiraIdentification.Trim() == ""))
+            {
+                ModelState.AddModelError("JiraIdentification", "Invalid Jira Identificator!");
+                return Page();
+            }
+
+            ObjJiraFeature JiraReturn = _JiraService.GetJiraFeature(JiraIdentification,"","","");
+
+            if (!JiraReturn.Success)
+            {
+                ModelState.AddModelError("JiraIdentification", JiraReturn.MessageToUi);
+                Console.WriteLine(JiraReturn.Exception);
+                return Page();
+            }
+
+
+            string Identificator = JiraReturn.Identificator;
+            string subject = JiraReturn.Subject;
+
+            Models.Feature feature = await CreateFeatureAsync(Identificator, subject);
+
+            return RedirectToPage("./feature", new { id = feature.Id });
+
+
+
+        }
+
+        private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject)
+        {
+            //the ones  who call this should treat the result in case of exception
+            Models.Feature feature = new Models.Feature
+            {
+                SessionId = PlanningSessionId,
+                Status = EnumFeature.Open,
+                CreationDate = DateTime.Now,
+                Description = subject,
+                Identification = identificator
+            };
+
+            _appContext.Feature.Add(feature);
+            await _appContext.SaveChangesAsync();
+
+
+            Models.FeatureUser featureUser = new Models.FeatureUser
+            {
+                FeatureId = feature.Id,
+                UserId = userIdentity().Id,
+            };
+
+            _appContext.FeatureUser.Add(featureUser);
+            await _appContext.SaveChangesAsync();
+
+
+            return feature;
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -115,7 +180,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             if ((FeatureIdentification == null) || (FeatureIdentification.Trim() == ""))
             {
-                ModelState.AddModelError("", "Invalid Identification!");
+                ModelState.AddModelError("FeatureIdentification", "Invalid Identificator!");
                 return Page();
             }
 
@@ -123,30 +188,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             if ((FeatureDescription == null) || (FeatureDescription.Trim() == ""))
             {
-                ModelState.AddModelError("", "Invalid Description!");
+                ModelState.AddModelError("FeatureDescription", "Invalid Description!");
                 return Page();
             }
-            Models.Feature feature = new Models.Feature
-            {
-                SessionId = PlanningSessionId,
-                Status = EnumFeature.Open,
-                CreationDate = DateTime.Now,
-                Description = FeatureDescription,
-                Identification = FeatureIdentification
-            };
-
-            _appContext.Feature.Add(feature);
-            await _appContext.SaveChangesAsync();
             
-
-            Models.FeatureUser featureUser = new Models.FeatureUser
-            {
-                FeatureId = feature.Id,
-                UserId = userIdentity().Id,                
-            };
-
-            _appContext.FeatureUser.Add(featureUser);
-            await _appContext.SaveChangesAsync();
+            CreateFeatureAsync(FeatureIdentification, FeatureDescription).Wait();          
 
             return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }

@@ -69,10 +69,12 @@ body {
 {
    margin:10px;       
 }
-.row
-{
-    /*min-height: 300px;*/
-    /*background-color:yellow;*/
+.row {
+	/*min-height: 300px;*/
+	/*background-color:yellow;*/
+	border-width: 1px;
+	border-style: solid;
+	border-color: yellow;
 }
 
 .sessionHeader
@@ -98,11 +100,17 @@ body {
 
 .col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
 {	
-	/*
+	
 	border-width:1px;
 	border-style:solid;
 	border-color:green;	
-	*/
+	
+}
+
+form {
+	border-width: 12px !important;
+	border-style: solid !important;
+	border-color: red !important;
 }
 
 .pad-minus-15{
@@ -185,3 +193,9 @@ body {
 	text-align: center;
 	word-break: break-all;
 }
+
+.NoRowMargin {
+	margin-right: -15px;
+	margin-left: -15px;
+}
+

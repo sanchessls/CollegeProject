@@ -7,10 +7,38 @@
 
 <div class="col-md-12 sessionHeader">
     @{
-        <h4>Session : @Model.DescriptionSession</h4>
-        <hr class="separator">
-        <h4>Feature : @Model.DescriptionFeature</h4>
-        <br>
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-8 NoRowMargin">
+
+                    @{
+                        <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                    }
+                </div>
+
+                <div class="col-md-4">
+
+                    @{
+                        <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                @{
+                    <h4 style="margin-left:5px;"> @Model.FeatureIdentificator</h4>
+                }
+            </div> 
+            <div class="row">
+                @{
+                    <h4 style="margin-left:5px;"> @Model.DescriptionFeature</h4>
+                }
+            </div>
+        </div>
+
     }
 
     <div class="sessionHeader col-md-12">
@@ -83,6 +111,7 @@
                 @Html.HiddenFor(model => model.PlanningSessionId)
                 @Html.HiddenFor(model => model.DescriptionSession)
                 @Html.HiddenFor(model => model.DescriptionFeature)
+                @Html.HiddenFor(model => model.FeatureIdentificator)
                 @Html.HiddenFor(model => model.UserCreator)
                 @Html.HiddenFor(model => model.SessionCode)
                 @Html.HiddenFor(model => model.TypeSelected)
@@ -110,6 +139,7 @@
                         @Html.HiddenFor(model => model.PlanningSessionId)
                         @Html.HiddenFor(model => model.DescriptionSession)
                         @Html.HiddenFor(model => model.DescriptionFeature)
+                        @Html.HiddenFor(model => model.FeatureIdentificator)
                         @Html.HiddenFor(model => model.UserCreator)
                         @Html.HiddenFor(model => model.SessionCode)
                         @Html.HiddenFor(model => model.TypeSelected)
@@ -133,7 +163,7 @@
 
             </div>
             <div class="col-md-6">
-                <div id="grid" class="col-md-12 sessionHeader"/>                    
+                <div id="grid" class="col-md-12 sessionHeader" />
             </div>
         </div>
     </div>
@@ -152,7 +182,7 @@
 
 
     <script type="text/javascript">
-        EnterInGroup("@Model.UserGroup");
+        EnterInGroupFeature("@Model.UserGroup");
 
         CallFunctionFromJS();
 
@@ -176,7 +206,7 @@
 
         function CallFunctionFromJS() {
             $('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
-            $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);            
+            $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);
         }
 
 

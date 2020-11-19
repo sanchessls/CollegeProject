@@ -79,6 +79,9 @@ namespace ScrumPokerPlanning
             //Injection dependence for the User service to manage Users
             services.AddScoped<IUserService, UserService>();
 
+            //Injection dependente for jira integration
+            services.AddScoped<IJiraService, JiraService>();
+
             //Add all of the controllers 
             services.AddControllers();
 

@@ -1,8 +1,8 @@
 ﻿"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/hubs/feature").build();
 
-function EnterInGroup(group) {
-    console.log("EnterInGroup");
+function EnterInGroupFeature(group) {
+    console.log("EnterInGroupFeature");
     connection.start().then(function () {
         console.log("connection.start()");
 
