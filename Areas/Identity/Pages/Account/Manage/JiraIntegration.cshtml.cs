@@ -25,18 +25,27 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Jira Web Site - COLOCAR EXEMPLO")]
+            [Display(Name = "Jira Web Site")]
             public string JiraWebSite { get; set; }
+
+            [EmailAddress]
+            [Display(Name = "Jira Email")]
+            public string JiraEmail { get; set; }
+
+
+            [Display(Name = "Jira Key")]
+            public string JiraKey { get; set; }
+
         }
 
-        public override async Task LoadAsync()
-        {
-            var jiraWebSite = userIdentity().JiraWebSite;
 
+        public override async Task LoadAsync()
+        {            
             Input = new InputModel
             {
-                JiraWebSite = jiraWebSite
+                JiraWebSite = userIdentity().JiraWebSite,
+                JiraEmail = userIdentity().JiraEmail,
+                JiraKey = userIdentity().JiraKey
             };
         }
 
@@ -55,23 +64,13 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
             }
 
             user.JiraWebSite = Input.JiraWebSite;
-
+            user.JiraEmail = Input.JiraEmail;
+            user.JiraKey = Input.JiraKey;
 
             await _userManager.UpdateAsync(user);
 
-
-            //if (Input.JiraWebSite != jiraWebSite)
-            //{
-            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.JiraWebSite);
-            //    if (!setPhoneResult.Succeeded)
-            //    {
-            //        StatusMessage = "Unexpected error when trying to set phone number.";
-            //        return RedirectToPage();
-            //    }
-            //}
-
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Your jira integration information has been updated";
             return RedirectToPage();
         }
     }

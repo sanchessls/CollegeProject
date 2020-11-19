@@ -156,12 +156,28 @@ namespace ScrumPokerPlanning
                     {
                         context.Response.StatusCode = 500;
                         context.Response.ContentType = "application/json";
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                        
+                        if (error.Error.InnerException != null) 
                         {
-                            State = "Internal Server Error",
-                            Msg = error.Error.Message,                            
-                            Msg2 = error.Error.InnerException.Message
-                        }));
+                            await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                            {
+                                State = "Internal Server Error",
+                                Msg = error.Error.Message,
+                                Msg2 = error.Error.InnerException.Message
+                            }));
+                        }
+                        else
+                        {
+                            await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                            {
+                                State = "Internal Server Error",
+                                Msg = error.Error.Message,
+                                Msg2 = ""
+                            }));
+
+                        }
+                        
+                      
                     }
                     //when no error, do next.
                     else await next();
