@@ -10,8 +10,8 @@ using ScrumPokerPlanning.Context;
 namespace ScrumPokerPlanning.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201103013613_UpdatingFeature2")]
-    partial class UpdatingFeature2
+    [Migration("20201119173324_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,12 +170,10 @@ namespace ScrumPokerPlanning.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -212,12 +210,10 @@ namespace ScrumPokerPlanning.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -299,6 +295,9 @@ namespace ScrumPokerPlanning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SessionCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -335,6 +334,15 @@ namespace ScrumPokerPlanning.Migrations
             modelBuilder.Entity("ScrumPokerPlanning.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("JiraEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JiraKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JiraWebSite")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PlanningSessionId")
                         .HasColumnType("int");
