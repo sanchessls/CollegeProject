@@ -25,8 +25,7 @@ namespace ScrumPokerPlanning.Areas.Identity
                 //         .AddDefaultUI()
                 //        .AddDefaultTokenProviders(); // Configure token generator
 
-
-                services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+                
 
 
             });

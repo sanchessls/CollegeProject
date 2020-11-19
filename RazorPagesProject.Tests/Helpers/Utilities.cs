@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using ScrumPokerPlanning.Context;
+using ScrumPokerPlanning.Models;
 
 namespace RazorPagesProject.Tests
 {
@@ -25,9 +26,9 @@ namespace RazorPagesProject.Tests
             InitializeDbForTests(db);
         }
 
-        public static List<IdentityUser> GetUsers()
+        public static List<ApplicationUser> GetUsers()
         {
-            return new List<IdentityUser>()
+            return new List<ApplicationUser>()
             {
                 //new IdentityUser(){ Id = "id1" , UserName = "Test user",Email = "email@eemail.com" ,EmailConfirmed = true,}
             };
