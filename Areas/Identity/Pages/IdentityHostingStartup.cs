@@ -16,18 +16,6 @@ namespace ScrumPokerPlanning.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-
-                //Adding the identity for autorization and autenticaton
-                //    services.AddIdentity<IdentityUser, IdentityRole>(options => { /*options.SignIn.RequireConfirmedAccount*/
-                //        options.Password.RequireDigit = true;
-                //        options.Password.RequiredLength = 6;
-                //    }).AddEntityFrameworkStores<ApplicationContext>()
-                //         .AddDefaultUI()
-                //        .AddDefaultTokenProviders(); // Configure token generator
-
-                
-
-
             });
 
 

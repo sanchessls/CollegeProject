@@ -83,7 +83,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {
-            ApagaTudo();
             string SessionCode = Request.Query["code"];
 
             int idSession = 0;
@@ -113,17 +112,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             return base.LoadAsync();
         }
 
-        public void ApagaTudo()
-        {
-            //_appContext.Remove(_appContext.FeatureUser);
-            //_appContext.Remove(_appContext.Feature);
-            //_appContext.Remove(_appContext.PlanningSessionUser);
-            //_appContext.Remove(_appContext.PlanningSession);
-            //_appContext.Remove(_appContext.Users);
-
-
-        }
-
         public async Task<IActionResult> OnPostJiraImportAsync()
         {
             if ((JiraIdentification == null) || (JiraIdentification.Trim() == ""))
@@ -132,7 +120,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-            ObjJiraFeature JiraReturn = _JiraService.GetJiraFeature(JiraIdentification,"","","");
+            ObjJiraFeature JiraReturn = _JiraService.GetJiraFeature(JiraIdentification, userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey);
 
             if (!JiraReturn.Success)
             {

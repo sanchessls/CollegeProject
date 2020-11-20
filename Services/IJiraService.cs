@@ -42,14 +42,10 @@ namespace ScrumPokerPlanning.Services
             {
                 using (var httpClient = new HttpClient())
                 {
-                    //show this exemple on the UI 
-                    //https://YourWebSite.atlassian.net
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://cloudsphere.atlassian.net/rest/api/2/search?jql=key=IV-20555"))
 
-                    //using (var request = new HttpRequestMessage(new HttpMethod("GET"), website + "/rest/api/2/search?jql=key=" + Identificator))
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), website + "/rest/api/2/search?jql=key=" + Identificator))
                     {
-                        var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes("andre.sanches@cloudsphere.com:cd4xRZrocjwJK7bpDlAR9E4A"));
-                        //var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(email +":"+key));
+                        var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(email + ":" + key));
                         request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
 
                         HttpResponseMessage response = httpClient.SendAsync(request).Result;
