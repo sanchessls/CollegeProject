@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using AngleSharp.Html.Dom;
 using Xunit;
 using RazorPagesProject.Tests.Helpers;
+using System;
 
 namespace RazorPagesProject.Tests
 {
@@ -28,45 +29,46 @@ namespace RazorPagesProject.Tests
             _factory = factory;
         }
 
-        #region snippet2
-        [Fact(Skip = "UNTILL FIXX")]
+        [Fact]
         public async Task Get_SecurePageRedirectsAnUnauthenticatedUser()
         {
-            // Arrange
-            var client = _factory.CreateClient(
-                new WebApplicationFactoryClientOptions
-                {
-                    AllowAutoRedirect = false
-                });
-
-            // Act
-            var response = await client.GetAsync("/");
-
-            // Assert
-            Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-            Assert.StartsWith("http://localhost/Identity/Account/Login", 
-                response.Headers.Location.OriginalString);
+            await TestUnauthorizedPageAsync("/Identity/Planning/Create");
+            await TestUnauthorizedPageAsync("/");
         }
-        #endregion
-        
-        #region snippet3        
-        [Fact(Skip = "Not Ready Yet")]
-        public async Task Get_SecurePageRedirectsAnUnauthenticatedUser3()
+
+        [Fact(Skip ="Not working authorization yet")]
+        public async Task Get_SecurePageRedirectsAnAuthenticatedUser()
+        {
+            await TestAuthorizedPageAsync("/Identity/Planning/Create");
+            await TestAuthorizedPageAsync("/");
+        }
+
+        private async Task TestUnauthorizedPageAsync(string page)
         {
             // Arrange
-            var client = Utilities.ReturnAuthorized(_factory);       
+            var client = Utilities.ReturnUnauthorized(_factory);
 
             // Act
-            var response = await client.GetAsync("/Identity/Planning/Join");
+            var response = await client.GetAsync(page);
 
-            // Assert
             Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-            Assert.StartsWith("/Identity/Planning/Join",
-                response.Headers.Location.OriginalString);
+            Assert.Equal("/Identity/Account/Login", response.Headers.Location.AbsolutePath);
         }
-        #endregion
+
+        private async Task TestAuthorizedPageAsync(string page)
+        {
+            // Arrange
+            var client = Utilities.ReturnAuthorized(_factory);
+
+            // Act
+            var response = await client.GetAsync(page);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            //Assert.Contains("Identity/Account/Login", response.RequestMessage.RequestUri.ToString());
+        }
+
     }
-    #region snippet4
+
     public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public TestAuthHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, 
@@ -87,5 +89,4 @@ namespace RazorPagesProject.Tests
             return Task.FromResult(result);
         }
     }
-    #endregion
 }

@@ -33,7 +33,18 @@ namespace RazorPagesProject.Tests
                 //new IdentityUser(){ Id = "id1" , UserName = "Test user",Email = "email@eemail.com" ,EmailConfirmed = true,}
             };
         }
+        public static HttpClient ReturnUnauthorized(CustomWebApplicationFactory<ScrumPokerPlanning.Startup> _factory)
+        {
+            var client = _factory.CreateClient(
+               new WebApplicationFactoryClientOptions
+               {
+                   AllowAutoRedirect = false
+               });
 
+            return client;
+        }
+        /*     
+        */
         public static HttpClient ReturnAuthorized(CustomWebApplicationFactory<ScrumPokerPlanning.Startup> _factory)
         {
             var client = _factory.WithWebHostBuilder(builder =>
@@ -47,7 +58,7 @@ namespace RazorPagesProject.Tests
             })
    .CreateClient(new WebApplicationFactoryClientOptions
    {
-       AllowAutoRedirect = true,
+       AllowAutoRedirect = false,
    });
 
             client.DefaultRequestHeaders.Authorization =
