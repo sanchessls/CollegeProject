@@ -35,8 +35,11 @@ namespace ScrumPokerPlanning
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Here we are adding to the Entity Framework our Db Context with our connection string 
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            //Here we are adding to the Entity Framework our Db Context with our connection string
+
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            if (false) // For now the database is not on azure, it is on gearhost
+
             {
                 services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ScrumPokerConnectionAzure")));
             }
