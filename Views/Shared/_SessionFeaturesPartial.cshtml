@@ -30,7 +30,7 @@
 
     @{
 
-        if (item.FullVoted)
+        if (item.FullVoted || (item.Status == EnumFeature.Closed))
         {
             var average = @item.Average();
             if (average > 0)

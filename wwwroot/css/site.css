@@ -172,6 +172,11 @@ form {
 	background-color:yellow;
 }
 
+.cardSelectedOld {
+	background-color: green;
+}
+
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
@@ -213,3 +218,6 @@ form {
 	font-weight: bold;
 	line-height: 25px;
 }
+
+
+

@@ -6,7 +6,8 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Hello @User.Identity.Name!</a>
+        @*<a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Hello @User.Identity.Name.Substring(0, User.Identity.Name.IndexOf('@')) !</a>*@
+        <button class="btn btn-outline-primary" onclick="window.location.href='@Url.Content("/Identity/Account/Manage")'"> Hello @User.Identity.Name.Substring(0, User.Identity.Name.IndexOf('@'))!</button>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

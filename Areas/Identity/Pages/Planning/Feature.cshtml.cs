@@ -31,7 +31,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string DescriptionFeature { get; set; }
         [BindProperty]
         public string FeatureIdentificator { get; set; }
-        
+        [BindProperty]
+        public float MyOldVote { get; set; }
         [BindProperty]
         public bool UserCreator { get; set; }
         [BindProperty]
@@ -42,7 +43,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public override Task LoadAsync()
         {
             int idFeature = Convert.ToInt32(Request.Query["id"]);
-            Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.PlanningSession).FirstOrDefault();
+            Models.Feature FeatureObject = _appContext.Feature.Where(x => x.Id == idFeature).Include(x => x.FeatureUser).Include(x => x.PlanningSession).FirstOrDefault();
             
             PlanningSessionId = FeatureObject.PlanningSession.Id;
             FeatureId = FeatureObject.Id;
@@ -50,6 +51,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             DescriptionFeature = FeatureObject.Description;
             FeatureIdentificator = FeatureObject.Identification;
             SessionCode = FeatureObject.PlanningSession.SessionCode;
+            var myFeature = FeatureObject.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == this.FeatureId).FirstOrDefault();
+            MyOldVote = myFeature.SelectedValue;
 
             //If the Creator is the one Logged
             //We will offer more features            
@@ -132,6 +135,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
+            if (this.MyOldVote > 0)
+            {
+                ModelState.AddModelError(string.Empty, "Vote cannot be changed!");
+                return Page();
+            }
+            
             bool FeatureOpen = (_appContext.Feature.Where(x => x.Id == FeatureId).FirstOrDefault().Status == EnumFeature.Open);
 
             if (!FeatureOpen)

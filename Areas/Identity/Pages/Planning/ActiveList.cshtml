@@ -18,7 +18,7 @@
             Description
         </div>
         <div class="col-md-2">
-            Creation
+            Creation Date
         </div>
     </div>
 
@@ -36,7 +36,7 @@
                     @item.Description
                 </div>
                 <div class="col-md-2">
-                    @item.CreationDate
+                    @item.CreationDate.ToString("MM/dd/yyyy HH:mm:ss")
                 </div>
 
             </div>
@@ -51,9 +51,9 @@
 </div>
 
 
-<div>
+@*<div>
     <a asp-page="Index">Back</a>
-</div>
+</div>*@
 
 
 @section Scripts {

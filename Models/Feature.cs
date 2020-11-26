@@ -40,7 +40,7 @@ namespace ScrumPokerPlanning.Models
                 {
                     if (FeatureUser.Any())
                     {
-                        return FeatureUser.Average(x => x.SelectedValue);
+                        return FeatureUser.Where(x => x.SelectedValue > 0).Average(x => x.SelectedValue);
                     }
                 }
             }

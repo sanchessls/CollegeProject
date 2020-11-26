@@ -116,7 +116,13 @@
                 @Html.HiddenFor(model => model.UserCreator)
                 @Html.HiddenFor(model => model.SessionCode)
                 @Html.HiddenFor(model => model.TypeSelected)
+                @Html.HiddenFor(model => model.MyOldVote)
+                
+
+                @if (Model.MyOldVote <= 0) 
+                {
                 <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
+                }
             </div>
             </form>
         </div>
@@ -144,6 +150,7 @@
                         @Html.HiddenFor(model => model.UserCreator)
                         @Html.HiddenFor(model => model.SessionCode)
                         @Html.HiddenFor(model => model.TypeSelected)
+                        @Html.HiddenFor(model => model.MyOldVote)
 
                         @if (Model.TypeSelected == 1)
                         {
@@ -188,7 +195,23 @@
 
         CallFunctionFromJS();
 
+        clearCards();
+
+        var valueVote = "card" + "@Model.MyOldVote";
+
+        if (@Model.MyOldVote > 0) {
+
+            var element = document.getElementById(valueVote);
+            element.classList.add("cardSelectedOld");
+            document.getElementById('SelectedValue').value = element.getAttribute("CardValue");
+        }
+
         function updatePostID(val) {
+
+            if (@Model.MyOldVote > 0) {
+                return;
+            }
+
             clearCards();
 
             var element = document.getElementById(val);
@@ -202,12 +225,13 @@
             var elements = document.getElementsByClassName("scrum-card");
             for (var i = 0; i < elements.length; i++) {
                 elements[i].classList.remove("cardSelected");
+                elements[i].classList.remove("cardSelectedOld");
             }
         }
 
 
         function CallFunctionFromJS() {
-            $('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
+            //$('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
             $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);
         }
 
