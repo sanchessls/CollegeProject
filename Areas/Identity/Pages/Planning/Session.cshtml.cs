@@ -26,16 +26,16 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         }
 
         [BindProperty]
-        [Display(Name = "Feature description*")]
+        [Display(Name = "Issue description*")]
         public string FeatureDescription { get; set; }
 
         [BindProperty]
-        [Display(Name = "Jira Identificator")]
+        [Display(Name = "Jira identifier")]
         public string JiraIdentification { get; set; }
         
 
         [BindProperty]
-        [Display(Name = "Feature Identificator*")]
+        [Display(Name = "Issue identifier*")]
         [MaxLength(15)]
         public string FeatureIdentification { get; set; }
 
@@ -116,7 +116,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         {
             if ((JiraIdentification == null) || (JiraIdentification.Trim() == ""))
             {
-                ModelState.AddModelError("JiraIdentification", "Invalid Jira Identificator!");
+                ModelState.AddModelError("JiraIdentification", "Invalid Jira identifier!");
                 return Page();
             }
 
@@ -181,7 +181,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             if ((FeatureIdentification == null) || (FeatureIdentification.Trim() == ""))
             {
-                ModelState.AddModelError("FeatureIdentification", "Invalid Identificator!");
+                ModelState.AddModelError("FeatureIdentification", "Invalid identifier!");
                 return Page();
             }
 

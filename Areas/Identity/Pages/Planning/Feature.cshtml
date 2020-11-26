@@ -2,7 +2,7 @@
 @model Feature
 
 @{
-    ViewData["Title"] = "Session: " + Model.PlanningSessionId;
+    ViewData["Title"] = "Session: " + Model.SessionCode;
 }
 
 <div class="col-md-12 sessionHeader">
@@ -11,25 +11,26 @@
 
             <div class="row">
 
-                <div class="col-md-8 NoRowMargin">
+                    <div class="col-md-8 NoRowMargin">
 
-                    @{
-                        <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
-                    }
-                </div>
+                        @{
+                            <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                        }
+                    </div>
 
-                <div class="col-md-4">
+                    <div class="col-md-4">
 
-                    @{
-                        <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
-                    }
-                </div>
+                        @{
+                            <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+                            <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
+                        }
+                    </div>
             </div>
         </div>
         <div class="col-md-12">
             <div class="row">
                 @{
-                    <h4 style="margin-left:5px;"> @Model.FeatureIdentificator</h4>
+                    <h4 style="margin-left:5px;">Issue: @Model.FeatureIdentificator</h4>
                 }
             </div> 
             <div class="row">
@@ -149,7 +150,7 @@
                             <div asp-validation-summary="All" class="text-danger"></div>
                         }
 
-                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Issue" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
                         <br>
                         <hr>
                         <br>
@@ -157,7 +158,7 @@
                         {
                             <div asp-validation-summary="All" class="text-danger"></div>
                         }
-                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CancelFeature" value="Cancel Feature" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CancelFeature" value="Cancel Issue" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
                     </div>
                 </form>
 
@@ -169,7 +170,8 @@
     </div>
 }
 <div>
-    <a href="@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)"> Back to Session </a>
+    <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
+    
 </div>
 
 

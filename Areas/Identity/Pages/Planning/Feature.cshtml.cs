@@ -67,7 +67,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             {
                 if (feature.Status != EnumFeature.Open)
                 {
-                    ModelState.AddModelError("CloseError", "Feature is not in an open state!");
+                    ModelState.AddModelError("CloseError", "Issue is not in an open state!");
                     return Page();
                 }
 
@@ -95,7 +95,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             {
                 if (feature.Status != EnumFeature.Open)
                 {
-                    ModelState.AddModelError("CancelError", "Feature is not in an open state!");
+                    ModelState.AddModelError("CancelError", "Issue is not in an open state!");
                     return Page();
                 }
 
@@ -136,7 +136,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             if (!FeatureOpen)
             {
-                ModelState.AddModelError(string.Empty, "Feature is not in an open state!");
+                ModelState.AddModelError(string.Empty, "Issue is not in an open state!");
                 return Page();
 
             }
