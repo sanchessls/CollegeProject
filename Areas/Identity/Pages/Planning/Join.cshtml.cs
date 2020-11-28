@@ -77,9 +77,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             foreach (var item in featuresInSession)
             {
-                var exist = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id && x.UserId == userIdentity().Id);
-                var existRelationship = exist.First();
-
+                var existRelationship = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id && x.UserId == userIdentity().Id).FirstOrDefault();
+               
                 if (existRelationship == null)
                 {
                     if (item.Status == EnumFeature.Open)
