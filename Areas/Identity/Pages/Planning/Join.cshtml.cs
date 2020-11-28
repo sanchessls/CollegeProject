@@ -77,14 +77,15 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             foreach (var item in featuresInSession)
             {
-                var existRelationship = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id).FirstOrDefault();
+                var exist = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id && x.UserId == userIdentity().Id);
+                var existRelationship = exist.First();
 
                 if (existRelationship == null)
                 {
                     if (item.Status == EnumFeature.Open)
                     {
                         var featureUser = new FeatureUser()
-                        {
+                        {   
                             UserId = userIdentity().Id,
                             FeatureId = item.Id                            
                         };
