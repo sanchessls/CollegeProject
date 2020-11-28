@@ -71,6 +71,35 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 await _appContext.SaveChangesAsync();
             }
 
+            //Issues already created for that session
+            //Add a featureUser line for each feature existent in that sesison
+            var featuresInSession = _appContext.Feature.Where(x => x.SessionId == sessionCode);
+
+            foreach (var item in featuresInSession)
+            {
+                var existRelationship = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id).FirstOrDefault();
+
+                if (existRelationship == null)
+                {
+                    if (item.Status == EnumFeature.Open)
+                    {
+                        var featureUser = new FeatureUser()
+                        {
+                            UserId = userIdentity().Id,
+                            FeatureId = item.Id                            
+                        };
+
+                        _appContext.FeatureUser.Add(featureUser);
+
+                        await _appContext.SaveChangesAsync();
+                    }
+                }
+                    
+            }
+              
+
+
+
             return RedirectToPage("./Session", new { code = SessionCode });
         }
     }
