@@ -73,7 +73,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             //Issues already created for that session
             //Add a featureUser line for each feature existent in that sesison
-            var featuresInSession = _appContext.Feature.Where(x => x.SessionId == sessionCode);
+            var featuresInSession = _appContext.Feature.Where(x => x.SessionId == sessionCode).ToList();
 
             foreach (var item in featuresInSession)
             {
