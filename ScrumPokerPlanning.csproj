@@ -15,11 +15,7 @@
     <None Remove="RazorPagesTestSample.Tests\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\js\Session.js" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ItemGroup>
     <None Include="wwwroot\js\Session.js" />
     <None Include="wwwroot\js\Feature.js" />
   </ItemGroup>

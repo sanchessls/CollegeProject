@@ -17,7 +17,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     {
 
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
-        public JoinModel(ApplicationContext context, UserManager<ApplicationUser> userManager, IHubContext<FeatureHub, IFeature> featureHub) :base(context, userManager)
+        public JoinModel(ApplicationContext context, UserManager<ApplicationUser> userManager, IHubContext< FeatureHub, IFeature> featureHub) :base(context, userManager)
         {
             _FeatureHub = featureHub;
         }

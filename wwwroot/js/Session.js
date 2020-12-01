@@ -3,7 +3,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/hubs/feature").bui
 
 function checkSessionConnection() {
     console.log("checkSessionConnection");
-    console.log(connection);
+    console.log(connection); 
 }
 
 function EnterInGroupSession(group) {
