@@ -17,6 +17,8 @@ function checkSessionConnection() {
 }
 
 async function start() {
+    console.log("SignalR bbbbbbbbb.");
+
     try {
         await connection.start();
         console.log("SignalR Connected.");
