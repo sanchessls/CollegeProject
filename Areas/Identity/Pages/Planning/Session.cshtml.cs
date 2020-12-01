@@ -156,18 +156,49 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             _appContext.Feature.Add(feature);
             await _appContext.SaveChangesAsync();
 
+            //Models.FeatureUser featureUser = new Models.FeatureUser
+            //{
+            //    FeatureId = feature.Id,
+            //    UserId = userIdentity().Id,
+            //};
 
-            Models.FeatureUser featureUser = new Models.FeatureUser
-            {
-                FeatureId = feature.Id,
-                UserId = userIdentity().Id,
-            };
+            //_appContext.FeatureUser.Add(featureUser);
+            //await _appContext.SaveChangesAsync();
 
-            _appContext.FeatureUser.Add(featureUser);
-            await _appContext.SaveChangesAsync();
+            await AddUsersInFeatureAsync(PlanningSessionId, userIdentity().Id);
 
 
             return feature;
+        }
+
+
+        private async Task AddUsersInFeatureAsync(int sessionCode, string idUser)
+        {
+            //We have a identic funtion in session, that must be unique with this one
+            var featuresInSession = _appContext.Feature.Where(x => x.SessionId == sessionCode).ToList();
+
+            foreach (var item in featuresInSession)
+            {
+                var existRelationship = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id && x.UserId == idUser).FirstOrDefault();
+
+                if (existRelationship == null)
+                {
+                    if (item.Status == EnumFeature.Open)
+                    {
+                        var featureUser = new FeatureUser()
+                        {
+                            UserId = idUser,
+                            FeatureId = item.Id
+                        };
+
+                        _appContext.FeatureUser.Add(featureUser);
+
+                        await _appContext.SaveChangesAsync();
+                    }
+                }
+
+            }
+
         }
 
         public async Task<IActionResult> OnPostAsync()
