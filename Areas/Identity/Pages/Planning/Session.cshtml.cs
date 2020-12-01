@@ -203,7 +203,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 }
 
             }
-
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -221,8 +220,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-
-
             if ((FeatureDescription == null) || (FeatureDescription.Trim() == ""))
             {
                 ModelState.AddModelError("FeatureDescription", "Invalid Description!");
@@ -233,6 +230,5 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }
-
     }
 }

@@ -165,6 +165,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             if (ObjectFeatureUser != null)
             {
                 ObjectFeatureUser.SelectedValue = this.SelectedValue;
+                ObjectFeatureUser.Voted = true;
+
                 _appContext.FeatureUser.Update(ObjectFeatureUser);
             }
             else
@@ -173,7 +175,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 {
                     FeatureId = this.FeatureId,
                     UserId = userIdentity().Id,
-                    SelectedValue = this.SelectedValue
+                    SelectedValue = this.SelectedValue,
+                    Voted = true
                 };
                 _appContext.FeatureUser.Add(featureUser);
             }          

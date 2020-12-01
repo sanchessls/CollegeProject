@@ -20,5 +20,6 @@ namespace ScrumPokerPlanning.Models
         [ForeignKey("FeatureId")]
         public Feature Feature { get; internal set; }
         public float SelectedValue { get; internal set; }
+        public bool Voted { get; internal set; }
     }
 }

@@ -43,7 +43,15 @@ namespace ScrumPokerPlanning.Models
                 {
                     if (FeatureUser.Any())
                     {
-                        return FeatureUser.Where(x => x.SelectedValue > 0).Average(x => x.SelectedValue);
+                        var query = FeatureUser.Where(x => x.Voted);
+                        if (query.Any())
+                        {
+                            return query.Average(x => x.SelectedValue);
+                        }
+                        else
+                        {
+                            return 0;
+                        }
                     }
                 }
             }
