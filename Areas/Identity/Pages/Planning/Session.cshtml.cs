@@ -136,8 +136,9 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             string Identificator = JiraReturn.Identificator;
             string subject = JiraReturn.Subject;
+            string link = userIdentity().JiraWebSite + "/browse/" + Identificator;
 
-            Models.Feature feature = await CreateFeatureAsync(Identificator, subject);
+            Models.Feature feature = await CreateFeatureAsync(Identificator, subject, link);
 
             return RedirectToPage("./feature", new { id = feature.Id });
 
@@ -145,7 +146,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         }
 
-        private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject)
+        private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject,string link)
         {
             //the ones  who call this should treat the result in case of exception
             Models.Feature feature = new Models.Feature
@@ -154,7 +155,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 Status = EnumFeature.Open,
                 CreationDate = DateTime.Now,
                 Description = subject,
-                Identification = identificator
+                Identification = identificator,
+                Link = link
             };
 
             _appContext.Feature.Add(feature);
@@ -174,7 +176,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == PlanningSessionId).Select(x => x.UserId).ToList();
             idList.ForEach(x =>
             {
-                _FeatureHub.Clients.Group(x).FeatureUpdated(this.PlanningSessionId, userIdentity().Id);
+                _FeatureHub.Clients.Group(x).StatusFeatureUpdated(this.PlanningSessionId, userIdentity().Id);
             });
 
 
@@ -234,7 +236,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
             
-            CreateFeatureAsync(FeatureIdentification, FeatureDescription).Wait();          
+            CreateFeatureAsync(FeatureIdentification, FeatureDescription,"").Wait();          
 
             return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }

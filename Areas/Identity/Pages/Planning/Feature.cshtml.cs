@@ -28,6 +28,9 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [BindProperty]
         public string DescriptionSession { get; set; }
         [BindProperty]
+        public string Linq { get; set; }
+
+        [BindProperty]
         public string DescriptionFeature { get; set; }
         [BindProperty]
         public string FeatureIdentificator { get; set; }
@@ -51,8 +54,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             DescriptionFeature = FeatureObject.Description;
             FeatureIdentificator = FeatureObject.Identification;
             SessionCode = FeatureObject.PlanningSession.SessionCode;
+            Linq = FeatureObject.Link ?? "";
+
             var myFeature = FeatureObject.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == this.FeatureId).FirstOrDefault();
             MyOldVote = myFeature.SelectedValue;
+            
 
             //If the Creator is the one Logged
             //We will offer more features            

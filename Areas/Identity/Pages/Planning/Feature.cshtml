@@ -15,6 +15,11 @@
 
                         @{
                             <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                            if (Model.Linq != "")
+                            {
+                                <a href="@Url.Content(Model.Linq)">Model.Linq</a>
+                            }
+
                         }
                     </div>
 

@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body class="MainContent">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 HeaderAndFooter">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Scrum Poker Planning</a>
 
@@ -27,13 +27,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container containerPoker">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-white box-shadow" >
+    <footer class="border-top footer text-muted bg-white box-shadow HeaderAndFooter" >
         <div class="container">
             &copy; 2020 - Scrum Poker Planning - @Version
         </div>

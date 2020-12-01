@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ScrumPokerPlanning.Models
 {
     public class Feature
-    {
+    {       
         public int Id { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
@@ -20,6 +20,8 @@ namespace ScrumPokerPlanning.Models
         public string Description { get; set; }
         [Required]
         public EnumFeature Status { get; set; }
+        public string Link { get; set; }
+
         [Required]
         public int SessionId { get; set; }
         [ForeignKey("SessionId")]
