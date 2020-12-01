@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using ScrumPokerPlanning.Context;
@@ -14,15 +15,18 @@ using ScrumPokerPlanning.Models;
 using ScrumPokerPlanning.Repositories.Implementation;
 using ScrumPokerPlanning.Repositories.Interface;
 using ScrumPokerPlanning.Services;
+using ScrumPokerPlanning.SignalRServerSide;
 
 namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class Session : BaseModelDatabaseUser
     {
         IJiraService _JiraService;
-        public Session(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService) : base(context, userManager)
+        private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
+        public Session(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
             _JiraService = jiraService;
+            _FeatureHub = FeatureHub;
         }
 
         [BindProperty]
@@ -166,6 +170,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             //await _appContext.SaveChangesAsync();
 
             await AddUsersInFeatureAsync(PlanningSessionId, userIdentity().Id);
+
+            var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == PlanningSessionId).Select(x => x.UserId).ToList();
+            idList.ForEach(x =>
+            {
+                _FeatureHub.Clients.Group(x).FeatureUpdated(this.PlanningSessionId, userIdentity().Id);
+            });
 
 
             return feature;
