@@ -138,7 +138,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             string subject = JiraReturn.Subject;
             string link = userIdentity().JiraWebSite + "/browse/" + Identificator;
 
-            Models.Feature feature = await CreateFeatureAsync(Identificator, subject, link);
+            Models.Feature feature = await CreateFeatureAsync(Identificator, subject, link , true);
 
             return RedirectToPage("./feature", new { id = feature.Id });
 
@@ -146,7 +146,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         }
 
-        private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject,string link)
+        private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject,string link,bool jiraCreated)
         {
             //the ones  who call this should treat the result in case of exception
             Models.Feature feature = new Models.Feature
@@ -156,20 +156,13 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 CreationDate = DateTime.Now,
                 Description = subject,
                 Identification = identificator,
+                JiraCreated = jiraCreated,
                 Link = link
             };
 
             _appContext.Feature.Add(feature);
+
             await _appContext.SaveChangesAsync();
-
-            //Models.FeatureUser featureUser = new Models.FeatureUser
-            //{
-            //    FeatureId = feature.Id,
-            //    UserId = userIdentity().Id,
-            //};
-
-            //_appContext.FeatureUser.Add(featureUser);
-            //await _appContext.SaveChangesAsync();
 
             await AddUsersInFeatureAsync(PlanningSessionId, userIdentity().Id);
 
@@ -236,7 +229,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
             
-            CreateFeatureAsync(FeatureIdentification, FeatureDescription,"").Wait();          
+            CreateFeatureAsync(FeatureIdentification, FeatureDescription,"",false).Wait();          
 
             return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }

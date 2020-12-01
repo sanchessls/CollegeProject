@@ -39,6 +39,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [BindProperty]
         public bool UserCreator { get; set; }
         [BindProperty]
+        public bool IsJiraCreated { get; set; }
+        [BindProperty]
         public string SessionCode { get; set; }
         [BindProperty]
         public int TypeSelected { get; set; }
@@ -54,6 +56,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             DescriptionFeature = FeatureObject.Description;
             FeatureIdentificator = FeatureObject.Identification;
             SessionCode = FeatureObject.PlanningSession.SessionCode;
+            IsJiraCreated = FeatureObject.JiraCreated;
             Linq = FeatureObject.Link ?? "";
 
             var myFeature = FeatureObject.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == this.FeatureId).FirstOrDefault();

@@ -32,6 +32,7 @@ namespace ScrumPokerPlanning.Models
 
 
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
+        public bool JiraCreated { get; internal set; }
 
         public float Average()
         {

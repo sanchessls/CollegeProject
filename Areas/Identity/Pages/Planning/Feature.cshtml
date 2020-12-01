@@ -17,7 +17,7 @@
                             <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
                             if (Model.Linq != "")
                             {
-                                <a href="@Url.Content(Model.Linq)">Model.Linq</a>
+                                <a class="h4" href="@Url.Content(Model.Linq)"  target="_blank"> @Model.Linq</a>
                             }
 
                         }
@@ -162,7 +162,17 @@
                             <div asp-validation-summary="All" class="text-danger"></div>
                         }
 
-                        <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Issue" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        @if (Model.IsJiraCreated)
+                        {
+                    <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Issue" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                            @*<input type="submit" formaction="/Identity/Planning/CloseFeature?featureid=@Model.FeatureId" value="Close Issue" class="btn btn-primary" />*@
+                        }
+                        else
+                        {
+                            <input type="submit" formaction="/Identity/Planning/Feature?featureid=@Model.FeatureId&amp;sessionid=@Model.PlanningSessionId&amp;handler=CloseFeature" value="Close Issue" class="btn btn-primary" onclick="return confirm('Are you sure?')" />
+                        }
+
+
                         <br>
                         <hr>
                         <br>
