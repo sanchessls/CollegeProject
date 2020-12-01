@@ -60,7 +60,15 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             Linq = FeatureObject.Link ?? "";
 
             var myFeature = FeatureObject.FeatureUser.Where(x => x.UserId == userIdentity().Id && x.FeatureId == this.FeatureId).FirstOrDefault();
-            MyOldVote = myFeature.SelectedValue;
+            if (myFeature != null)
+            {
+                MyOldVote = myFeature.SelectedValue;
+            }
+            else
+            {
+                MyOldVote = 0;
+            }
+           
             
 
             //If the Creator is the one Logged

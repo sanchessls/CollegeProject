@@ -1,10 +1,30 @@
 ﻿"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/hubs/feature").build();
+connection.onclose(start);
 
 function checkSessionConnection() {
     console.log("checkSessionConnection");
     console.log(connection); 
+
+    if (connection != null)
+    {
+        console.log("NotNull");
+
+
+        console.log("State : " + connection.connectionState);
+
+    }
 }
+
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 
 function EnterInGroupSession(group) {
 
