@@ -120,7 +120,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == sessionCode).Select(x => x.UserId).ToList();
                 idList.ForEach(x =>
                 {
-                    _FeatureHub.Clients.Group(x).StatusFeatureUpdated(sessionCode, userIdentity().Id);
+                    _FeatureHub.Clients.Group(x).FeatureUpdated(sessionCode, userIdentity().Id);
                 });
 
             };
