@@ -34,7 +34,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string FeatureDescription { get; set; }
 
         [BindProperty]
-        [Display(Name = "Jira identifier")]
+        [Display(Name = "Identifier")]
         public string JiraIdentification { get; set; }
         
 

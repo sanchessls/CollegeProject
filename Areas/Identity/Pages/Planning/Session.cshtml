@@ -57,11 +57,14 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input id="idButtonSession" type="submit"  formaction="/Identity/Planning/Session" value="Create new issue" class="btn btn-primary" />
+                                <input id="idButtonSession" type="submit" formaction="/Identity/Planning/Session" value="Create new issue" class="btn btn-primary" style="margin-top: 32px;" />
                             </div>
                         </div>
                     </div>
-                    <div class="row sessionHeader">
+                    <hr class="separator"  style="margin-bottom:15px;">
+
+                    <div class="col-md-12 title" style="text-align:center;font-size:x-large">Jira integration</div>
+                    <div class="row">
                         <div class="col-md-8">
                             <span asp-validation-for="JiraIdentification" class="text-danger"></span>
                             <div class="form-group">
@@ -71,7 +74,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input id="idButtonSessionJira"  type="submit"   formaction="/Identity/Planning/Session?code=@Model.SessionCode&amp;handler=JiraImport"  value="Import From Jira" class="btn btn-primary" />
+                                <input id="idButtonSessionJira" type="submit" formaction="/Identity/Planning/Session?code=@Model.SessionCode&amp;handler=JiraImport" value="Import From Jira" class="btn btn-primary" style="margin-top: 32px;" />
                             </div>
                         </div>
                     </div>

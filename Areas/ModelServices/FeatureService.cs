@@ -46,10 +46,16 @@ namespace ScrumPokerPlanning.ModelServices
                                 Select(g => new UsersVoting()
                                 {
                                     Status = (_appContext.FeatureUser.Where(a => a.FeatureId == featureid && a.UserId == g.UserId).Sum(p => p.SelectedValue) > 0),
-                                    UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName
+                                    UserName = _appContext.Users.Where(p => p.Id == g.UserId).FirstOrDefault().UserName,
+                                    Vote = (_appContext.FeatureUser.Where(a => a.FeatureId == featureid && a.UserId == g.UserId).FirstOrDefault().SelectedValue)
                                 }).ToList();
 
-            return usersVoting;
+
+            bool FullVotedSession = !usersVoting.Where(x => !x.Status).Any();
+
+            usersVoting.ForEach(x => { x.FullVoted = FullVotedSession; });
+
+            return usersVoting.OrderByDescending(x => x.Vote).ToList();
 
         }
    }
