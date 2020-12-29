@@ -2,8 +2,8 @@
 @model List<UsersVoting>
 
 <div class="row">
-    <div class="col-md-6">User</div>
-    <div class="col-md-4">Status</div>
+    <div class="col-md-8">User</div>
+    <div class="col-md-2">Status</div>
     <div class="col-md-2">Vote</div>
 </div>
 <hr class="separatorHead">
@@ -11,12 +11,12 @@
 @foreach (var item in Model)
 {
     <div class="row">
-        <div class="col-md-6">@item.UserName</div>
+        <div class="col-md-8">@item.UserName</div>
 
         @{
             if (@item.Status)
             {
-                <div class="col-md-4" style="padding-left:0px;">
+                <div class="col-md-2" style="padding-left:0px;">
                     <div class="buttonStatus" style="background-color:lightgreen">
                         Voted
                     </div>
@@ -25,7 +25,7 @@
             }
             else
             {
-                <div class="col-md-4" style="padding-left:0px;">
+                <div class="col-md-2" style="padding-left:0px;">
                     <div class="buttonStatus" style="background-color:lightcoral">
                         Waiting
                     </div>

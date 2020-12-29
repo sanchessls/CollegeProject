@@ -28,7 +28,9 @@ namespace ScrumPokerPlanning.Models
         public PlanningSession PlanningSession { get; set; }
 
         [NotMapped]
-        public bool FullVoted { get; set; }
+        public int VotesTotal { get; set; }
+        [NotMapped]
+        public int VotesComplete { get; set; }
 
 
         public virtual ICollection<FeatureUser> FeatureUser { get; set; }
@@ -58,18 +60,87 @@ namespace ScrumPokerPlanning.Models
             return 0;
         }
 
+        public float Lower()
+        {
+            if (Status != EnumFeature.Canceled)
+            {
+                if (FeatureUser != null)
+                {
+                    if (FeatureUser.Any())
+                    {
+                        var query = FeatureUser.Where(x => x.Voted);
+                        if (query.Any())
+                        {
+                            return query.Min(x => x.SelectedValue);
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public float Higher()
+        {
+            if (Status != EnumFeature.Canceled)
+            {
+                if (FeatureUser != null)
+                {
+                    if (FeatureUser.Any())
+                    {
+                        var query = FeatureUser.Where(x => x.Voted);
+                        if (query.Any())
+                        {
+                            return query.Max(x => x.SelectedValue);
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public float Mode()
+        {
+            if (Status != EnumFeature.Canceled)
+            {
+                if (FeatureUser != null)
+                {
+                    if (FeatureUser.Any())
+                    {
+                        var query = FeatureUser.Where(x => x.Voted);
+                        if (query.Any())
+                        {
+                            return query.Select(x => x.SelectedValue).GroupBy(i => i).OrderBy(g => g.Count()).Last().Key; 
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
         public string StatusColor()
         {
             switch (this.Status)
             {
                 case EnumFeature.Open:
-                    return "green";
+                    return "#4eebab45";
                 case EnumFeature.Canceled:
-                    return "red";
+                    return "#db3c3cba";
                 case EnumFeature.Closed:
-                    return "brown";
+                    return "#be752aba";
                 default:
-                    return "yellow";
+                    return "#ebf64eba";
             }       
         }
     }

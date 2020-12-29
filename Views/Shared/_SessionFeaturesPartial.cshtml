@@ -4,9 +4,14 @@
     <div class="row">
         <div class="col-md-2 title">Identification</div>
         <div class="col-md-4 title">Description</div>
-        <div class="col-md-2 title">Status</div>
-        <div class="col-md-2 title">Average</div>
-        <div class="col-md-2 title">Full voted</div>
+        <div class="col-md-1 title">Status</div>
+
+        <div class="col-md-1 title">Average</div>
+        <div class="col-md-1 title">Lower</div>
+        <div class="col-md-1 title">Mode</div>
+        <div class="col-md-1 title">Higher</div>
+
+        <div class="col-md-1 title">Votes</div>
     </div>
     <hr class="separatorHead">
 
@@ -15,58 +20,79 @@
     {
 
 
-<div class="row ColumnsOfTable">
-    <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id=" + item.Id)">@item.Identification</a></div>
-    <div class="col-md-4">@item.Description</div>
+        <div class="row ColumnsOfTable">
+            <div class="col-md-2"><a href="@Url.Content("~/Identity/Planning/Feature?id=" + item.Id)">@item.Identification</a></div>
+            <div class="col-md-4">@item.Description</div>
 
 
 
-    <div class="col-md-2">
-        <div class="buttonStatus" style="background-color:@item.StatusColor()">
-            @item.Status
-        </div>
-
-    </div>
-
-    @{
-
-        if (item.FullVoted || (item.Status == EnumFeature.Closed))
-        {
-            var average = @item.Average();
-            if (average > 0)
-            {
-                <div class="col-md-2">@average.ToString("0.00")</div>
-            }
-            else
-            {
-                <div class="col-md-2">N/A</div>
-            }
-        }
-        else
-        {
-            <div class="col-md-2">Waiting Votes</div>
-        }
-
-
-    }
-
-    @{
-
-        if (item.FullVoted)
-        {
-            <div class="col-md-2">
-                <img style='height: 65%; width: 26%; object-fit: contain' src="../../greenCheck.png" />
+            <div class="col-md-1">
+                <div class="buttonStatus2" style="background-color:@item.StatusColor()">
+                    @item.Status
+                </div>
 
             </div>
-        }
-        else
-        {
-            <div class="col-md-2"></div>
 
-        }
-    }
+            @{
 
-</div>
+                if ((item.VotesComplete == item.VotesTotal) || (item.Status == EnumFeature.Closed))
+                {
+                    var average = @item.Average();
+                    if (average > 0)
+                    {
+                        <div class="col-md-1">@average.ToString("0.00")</div>
+                    }
+                    else
+                    {
+                        <div class="col-md-1"></div>
+                    }
+
+                    average = @item.Lower();
+                    if (average > 0)
+                    {
+                        <div class="col-md-1">@average.ToString("0.00")</div>
+                    }
+                    else
+                    {
+                        <div class="col-md-1"></div>
+                    }
+
+
+                    average = @item.Mode();
+                    if (average > 0)
+                    {
+                        <div class="col-md-1">@average.ToString("0.00")</div>
+                    }
+                    else
+                    {
+                        <div class="col-md-1"></div>
+                    }
+
+                    average = @item.Higher();
+                    if (average > 0)
+                    {
+                        <div class="col-md-1">@average.ToString("0.00")</div>
+                    }
+                    else
+                    {
+                        <div class="col-md-1"></div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-4"></div>
+                }
+
+
+            }
+
+            @{
+                <div class="col-md-1">
+                    <span>@item.VotesComplete.ToString()/@item.VotesTotal.ToString()</span>
+                </div>
+            }
+
+        </div>
         <hr class="separator">
     }
 

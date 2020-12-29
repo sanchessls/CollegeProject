@@ -74,8 +74,8 @@ body {
 	border-color: yellow;*/
 }
 
-
 /*
+
 .col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
 {	
 	
@@ -106,6 +106,12 @@ form {
    margin: 5px 0px 5px 0px;
    padding: 0px 10px 0px 10px;
    width: fit-content;
+}
+.buttonStatus2 {
+	border-radius: 1rem;
+	margin: 0px 0px 0px -15px;
+	padding: 0px 10px 0px 10px;
+	width: fit-content;
 }
 .separator
 {	
@@ -242,8 +248,5 @@ form {
 */	
 	padding:10px;
 }
-
-
-
 
 

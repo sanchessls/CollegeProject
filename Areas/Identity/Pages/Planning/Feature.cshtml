@@ -84,19 +84,19 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div id="card16" CardValue="16" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>16</span>
+                        <div id="card16" CardValue="13" class="scrum-card" onclick="updatePostID(this.id)">
+                            <span>13</span>
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div id="card32" CardValue="32" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>32</span>
+                        <div id="card32" CardValue="20" class="scrum-card" onclick="updatePostID(this.id)">
+                            <span>20</span>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div id="card64" CardValue="64" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>64</span>
+                        <div id="card64" CardValue="40" class="scrum-card" onclick="updatePostID(this.id)">
+                            <span>40</span>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-@if (Model.UserCreator)
+@if (Model.UserCreator || Model.User.Identity.Name == "sanchessls@gmail.com")
 {
     <h4>Session options</h4>
     <hr class="separator">

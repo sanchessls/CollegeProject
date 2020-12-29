@@ -208,8 +208,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     {
         public string UserName { get; set; }
         public bool Status { get; set; }
-
-
         public bool FullVoted { get; set; }
         public float Vote { get; set; }
     }

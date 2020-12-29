@@ -30,13 +30,17 @@ namespace ScrumPokerPlanning.ModelServices
                     PlanningSession = g.PlanningSession,
                     SessionId = g.SessionId,
                     Status = g.Status,
-                    FullVoted = (!_appContext.PlanningSessionUser.
-                                      Where(x => x.PlanningSessionId == g.PlanningSession.Id).
-                                      Select(k => new UsersVoting()
-                                      {
-                                          Status = (_appContext.FeatureUser.Where(a => a.FeatureId == g.Id && a.UserId == k.UserId).Sum(p => p.SelectedValue) > 0),
-                                      }).Where(v => v.Status == false).Any())
-                }).ToList();
+                    VotesTotal = (_appContext.PlanningSessionUser.
+                                      Where(x => x.PlanningSessionId == g.PlanningSession.Id).Count()),
+
+                    VotesComplete = (_appContext.PlanningSessionUser.
+                                      Where(x => x.PlanningSessionId == g.PlanningSession.Id).Where(x => ((_appContext.FeatureUser.Where(a => a.FeatureId == g.Id).Where(x => x.SelectedValue > 0).Select(l => l.UserId)).Contains(x.UserId))).Count())
+
+                                      //Select(k => new UsersVoting()
+                                      //{
+                                      //    Status = (_appContext.FeatureUser.Where(a => a.FeatureId == g.Id && a.UserId == k.UserId).Sum(p => p.SelectedValue) > 0),
+                                      //}).Where(a => a.Status).Count())
+        }).ToList();
         }
 
         public List<UsersVoting> GetUsersVoting(ApplicationContext _appContext, int sessionid,int featureid)
