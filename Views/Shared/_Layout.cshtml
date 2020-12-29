@@ -2,7 +2,10 @@
 @inject IConfiguration Configuration
 
 @{
-    var Version = @Configuration["SoftwareInformation:Version"];
+    var VersionStr = @Configuration["SoftwareInformation:Version"];
+    var VersionMessage = @Configuration["SoftwareInformation:VersionMessage"];
+
+    var VersionFoot = VersionStr + " - " + VersionMessage;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Scrum Poker Planning</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css?v=2" />
+    <link rel="stylesheet" href="~/css/site.css?v=@VersionStr"  />
 </head>
 <body class="MainContent">
     <header>
@@ -35,12 +38,12 @@
 
     <footer class="border-top footer text-muted bg-white box-shadow HeaderAndFooter" >
         <div class="container">
-            &copy; 2020 - Scrum Poker Planning - @Version
+            &copy; 2020 - Scrum Poker Planning - @VersionStr
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js?v=@VersionStr" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

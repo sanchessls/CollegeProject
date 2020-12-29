@@ -1,9 +1,11 @@
 ﻿@page
 @model Session
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 @{
+    var VersionStr = @Configuration["SoftwareInformation:Version"];
     ViewData["Title"] = "Session";
-
 }
 
 <div class="col-md-12" style="padding-bottom:15px;">
@@ -61,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="separator"  style="margin-bottom:15px;">
+                    <hr class="separator" style="margin-bottom:15px;">
 
                     <div class="col-md-12 title" style="text-align:center;font-size:x-large">Jira integration</div>
                     <div class="row">
@@ -94,7 +96,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/Session.js"></script>
+    <script src="~/js/Session.js?v=@VersionStr"></script>
 
     <script type="text/javascript">
         checkSessionConnection();
