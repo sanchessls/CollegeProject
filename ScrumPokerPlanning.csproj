@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon>ESSASEMFUNDO.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
