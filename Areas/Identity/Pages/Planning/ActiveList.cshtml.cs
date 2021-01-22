@@ -24,7 +24,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {            
-            PlanningSessionList = _appContext.PlanningSessionUser.Include(a => a.PlanningSession).Where(x => x.UserId == userIdentity().Id && x.PlanningSession.Status == EnumPlanningSession.Open).Select(g => g.PlanningSession).ToList();
+            PlanningSessionList = _appContext.PlanningSessionUser.Include(a => a.PlanningSession).Where(x => x.UserId == userIdentity().Id && x.PlanningSession.Status == EnumPlanningSession.Open).Select(g => g.PlanningSession).OrderByDescending(x => x.CreationDate).ToList();
             return base.LoadAsync();
         }
     }

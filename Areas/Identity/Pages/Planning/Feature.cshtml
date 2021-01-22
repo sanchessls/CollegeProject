@@ -50,91 +50,116 @@
 
     }
 
-    <div class="sessionHeader col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row" style="margin:5px;">
-                    <div class="col-md-3">
-                        <div id="card1" CardValue="1" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>1</span>
-                        </div>
+<div class="sessionHeader col-md-12">
+    <div class="row";>
+        <div class="col-md-12">
+            <div class="row" style="margin:5px;">
+                <div class="col-md-3">
+                    <div id="card0.5" CardValue="0.5" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>0.5</span>
                     </div>
-                    <div class="col-md-3">
-                        <div id="card2" CardValue="2" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>2</span>
-                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="card1" CardValue="1" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>1</span>
                     </div>
+                </div>
 
-                    <div class="col-md-3">
-                        <div id="card3" CardValue="3" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>3</span>
-                        </div>
+                <div class="col-md-3">
+                    <div id="card2" CardValue="2" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>2</span>
                     </div>
-                    <div class="col-md-3">
-                        <div id="card5" CardValue="5" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>5</span>
-                        </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div id="card3" CardValue="3" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>3</span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row" style="margin:5px;">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div id="card8" CardValue="8" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>8</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div id="card16" CardValue="13" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>13</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div id="card32" CardValue="20" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>20</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div id="card64" CardValue="40" class="scrum-card" onclick="updatePostID(this.id)">
-                            <span>40</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-
-        <div style="align-content:center;">
-
-            <form method="post">
-                @if (Model.TypeSelected == 0)
-                {
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                }
-                <div class="form-group">
-                    @Html.HiddenFor(model => model.SelectedValue)
-                    @Html.HiddenFor(model => model.FeatureId)
-                    @Html.HiddenFor(model => model.PlanningSessionId)
-                    @Html.HiddenFor(model => model.DescriptionSession)
-                    @Html.HiddenFor(model => model.DescriptionFeature)
-                    @Html.HiddenFor(model => model.FeatureIdentificator)
-                    @Html.HiddenFor(model => model.UserCreator)
-                    @Html.HiddenFor(model => model.SessionCode)
-                    @Html.HiddenFor(model => model.TypeSelected)
-                    @Html.HiddenFor(model => model.MyOldVote)
-
-
-                    @if (Model.MyOldVote <= 0)
-                    {
-                        <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
-                    }
-                </div>
-            </form>
         </div>
     </div>
+    <div class="row" style="margin:5px;">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="card5" CardValue="5" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>5</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="card8" CardValue="8" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>8</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="card13" CardValue="13" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>13</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div id="card20" CardValue="20" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>20</span>
+                    </div>
+                </div>
+     
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin:5px;">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="card40" CardValue="40" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>40</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div id="card60" CardValue="60" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>60</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div id="card100" CardValue="100" class="scrum-card" onclick="updatePostID(this.id)">
+                        <span>100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div style="align-content:center;">
+
+        <form method="post">
+            @if (Model.TypeSelected == 0)
+            {
+                <div asp-validation-summary="All" class="text-danger"></div>
+            }
+            <div class="form-group">
+                @Html.HiddenFor(model => model.SelectedValue)
+                @Html.HiddenFor(model => model.FeatureId)
+                @Html.HiddenFor(model => model.PlanningSessionId)
+                @Html.HiddenFor(model => model.DescriptionSession)
+                @Html.HiddenFor(model => model.DescriptionFeature)
+                @Html.HiddenFor(model => model.FeatureIdentificator)
+                @Html.HiddenFor(model => model.UserCreator)
+                @Html.HiddenFor(model => model.SessionCode)
+                @Html.HiddenFor(model => model.TypeSelected)
+                @Html.HiddenFor(model => model.MyOldVote)
+
+
+                @if (Model.MyOldVote <= 0)
+                {
+                    <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
+                }
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 
 @if (Model.UserCreator || Model.User.Identity.Name == "sanchessls@gmail.com")
