@@ -139,24 +139,26 @@
             {
                 <div asp-validation-summary="All" class="text-danger"></div>
             }
-            <div class="form-group">
-                @Html.HiddenFor(model => model.SelectedValue)
-                @Html.HiddenFor(model => model.FeatureId)
-                @Html.HiddenFor(model => model.PlanningSessionId)
-                @Html.HiddenFor(model => model.DescriptionSession)
-                @Html.HiddenFor(model => model.DescriptionFeature)
-                @Html.HiddenFor(model => model.FeatureIdentificator)
-                @Html.HiddenFor(model => model.UserCreator)
-                @Html.HiddenFor(model => model.SessionCode)
-                @Html.HiddenFor(model => model.TypeSelected)
-                @Html.HiddenFor(model => model.MyOldVote)
+        <div class="form-group">
+            @Html.HiddenFor(model => model.SelectedValue)
+            @Html.HiddenFor(model => model.FeatureId)
+            @Html.HiddenFor(model => model.PlanningSessionId)
+            @Html.HiddenFor(model => model.DescriptionSession)
+            @Html.HiddenFor(model => model.DescriptionFeature)
+            @Html.HiddenFor(model => model.FeatureIdentificator)
+            @Html.HiddenFor(model => model.IsJiraCreated)
+            @Html.HiddenFor(model => model.Linq)
+            @Html.HiddenFor(model => model.UserCreator)
+            @Html.HiddenFor(model => model.SessionCode)
+            @Html.HiddenFor(model => model.TypeSelected)
+            @Html.HiddenFor(model => model.MyOldVote)
 
 
-                @if (Model.MyOldVote <= 0)
-                {
-                    <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
-                }
-            </div>
+            @if (Model.MyOldVote <= 0)
+            {
+                <input type="submit" formaction="/Identity/Planning/Feature?id=@Model.FeatureId" value="Submit" class="btn btn-primary" />
+            }
+        </div>
         </form>
     </div>
 </div>
@@ -180,6 +182,8 @@
                         @Html.HiddenFor(model => model.DescriptionSession)
                         @Html.HiddenFor(model => model.DescriptionFeature)
                         @Html.HiddenFor(model => model.FeatureIdentificator)
+                        @Html.HiddenFor(model => model.IsJiraCreated)
+                        @Html.HiddenFor(model => model.Linq)
                         @Html.HiddenFor(model => model.UserCreator)
                         @Html.HiddenFor(model => model.SessionCode)
                         @Html.HiddenFor(model => model.TypeSelected)

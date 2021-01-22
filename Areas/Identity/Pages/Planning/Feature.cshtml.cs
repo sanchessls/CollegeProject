@@ -199,6 +199,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 _FeatureHub.Clients.Group(x).FeatureUpdated(this.FeatureId, userIdentity().Id);
             });
 
+            if (UserCreator)
+            {
+                this.MyOldVote = this.SelectedValue;
+                return Page();
+            }
+
             return RedirectToPage("./Session", new { code = SessionCode });
         }
 
