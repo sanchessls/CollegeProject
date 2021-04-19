@@ -1,6 +1,23 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
+    string vLink1 = "/Identity/Planning/JiraFilter?code=" + @Model.SessionCode + "&favourite=true";
+    string vLink2 = "/Identity/Planning/JiraFilter?code=" + @Model.SessionCode + "&favourite=false";
+
 }
+<div>   Here , create a header da Sessao: @Model.SessionCode  </div>
+Create a back to session buttion
+Check only scrum master
+
+
+
+<div class="col-md-4">
+
+    @{
+        <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
+    }
+</div>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -8,10 +25,10 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs nav-justified">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Identity/Planning/JiraFilter?code=8F8VrW&favourite=true">Favourite Filters</a>
+                        <a class="nav-link" href=@vLink1>Favourite Filters</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Identity/Planning/JiraFilter?code=8F8VrW&favourite=false">All Filters</a>
+                        <a class="nav-link" href=@vLink2>All Filters</a>
                     </li>
                 </ul>
             </div>
@@ -23,6 +40,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div class="col-md-4">
+
+        @{
+            <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
+        }
     </div>
 
 </div>

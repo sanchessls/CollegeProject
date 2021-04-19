@@ -15,7 +15,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         protected readonly UserManager<ApplicationUser> _userManager;
 
         public string UserGroup = "";
+
+        public bool UserUsingJiraIntegration { get; private set; }
+
         private ApplicationUser _userIdentity = null;
+        
+
         protected ApplicationUser userIdentity() 
         {
             if (User != null)
@@ -26,6 +31,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             if (_userIdentity != null)
             {
                 UserGroup = _userIdentity.Id;
+                UserUsingJiraIntegration = ((_userIdentity.JiraKey ?? "") != "");
             }
 
             return _userIdentity;
@@ -34,7 +40,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public BaseModelUser(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            userIdentity();
+            userIdentity();            
         }
 
         public async Task<IActionResult> OnGetAsync()

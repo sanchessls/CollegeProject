@@ -74,8 +74,7 @@ body {
 	border-color: yellow;*/
 }
 
-
-
+/*
 .col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
 {	
 	
@@ -84,12 +83,13 @@ body {
 	border-color:green;	
 	
 }
-
+	
 form {
 	border-width: 12px !important;
 	border-style: solid !important;
 	border-color: red !important;
-}
+}*/
+	
 
 .pad-minus-15{
 	padding:0px!important;

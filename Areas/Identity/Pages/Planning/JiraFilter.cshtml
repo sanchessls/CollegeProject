@@ -19,11 +19,11 @@
 
     <script type="text/javascript">        
         function Atualiza() {
-            console.log("sanches");
+            console.log(@Model.FavouriteChoosed);
         }
 
 
         Atualiza();
-            $('#gridFilters').load('/Identity/Planning/JiraFilterPartial/JiraFilter?sessionid=1');                   
+        $('#gridFilters').load('/Identity/Planning/JiraFilterPartial/JiraFilter?code=@Model.SessionCode' + '&' +  'FavouriteChoosed=@Model.FavouriteChoosed');                   
     </script>
 }

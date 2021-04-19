@@ -23,7 +23,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     {
         IJiraService _JiraService;
         private int JiraFilterCode = 0;
-        private bool favouriteChoosed = true;
+        
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
         public JiraFilter(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
@@ -31,7 +31,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             _FeatureHub = FeatureHub;
         }
 
- 
+        [BindProperty]
+        [Display(Name = "Is Favourite Filters Only")]
+        public string FavouriteChoosed { get; set; }
+        public string SessionCode { get; set; }
+
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async override Task<RedirectToPageResult> Validator()
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -45,7 +49,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 ModelState.AddModelError(string.Empty, "Null Session Code!");
                 return RedirectToPage(".Join");
             }
-
+            
 
             var query = _appContext.PlanningSession.Where(x => x.SessionCode == aSessionFilterCode);
 
@@ -61,6 +65,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             }
 
             JiraFilterCode = idSessionFilter;
+
+            SessionCode = aSessionFilterCode;
+            string? favouriteFilters = Request.Query["favourite"];
+
+            FavouriteChoosed = favouriteFilters;
 
             return null;
         }

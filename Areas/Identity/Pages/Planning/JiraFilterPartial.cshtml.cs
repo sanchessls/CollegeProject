@@ -22,9 +22,9 @@ namespace ScrumPokerPlanning.JiraFilterPartial
             _appContext = appContext;
         }        
 
-        public PartialViewResult OnGetJiraFilter(int sessionid)
+        public PartialViewResult OnGetJiraFilter(string SessionCode,string FavouriteChoosed)
         {
-            List<Models.JiraFilter> JiraFilters = _jiraService.GetJiraFilter(userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey,true);
+            List<Models.JiraFilter> JiraFilters = _jiraService.GetJiraFilter(userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey,(FavouriteChoosed == "true"));
 
 #pragma warning disable EF1001 // Internal EF Core API usage.
             if (JiraFilters.Any())

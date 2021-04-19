@@ -8,87 +8,114 @@
     ViewData["Title"] = "Session";
 }
 
-    <div class="col-md-12" style="padding-bottom:15px;">
-        <div class="col-md-12">
+<div class="col-md-12" style="padding-bottom:15px;">
+    <div class="col-md-12">
 
+        <div class="row">
+
+            <div class="col-md-8">
+
+                @{
+                    <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                }
+            </div>
+
+            <div class="col-md-4">
+
+                @{
+                    <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    @if (Model.UserUsingJiraIntegration)
+    {
+        <div class="sessionHeader">
             <div class="row">
-
                 <div class="col-md-8">
 
                     @{
-                        <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+                        <div class="col-md-06 title" style="text-align:right;font-size:medium">List of filter and issues from Jira to add into the Session: </div>
                     }
                 </div>
 
                 <div class="col-md-4">
 
                     @{
-                        <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+                        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/JiraFilter?code=" + @Model.SessionCode + "&favourite=true")'">Jira Issue Filter List</button>
                     }
                 </div>
             </div>
         </div>
+    }
 
-        @if (Model.UserCreator)
-        {
-            <div class="sessionHeader">
-                <div class="row">
-                    <form id="formSession" method="post" class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
-                                <div class="form-group">
-                                    <label asp-for="FeatureIdentification" class="control-label"></label>
-                                    <input asp-for="FeatureIdentification" class="form-control" />
+    @if (Model.UserCreator)
+    {
+        <div class="sessionHeader">
+            <div class="col-md-12 title" style="text-align:center;font-size:x-large">Adding Issues to the Session</div>
+            <hr class="separator" style="margin-bottom:15px;">
+            <div class="row">
+                <form id="formSession" method="post" class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 title" style="text-align:left;font-size:large">Create manual issue</div>
+                        <div class="col-md-8">
+                            <span asp-validation-for="FeatureIdentification" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="FeatureIdentification" class="control-label"></label>
+                                <input asp-for="FeatureIdentification" class="form-control" />
 
 
-                                    @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
-                                    @Html.Hidden("DescriptionSession", Model.DescriptionSession)
-                                    @Html.Hidden("UserCreator", true)
-                                    @Html.Hidden("SessionCode", Model.SessionCode)
-                                </div>
+                                @Html.Hidden("PlanningSessionId", Model.PlanningSessionId)
+                                @Html.Hidden("DescriptionSession", Model.DescriptionSession)
+                                @Html.Hidden("UserCreator", true)
+                                @Html.Hidden("SessionCode", Model.SessionCode)
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span asp-validation-for="FeatureDescription" class="text-danger"></span>
-                                <div class="form-group">
-                                    <label asp-for="FeatureDescription" class="control-label"></label>
-                                    <input asp-for="FeatureDescription" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input id="idButtonSession" type="submit" formaction="/Identity/Planning/Session" value="Create new issue" class="btn btn-primary" style="margin-top: 32px;" />
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span asp-validation-for="FeatureDescription" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="FeatureDescription" class="control-label"></label>
+                                <input asp-for="FeatureDescription" class="form-control" />
                             </div>
                         </div>
-                        <hr class="separator" style="margin-bottom:15px;">
-
-                        <div class="col-md-12 title" style="text-align:center;font-size:x-large">Fast Jira Identifier Integration</div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span asp-validation-for="JiraIdentification" class="text-danger"></span>
-                                <div class="form-group">
-                                    <label asp-for="JiraIdentification" class="control-label"></label>
-                                    <input asp-for="JiraIdentification" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input id="idButtonSessionJira" type="submit" formaction="/Identity/Planning/Session?code=@Model.SessionCode&amp;handler=JiraImport" value="Import From Jira" class="btn btn-primary" style="margin-top: 32px;" />
-                                </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input id="idButtonSession" type="submit" formaction="/Identity/Planning/Session" value="Create new issue" class="btn btn-primary" style="margin-top: 32px;" />
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <hr class="separator" style="margin-bottom:15px;">
 
+
+
+                    <div class="row">
+                        <div class="col-md-12 title" style="text-align:left;font-size:large">Import issue from JIRA using identifier</div>
+                        <div class="col-md-8">
+                            <span asp-validation-for="JiraIdentification" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="JiraIdentification" class="control-label"></label>
+                                <input asp-for="JiraIdentification" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input id="idButtonSessionJira" type="submit" formaction="/Identity/Planning/Session?code=@Model.SessionCode&amp;handler=JiraImport" value="Import From Jira" class="btn btn-primary" style="margin-top: 32px;" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        }
 
-        <div id="gridIssues" class="sessionHeader" />
+        </div>
+    }
 
-    </div>
+    <div id="gridIssues" class="sessionHeader" />
+
+</div>
 
 
 @section Scripts {
