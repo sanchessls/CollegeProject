@@ -17,13 +17,15 @@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
-    <script type="text/javascript">        
-        function Atualiza() {
-            console.log(@Model.FavouriteChoosed);
+<script type="text/javascript">
+
+    function Atualiza() {
+        console.log("sanches");
+
         }
-
-
+    var link = '/Identity/Planning/JiraFilterPartial/JiraFilter?code=@Model.SessionCode' + '&' + 'FavouriteChoosed=@Model.FavouriteChoosed';
+    console.log(link);
         Atualiza();
-        $('#gridFilters').load('/Identity/Planning/JiraFilterPartial/JiraFilter?code=@Model.SessionCode' + '&' +  'FavouriteChoosed=@Model.FavouriteChoosed');                   
-    </script>
+    $('#gridFilters').load(link);
+</script>
 }

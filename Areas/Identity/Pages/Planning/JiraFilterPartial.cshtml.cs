@@ -7,6 +7,7 @@ using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Models;
 using ScrumPokerPlanning.ModelServices;
 using ScrumPokerPlanning.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -22,7 +23,7 @@ namespace ScrumPokerPlanning.JiraFilterPartial
             _appContext = appContext;
         }        
 
-        public PartialViewResult OnGetJiraFilter(string SessionCode,string FavouriteChoosed)
+        public PartialViewResult OnGetJiraFilter(string code,string FavouriteChoosed)
         {
             List<Models.JiraFilter> JiraFilters = _jiraService.GetJiraFilter(userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey,(FavouriteChoosed == "true"));
 
@@ -30,12 +31,14 @@ namespace ScrumPokerPlanning.JiraFilterPartial
             if (JiraFilters.Any())
 #pragma warning restore EF1001 // Internal EF Core API usage.
             {
-                return Partial("_JiraFilterPartial", JiraFilters);
+                Tuple<string, List<Models.JiraFilter>,string> dataPartial = new Tuple<string, List<Models.JiraFilter>,string>(code, JiraFilters, FavouriteChoosed);
+                
+                return Partial("_JiraFilterPartial", dataPartial);
 
             }
             else
             {
-                return Partial("_JiraFilterPartialEmpty", JiraFilters);
+                return Partial("_JiraFilterPartialEmpty");
 
             }
         }

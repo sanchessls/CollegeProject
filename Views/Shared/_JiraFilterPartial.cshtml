@@ -1,14 +1,15 @@
-﻿@using ScrumPokerPlanning.Areas.Identity.Pages
-@model List<ScrumPokerPlanning.Models.JiraFilter>
+﻿@using ScrumPokerPlanning.Models
+
+@model Tuple<string, List<ScrumPokerPlanning.Models.JiraFilter>,string>
     <div class="sessionHeader">
         <div class="row">
             <div class="col-md-2 title">Identification</div>
             <div class="col-md-10 title">Name</div>
         </div>
+        
         <hr class="separatorHead">
 
-
-        @foreach (var item in Model)
+        @foreach (var item in Model.Item2)
         {
 
 
@@ -18,6 +19,7 @@
 
             <div class="row ColumnsOfTable">
                 <div class="col-md-10"> @item.Name.Trim() </div>
+                <div class="col-md-10"><a href="@Url.Content("~/Identity/Planning/JiraFilterIssue?code="+ Model.Item1 +"&FilterID=" + item.Id + "&favourite="+Model.Item3)"> @item.Name.Trim()</a></div>
             </div>
 
 

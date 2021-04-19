@@ -1,0 +1,41 @@
+﻿@page
+@model JiraFilterIssue
+
+@{
+    ViewData["Title"] = "Jira Filter Issues";
+}
+
+    <div class="col-md-4">
+
+        @{
+            <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/JiraFilter?code="+Model.SessionCode+"&favourite="+Model.Favourite)'"> Back to Filter </button>
+        }
+
+    </div>
+<br>
+
+
+<div class="col-md-12" style="padding-bottom:15px;">
+
+
+    <div id="gridFiltersIssue2" class="sessionHeader" />
+
+</div>
+
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script type="text/javascript">
+
+        function Atualiza() {
+            console.log(@Model.FilterID);
+        }
+
+        Atualiza();
+        $('#gridFiltersIssue2').load('/Identity/Planning/JiraFilterIssuePartial/JiraFilterIssue?code=@Model.SessionCode' + '&' +  'FilterID=@Model.FilterID');
+    </script>
+}

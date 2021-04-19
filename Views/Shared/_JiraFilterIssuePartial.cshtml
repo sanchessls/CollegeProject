@@ -1,0 +1,24 @@
+﻿@model ScrumPokerPlanning.Models.JiraIssue
+    <div class="sessionHeader">
+        <div class="row">
+            <div class="col-md-2 title">Identification</div>
+            <div class="col-md-10 title">Name</div>
+        </div>
+        
+        <hr class="separatorHead">
+
+        @foreach (var item in Model.issues)
+        {
+            <div class="row ColumnsOfTable">
+                <div class="col-md-2"> @item.id </div>
+            </div>
+
+            <div class="row ColumnsOfTable">
+                <div class="col-md-10"> @item.key</div>                
+            </div>
+
+            <hr class="separator">
+        }
+
+
+    </div>
