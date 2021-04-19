@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ScrumPokerPlanning.APIViewModel;
+using ScrumPokerPlanning.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,16 +17,8 @@ namespace ScrumPokerPlanning.Services
 {
     public interface IJiraService
     {
-        ObjJiraFeature GetJiraFeature(string Identificator, string website, string email, string key);
-    }
-
-    public class ObjJiraFeature
-    {
-        public string Identificator { get; set; }
-        public string Subject { get; set; }
-        public bool Success { get; set; }
-        public string Exception { get; set; }
-        public string MessageToUi { get; set; }
+        JiraIssueReturn GetJiraFeature(string Identificator, string website, string email, string key);
+        List<JiraFilter> GetJiraFilter(string website, string email, string key);
     }
 
     public class JiraService : IJiraService
@@ -34,9 +27,48 @@ namespace ScrumPokerPlanning.Services
         {
              
         }
-        public ObjJiraFeature GetJiraFeature(string Identificator, string website, string email, string key)
+
+        public List<JiraFilter> GetJiraFilter(string website, string email, string key)
         {
-            ObjJiraFeature objReturn = new ObjJiraFeature();
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), website + "/rest/api/2/filter"))
+                    {
+                        var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(email + ":" + key));
+                        request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
+
+                        HttpResponseMessage response = httpClient.SendAsync(request).Result;
+
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            var stringJson = response.Content.ReadAsStringAsync().Result;
+
+                            var ObjFilter = Newtonsoft.Json.JsonConvert.DeserializeObject<JiraFilter[]>(stringJson).ToList();
+                           
+                            return ObjFilter;
+                        }
+
+                        return null;
+                    }
+                }
+
+
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+    
+
+        public JiraIssueReturn GetJiraFeature(string Identificator, string website, string email, string key)
+        {
+            JiraIssueReturn objReturn = new JiraIssueReturn();
 
             try
             {
@@ -55,7 +87,7 @@ namespace ScrumPokerPlanning.Services
                         {
                             var stringJson = response.Content.ReadAsStringAsync().Result;
 
-                            Root ObjFeature = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(stringJson);
+                            JiraIssue ObjFeature = Newtonsoft.Json.JsonConvert.DeserializeObject<JiraIssue>(stringJson);
 
                             if (ObjFeature.total == 0)
                             {
@@ -63,6 +95,7 @@ namespace ScrumPokerPlanning.Services
                                 objReturn.Identificator = "";
                                 objReturn.Subject = "";
                                 objReturn.Success = false;
+                                return objReturn;
                             }
 
                             objReturn.Identificator = ObjFeature.issues.First().key;
@@ -90,35 +123,11 @@ namespace ScrumPokerPlanning.Services
             }
             catch (Exception e)
             {
-                return (new ObjJiraFeature() { Success = false, Exception = e.Message, MessageToUi = "Failed To Retrieve from JIRA." });
+                return (new JiraIssueReturn() { Success = false, Exception = e.Message, MessageToUi = "Failed To Retrieve from JIRA." });
             }
         }
     }
 
-    public class Fields
-    {
-        public string summary { get; set; }
-
-    }
-
-    public class Issue
-    {
-        public string expand { get; set; }
-        public string id { get; set; }
-        public string self { get; set; }
-        public string key { get; set; }
-        public Fields fields { get; set; }
-
-    }
-
-    public class Root
-    {
-        public string expand { get; set; }
-        public int startAt { get; set; }
-        public int maxResults { get; set; }
-        public int total { get; set; }
-        public List<Issue> issues { get; set; }
-    }
-
+ 
 
 }

@@ -87,6 +87,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         public override Task LoadAsync()
         {
+            
             string SessionCode = Request.Query["code"];
 
             int idSession = 0;
@@ -107,8 +108,6 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             PlanningSessionId = SessionObject.Id;
             DescriptionSession = SessionObject.Description;
             
-            //FeaturesList = 
-
             //If the Creator is the one Logged
             //We will offer the option of create features
             UserCreator = SessionObject.PlanningSessionUser.Where(x => x.UserId == userIdentity().Id).FirstOrDefault().UserIsCreator;
@@ -124,7 +123,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-            ObjJiraFeature JiraReturn = _JiraService.GetJiraFeature(JiraIdentification, userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey);
+            JiraIssueReturn JiraReturn = _JiraService.GetJiraFeature(JiraIdentification, userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey);
 
             if (!JiraReturn.Success)
             {
