@@ -70,7 +70,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages.Account.Manage
             await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your jira integration information has been updated";
+            StatusMessage = "Your Jira integration information has been updated";
             return RedirectToPage();
         }
     }

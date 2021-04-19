@@ -18,7 +18,7 @@ namespace ScrumPokerPlanning.Services
     public interface IJiraService
     {
         JiraIssueReturn GetJiraFeature(string Identificator, string website, string email, string key);
-        List<JiraFilter> GetJiraFilter(string website, string email, string key);
+        List<JiraFilter> GetJiraFilter(string website, string email, string key,bool favourite);
     }
 
     public class JiraService : IJiraService
@@ -28,14 +28,24 @@ namespace ScrumPokerPlanning.Services
              
         }
 
-        public List<JiraFilter> GetJiraFilter(string website, string email, string key)
+        public List<JiraFilter> GetJiraFilter(string website, string email, string key, bool favourite)
         {
             try
             {
                 using (var httpClient = new HttpClient())
                 {
+                    string web = "";
 
-                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), website + "/rest/api/2/filter"))
+                    if (favourite)
+                    {
+                        web = "/rest/api/2/filter/favourite";
+                    }
+                    else
+                    {
+                        web = "/rest/api/2/filter";
+                    }
+
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"), website + web))
                     {
                         var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(email + ":" + key));
                         request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
@@ -49,7 +59,7 @@ namespace ScrumPokerPlanning.Services
 
                             var ObjFilter = Newtonsoft.Json.JsonConvert.DeserializeObject<JiraFilter[]>(stringJson).ToList();
                            
-                            return ObjFilter;
+                            return ObjFilter.OrderBy(x => x.Id).ToList();
                         }
 
                         return null;

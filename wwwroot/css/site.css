@@ -74,7 +74,7 @@ body {
 	border-color: yellow;*/
 }
 
-/*
+
 
 .col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4, .col-md-2, .col-md-1
 {	
@@ -90,7 +90,7 @@ form {
 	border-style: solid !important;
 	border-color: red !important;
 }
-*/
+
 .pad-minus-15{
 	padding:0px!important;
 }
@@ -237,9 +237,15 @@ form {
 	/*background-image: url("https://media.istockphoto.com/vectors/paper-art-cartoon-abstract-waves-paper-carve-background-vector-id923062454?b=1&k=6&m=923062454&s=612x612&w=0&h=-hb5gCh-35tmATtcM1YNNswh_WkQBUOVEmdkp8qG28s=");*/
 	/*background-image: url("https://img.freepik.com/vetores-gratis/linhas-pretas-fluidas-abstratas-sobre-fundo-branco_1017-28780.jpg?size=626&ext=jpg");*/
 	/*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkpla4eiiLM8x7KJNszV6h9Az624CR2VcMgS16hMuM5xPV4pkOaWBitiHLiNiiWqAp700qlwr4PeNVyDLCXE2KaRd11gR7ED8&usqp=CAU&ec=45732300");*/
+	
+	/*
 	background-image: url("https://c4.wallpaperflare.com/wallpaper/844/199/784/christmas-tree-3d-graphics-wallpaper-preview.jpg");
-	background-size: cover; /* Resize the background image to cover the entire container */
-	/*background-image: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);*/
+	background-size: cover; 
+	*/
+	
+	
+	
+	background-image: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .containerPoker {

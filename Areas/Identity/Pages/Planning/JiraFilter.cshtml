@@ -1,0 +1,29 @@
+﻿@page
+@model JiraFilter
+
+@{
+    Layout = "/Views/Shared/_JiraFiltersLayout.cshtml";    
+    ViewData["Title"] = "Jira Filter";
+}
+
+    <div class="col-md-12" style="padding-bottom:15px;">        
+       
+        <div id="gridFilters" class="sessionHeader" />
+
+    </div>
+
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script type="text/javascript">        
+        function Atualiza() {
+            console.log("sanches");
+        }
+
+
+        Atualiza();
+            $('#gridFilters').load('/Identity/Planning/JiraFilterPartial/JiraFilter?sessionid=1');                   
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿@using ScrumPokerPlanning.Areas.Identity.Pages
+@model List<ScrumPokerPlanning.Models.JiraFilter>
+    <div class="sessionHeader">
+        <div class="row">
+            <div class="col-md-2 title">Identification</div>
+            <div class="col-md-10 title">Name</div>
+        </div>
+        <hr class="separatorHead">
+
+
+        @foreach (var item in Model)
+        {
+
+
+            <div class="row ColumnsOfTable">
+                <div class="col-md-2"> @item.Id </div>
+            </div>
+
+            <div class="row ColumnsOfTable">
+                <div class="col-md-10"> @item.Name.Trim() </div>
+            </div>
+
+
+            <hr class="separator">
+        }
+
+
+    </div>
