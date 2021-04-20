@@ -21,13 +21,13 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 {
     public partial class JiraFilter : BaseModelDatabaseUser
     {
-        IJiraService _JiraService;
+        IIssueService _IssueService;
         private int JiraFilterCode = 0;
         
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
-        public JiraFilter(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
+        public JiraFilter(ApplicationContext context, UserManager<ApplicationUser> userManager, IIssueService issueService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
-            _JiraService = jiraService;
+            _IssueService = issueService;
             _FeatureHub = FeatureHub;
         }
 
@@ -35,6 +35,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         [Display(Name = "Is Favourite Filters Only")]
         public string FavouriteChoosed { get; set; }
         public string SessionCode { get; set; }
+        public string DescriptionSession { get; set; }        
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async override Task<RedirectToPageResult> Validator()
@@ -67,6 +68,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
             JiraFilterCode = idSessionFilter;
 
             SessionCode = aSessionFilterCode;
+            DescriptionSession = _IssueService.GetSessionDescriptionByCode(SessionCode);
             string? favouriteFilters = Request.Query["favourite"];
 
             FavouriteChoosed = favouriteFilters;

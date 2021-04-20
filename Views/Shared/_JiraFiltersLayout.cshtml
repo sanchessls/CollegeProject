@@ -4,10 +4,10 @@
     string vLink2 = "/Identity/Planning/JiraFilter?code=" + @Model.SessionCode + "&favourite=false";
 
 }
-<div>   Here , create a header da Sessao: @Model.SessionCode  </div>
-Create a back to session buttion
-Check only scrum master
 
+<div class="col-md-12">
+    <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+</div>
 
 
 <div class="col-md-4">
@@ -16,7 +16,7 @@ Check only scrum master
         <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
         <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
     }
-    
+
 </div>
 
 <br>

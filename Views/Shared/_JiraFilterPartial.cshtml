@@ -9,17 +9,13 @@
         
         <hr class="separatorHead">
 
-        @foreach (var item in Model.Item2)
+        @foreach (var item in Model.Item2.OrderByDescending(x => x.Id))
         {
-
 
             <div class="row ColumnsOfTable">
                 <div class="col-md-2"> @item.Id </div>
-            </div>
-
-            <div class="row ColumnsOfTable">
-                <div class="col-md-10"> @item.Name.Trim() </div>
-                <div class="col-md-10"><a href="@Url.Content("~/Identity/Planning/JiraFilterIssue?code="+ Model.Item1 +"&FilterID=" + item.Id + "&favourite="+Model.Item3)"> @item.Name.Trim()</a></div>
+                       
+                <div class="col-md-10"><a href="@Url.Content("~/Identity/Planning/JiraFilterIssue?code="+ Model.Item1 +"&filtername=" + item.Name +"&FilterID=" + item.Id + "&favourite="+Model.Item3)"> @item.Name.Trim()</a></div>
             </div>
 
 

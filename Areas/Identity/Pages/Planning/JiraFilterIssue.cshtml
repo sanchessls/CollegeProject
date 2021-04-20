@@ -5,12 +5,17 @@
     ViewData["Title"] = "Jira Filter Issues";
 }
 
-<div class="col-md-4">
+<div class="col-md-12">
+    <h4 style="margin-left:5px;"> Session: @Model.DescriptionSession</h4>
+    <h4 style="margin-left:5px;"> Filter: @Model.DescriptionFilter</h4>
+</div>
+
+<div class="col-md-6">
 
     @{
         <h4 style="margin-left:5px;"> Code: @Model.SessionCode</h4>
-        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>
-        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/JiraFilter?code="+Model.SessionCode+"&favourite="+Model.Favourite)'"> Back to Filter </button>
+        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/Session?code=" + Model.SessionCode)'"> Back to Session </button>        
+        <button class="btn btn-primary" onclick="window.location.href='@Url.Content("~/Identity/Planning/JiraFilter?code="+Model.SessionCode+"&favourite="+Model.Favourite)'"> Back to Filters </button>
     }
 
 </div>
@@ -30,16 +35,16 @@
     </div>
 </form>
 
-@section Scripts {  
+@section Scripts {
 
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $('#gridFiltersIssue2').load('/Identity/Planning/JiraFilterIssuePartial/JiraFilterIssue?code=@Model.SessionCode' + '&' + 'FilterID=@Model.FilterID',function () {
+    $('#gridFiltersIssue2').load('/Identity/Planning/JiraFilterIssuePartial/JiraFilterIssue?code=@Model.SessionCode' + '&' + 'FilterID=@Model.FilterID' ,function () {
     //
     });
 
 
-</script>
+    </script>
 }

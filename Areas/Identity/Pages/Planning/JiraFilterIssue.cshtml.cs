@@ -38,6 +38,10 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         [BindProperty]
         public string SessionCode { get; set; }
+        public string DescriptionSession { get; set; }
+
+        public string DescriptionFilter { get; set; }
+        
         public string Favourite { get; set; }
 
         [BindProperty]
@@ -74,8 +78,11 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             SessionCode = aSessionFilterCode;
 
-            string filterId = Request.Query["FilterID"];
+            DescriptionSession = _IssueService.GetSessionDescriptionByCode(SessionCode);
 
+            string filterId = Request.Query["FilterID"];
+            string filtername = Request.Query["filtername"];
+            DescriptionFilter = filtername;
             //for the back filter button
             Favourite = Request.Query["favourite"];
 

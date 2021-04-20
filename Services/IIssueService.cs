@@ -20,6 +20,7 @@ namespace ScrumPokerPlanning.Services
     {
         Feature CreateFeatureAsync(int PlanningSessionId, string subject, string identificator, bool jiraCreated, string link, string userId);
         int GetSessionIdByCode(string sessionCode);
+        string GetSessionDescriptionByCode(string sessionCode);
     }
 
     public class IssueService : IIssueService
@@ -51,6 +52,11 @@ namespace ScrumPokerPlanning.Services
             AddUsersInFeatureAsync(PlanningSessionId, userId).Wait();
 
             return feature;
+        }
+
+        public string GetSessionDescriptionByCode(string sessionCode)
+        {
+            return _appContext.PlanningSession.Where(x => x.SessionCode.ToUpper() == sessionCode.ToUpper()).FirstOrDefault().Description;
         }
 
         public int GetSessionIdByCode(string sessionCode)
