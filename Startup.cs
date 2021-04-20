@@ -89,6 +89,9 @@ namespace ScrumPokerPlanning
             //Injection dependente for jira integration
             services.AddScoped<IJiraService, JiraService>();
 
+            //Injection dependente for issue Database matters
+            services.AddScoped<IIssueService, IssueService>();
+
             //Add all of the controllers 
             services.AddControllers();
 

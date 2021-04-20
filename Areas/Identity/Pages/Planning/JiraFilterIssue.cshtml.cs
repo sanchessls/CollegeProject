@@ -22,17 +22,21 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public partial class JiraFilterIssue : BaseModelDatabaseUser
     {
         IJiraService _JiraService;
-        
+        IIssueService _IssueService;
+
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
-        public JiraFilterIssue(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
+        public JiraFilterIssue(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IIssueService issueService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
             _JiraService = jiraService;
+            _IssueService = issueService;
             _FeatureHub = FeatureHub;
         }
 
         [BindProperty]
         [Display(Name = "Is Favourite Filters Only")]
         public int FilterID { get; set; }
+
+        [BindProperty]
         public string SessionCode { get; set; }
         public string Favourite { get; set; }
 
@@ -115,14 +119,40 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
                 return Page();
             }
 
-            AssociateIssueAsync(AreChecked, SessionCode).Wait();
+            AssociateIssue(AreChecked, SessionCode);
 
             return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
         }
 
-        private async Task AssociateIssueAsync(List<string> areChecked, string sessionCode)
+        private void AssociateIssue(List<string> areChecked, string sessionCode)
         {
-          //
+            int sessionID = _IssueService.GetSessionIdByCode(sessionCode);
+
+            List<string> ExistingIssues = _appContext.Feature.Where(x => (x.PlanningSession.Id == sessionID) && AreChecked.Contains(x.Identification)).Select(x => x.Identification).ToList();
+
+            List<string> newOnes = areChecked.Except(ExistingIssues).ToList();
+
+            foreach (var item in newOnes)
+            {
+                JiraIssueReturn JiraReturn = _JiraService.GetJiraFeature(item, userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey);
+
+                string Identificator = JiraReturn.Identificator;
+                string subject = JiraReturn.Subject;
+                string link = userIdentity().JiraWebSite + "/browse/" + Identificator;
+
+                _IssueService.CreateFeatureAsync(sessionID, subject, Identificator, true, link, userIdentity().Id);
+            }
+
+            if (newOnes.Count > 0)
+            {
+                var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSession.SessionCode.ToUpper() == SessionCode.ToUpper()).Select(x => x.UserId).ToList();
+                idList.ForEach(x =>
+                {
+                    _FeatureHub.Clients.Group(x).StatusFeatureUpdated(999, userIdentity().Id);
+                });
+
+            }
+
         }
     }
 }

@@ -22,10 +22,12 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
     public partial class Session : BaseModelDatabaseUser
     {
         IJiraService _JiraService;
+        IIssueService _FeatureService;
         private readonly IHubContext<FeatureHub, IFeature> _FeatureHub;
-        public Session(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
+        public Session(ApplicationContext context, UserManager<ApplicationUser> userManager, IJiraService jiraService, IIssueService featureService,IHubContext<FeatureHub, IFeature> FeatureHub) : base(context, userManager)
         {
             _JiraService = jiraService;
+            _FeatureService = featureService;
             _FeatureHub = FeatureHub;
         }
 
@@ -147,24 +149,8 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
         private async Task<Models.Feature> CreateFeatureAsync(string identificator, string subject,string link,bool jiraCreated)
         {
-            //the ones  who call this should treat the result in case of exception
-            Models.Feature feature = new Models.Feature
-            {
-                SessionId = PlanningSessionId,
-                Status = EnumFeature.Open,
-                CreationDate = DateTime.Now,
-                Description = subject,
-                Identification = identificator,
-                JiraCreated = jiraCreated,
-                Link = link
-            };
-
-            _appContext.Feature.Add(feature);
-
-            await _appContext.SaveChangesAsync();
-
-            await AddUsersInFeatureAsync(PlanningSessionId, userIdentity().Id);
-
+            Models.Feature feature = _FeatureService.CreateFeatureAsync(this.PlanningSessionId,subject,identificator,jiraCreated,link, userIdentity().Id);
+         
             var idList = _appContext.PlanningSessionUser.Where(x => x.PlanningSessionId == PlanningSessionId).Select(x => x.UserId).ToList();
             idList.ForEach(x =>
             {
@@ -173,36 +159,7 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
 
             return feature;
-        }
-
-
-        private async Task AddUsersInFeatureAsync(int sessionCode, string idUser)
-        {
-            //We have a identic funtion in session, that must be unique with this one
-            var featuresInSession = _appContext.Feature.Where(x => x.SessionId == sessionCode).ToList();
-
-            foreach (var item in featuresInSession)
-            {
-                var existRelationship = _appContext.FeatureUser.Where(x => x.FeatureId == item.Id && x.UserId == idUser).FirstOrDefault();
-
-                if (existRelationship == null)
-                {
-                    if (item.Status == EnumFeature.Open)
-                    {
-                        var featureUser = new FeatureUser()
-                        {
-                            UserId = idUser,
-                            FeatureId = item.Id
-                        };
-
-                        _appContext.FeatureUser.Add(featureUser);
-
-                        await _appContext.SaveChangesAsync();
-                    }
-                }
-
-            }
-        }
+        }     
 
         public async Task<IActionResult> OnPostAsync()
         {

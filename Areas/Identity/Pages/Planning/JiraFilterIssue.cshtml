@@ -19,10 +19,10 @@
 <form id="formIssues" class="sessionHeader" method="post">
     <div class="form-group">
         <input id="idButtonIssues" type="submit" value="Import Selected Issues" class="btn btn-primary" style="margin-top: 32px;" />
-
+        @Html.Hidden("SessionCode", Model.SessionCode)
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="col-md-12" style="padding-bottom:15px;">
-            
+
             <div id="gridFiltersIssue2" class="sessionHeader" />
 
         </div>
