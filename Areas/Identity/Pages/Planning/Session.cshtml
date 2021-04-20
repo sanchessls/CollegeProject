@@ -134,7 +134,10 @@
 
         function CallFunctionFromJSSession()
         {
-            $('#gridIssues').load('/Identity/Planning/SessionFeaturesPartial/SessionFeatures?sessionid=' +@Model.PlanningSessionId);
+            $('#gridIssues').load('/Identity/Planning/UsersVotingPartial/Loading', function () {
+
+                $('#gridIssues').load('/Identity/Planning/SessionFeaturesPartial/SessionFeatures?sessionid=' +@Model.PlanningSessionId);
+            });            
         }
 
     </script>

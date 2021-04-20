@@ -281,8 +281,15 @@ function clearCards() {
 
 
 function CallFunctionFromJS() {
-    //$('#grid').load('/Identity/Planning/UsersVotingPartial/Loading');
-    $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);
+
+    $('#grid').load('/Identity/Planning/UsersVotingPartial/Loading', function () {
+
+        $('#grid').load('/Identity/Planning/UsersVotingPartial/UsersVoting?sessionid=' +@Model.PlanningSessionId+'&featureid=' +@Model.FeatureId);
+
+    });
+
+
+
 }
 
 

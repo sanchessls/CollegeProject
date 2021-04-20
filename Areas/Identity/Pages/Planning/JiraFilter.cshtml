@@ -25,7 +25,14 @@
         }
     var link = '/Identity/Planning/JiraFilterPartial/JiraFilter?code=@Model.SessionCode' + '&' + 'FavouriteChoosed=@Model.FavouriteChoosed';
     console.log(link);
-        Atualiza();
-    $('#gridFilters').load(link);
+    Atualiza();
+
+
+    $('#gridFilters').load('/Identity/Planning/UsersVotingPartial/Loading', function () {
+
+        $('#gridFilters').load(link);
+    });
+
+    
 </script>
 }

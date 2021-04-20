@@ -39,12 +39,17 @@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
-    <script type="text/javascript">
-
-    $('#gridFiltersIssue2').load('/Identity/Planning/JiraFilterIssuePartial/JiraFilterIssue?code=@Model.SessionCode' + '&' + 'FilterID=@Model.FilterID' ,function () {
-    //
-    });
+<script type="text/javascript">
 
 
-    </script>
+    $('#gridFiltersIssue2').load('/Identity/Planning/UsersVotingPartial/Loading', function () {
+
+            $('#gridFiltersIssue2').load('/Identity/Planning/JiraFilterIssuePartial/JiraFilterIssue?code=@Model.SessionCode' + '&' + 'FilterID=@Model.FilterID');
+
+        });
+
+
+
+
+</script>
 }
