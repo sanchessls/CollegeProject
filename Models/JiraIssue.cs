@@ -17,6 +17,7 @@ namespace ScrumPokerPlanning.Models
     public class Fields
     {
         public string summary { get; set; }
+        public DateTime created { get; set; }
 
     }
 

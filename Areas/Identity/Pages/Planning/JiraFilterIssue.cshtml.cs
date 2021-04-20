@@ -36,6 +36,9 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
         public string SessionCode { get; set; }
         public string Favourite { get; set; }
 
+        [BindProperty]
+        public List<string> AreChecked { get; set; }
+
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async override Task<RedirectToPageResult> Validator()
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -91,6 +94,35 @@ namespace ScrumPokerPlanning.Areas.Identity.Pages
 
             return base.LoadAsync();
         }
-        
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Model!");
+                return Page();
+            }
+
+            if (AreChecked == null) 
+            {
+                ModelState.AddModelError("AreChecked", "Error.");
+                return Page();
+            }
+
+            if (AreChecked.Count <= 0)
+            {
+                ModelState.AddModelError("AreChecked", "At least one issue must be selected!");
+                return Page();
+            }
+
+            AssociateIssueAsync(AreChecked, SessionCode).Wait();
+
+            return RedirectToPage("./session", new { code = SessionCode.ToUpper() });
+        }
+
+        private async Task AssociateIssueAsync(List<string> areChecked, string sessionCode)
+        {
+          //
+        }
     }
 }

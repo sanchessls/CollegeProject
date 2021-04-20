@@ -7,13 +7,15 @@ using ScrumPokerPlanning.Context;
 using ScrumPokerPlanning.Models;
 using ScrumPokerPlanning.ModelServices;
 using ScrumPokerPlanning.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 
 namespace ScrumPokerPlanning.JiraFilterIssuePartial
 {
     public class JiraFilterIssuePartialModel : BaseModelUser
-    {
+    {    
         private IJiraService _jiraService;
         private readonly ApplicationContext _appContext;
         public JiraFilterIssuePartialModel(IJiraService jService, ApplicationContext appContext, UserManager<ApplicationUser> userManager) : base(userManager)
@@ -22,7 +24,7 @@ namespace ScrumPokerPlanning.JiraFilterIssuePartial
             _appContext = appContext;
         }        
 
-        public PartialViewResult OnGetJiraFilterIssue(string code,int filterID )
+        public PartialViewResult OnGetJiraFilterIssue(string code,int filterID)
         {
             JiraIssue JiraFilterIssues = _jiraService.GetJiraIssuesFromFilter(userIdentity().JiraWebSite, userIdentity().JiraEmail, userIdentity().JiraKey, filterID);
             
