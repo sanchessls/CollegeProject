@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ScrumPokerPlanning.Services
 {
     public interface  IReportingService
@@ -37,41 +38,64 @@ namespace ScrumPokerPlanning.Services
             try
             {
 
-        
-            var globalSettings = new GlobalSettings
-            {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 10 },
-                DocumentTitle = "PDF Report",
-                //Out = @"D:\PDFCreator\Employee_Report.pdf"  USE THIS PROPERTY TO SAVE PDF TO A PROVIDED LOCATION
-            };
+                SelectPdf.HtmlToPdf converter = new SelectPdf.HtmlToPdf();
 
-            var objectSettings = new ObjectSettings
-            {
-                PagesCount = true,
-                HtmlContent = TemplateGenerator.GetHTMLString(),
-                //Page = "https://code-maze.com/", //USE THIS PROPERTY TO GENERATE PDF CONTENT FROM AN HTML PAGE
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "ReportingCss", "styles.css") },
-                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }                
-            };
+                // set converter options
+                //converter.Options.PdfPageSize = pageSize;
+                //converter.Options.PdfPageOrientation = pdfOrientation;
+                //converter.Options.WebPageWidth = webPageWidth;
+                //converter.Options.WebPageHeight = webPageHeight;
 
-            var pdf = new HtmlToPdfDocument()
-            {
-                GlobalSettings = globalSettings,
-                Objects = { objectSettings }
-            };
+                // create a new pdf document converting an url
+                SelectPdf.PdfDocument doc = converter.ConvertHtmlString(TemplateGenerator.GetHTMLString());
 
-            //_converter.Convert(pdf); IF WE USE Out PROPERTY IN THE GlobalSettings CLASS, THIS IS ENOUGH FOR CONVERSION
+                var memory = new MemoryStream();
 
-            var file = _converter.Convert(pdf);
+                // save pdf document
+                doc.Save(memory);
 
-            //return Ok("Successfully created PDF document.");
-            //return File(file, "application/pdf", "EmployeeReport.pdf");            
+                // close pdf document
+                doc.Close();
 
-            return new FileStreamResult(new MemoryStream(file), "application/pdf");
+                memory.Position = 0;
+
+                return new FileStreamResult(memory, "application/pdf");
+
+
+                //    var globalSettings = new GlobalSettings
+                //{
+                //    ColorMode = ColorMode.Color,
+                //    Orientation = Orientation.Portrait,
+                //    PaperSize = PaperKind.A4,
+                //    Margins = new MarginSettings { Top = 10 },
+                //    DocumentTitle = "PDF Report",
+                //    //Out = @"D:\PDFCreator\Employee_Report.pdf"  USE THIS PROPERTY TO SAVE PDF TO A PROVIDED LOCATION
+                //};
+
+                //var objectSettings = new ObjectSettings
+                //{
+                //    PagesCount = true,
+                //    HtmlContent = TemplateGenerator.GetHTMLString(),
+                //    //Page = "https://code-maze.com/", //USE THIS PROPERTY TO GENERATE PDF CONTENT FROM AN HTML PAGE
+                //    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "ReportingCss", "styles.css") },
+                //    HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                //    FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }                
+                //};
+
+                //var pdf = new HtmlToPdfDocument()
+                //{
+                //    GlobalSettings = globalSettings,
+                //    Objects = { objectSettings }
+                //};
+
+                ////_converter.Convert(pdf); IF WE USE Out PROPERTY IN THE GlobalSettings CLASS, THIS IS ENOUGH FOR CONVERSION
+
+                //var file = _converter.Convert(pdf);
+
+                ////return Ok("Successfully created PDF document.");
+                ////return File(file, "application/pdf", "EmployeeReport.pdf");            
+
+                //return new FileStreamResult(new MemoryStream(file), "application/pdf");
             }
             catch (Exception avc)
             {
@@ -107,6 +131,8 @@ namespace ScrumPokerPlanning.Services
             var employees = DataStorage.GetAllEmployess();
 
             var sb = new StringBuilder();
+
+            sb.Append(getStyle());
             sb.Append(@"
                         <html>
                             <head>
@@ -137,6 +163,37 @@ namespace ScrumPokerPlanning.Services
                         </html>");
 
             return sb.ToString();
+        }
+        
+        private static string getStyle()
+        {
+            return  @"
+<style>
+.header {
+    text-align: center;
+    color: green;
+    padding-bottom: 35px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 22px;
+    text-align: center;
+}
+
+table th {
+    background-color: green;
+    color: white;
+}
+
+</style>"
+;
         }
     }
 
