@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -86,11 +88,15 @@ namespace ScrumPokerPlanning
             //Injection dependence for the User service to manage Users
             services.AddScoped<IUserService, UserService>();
 
-            //Injection dependente for jira integration
+            //Injection dependence for jira integration
             services.AddScoped<IJiraService, JiraService>();
 
-            //Injection dependente for issue Database matters
+            //Injection dependence for issue Database matters
             services.AddScoped<IIssueService, IssueService>();
+
+            //Injection dependence for Reporting
+            services.AddScoped<IReportingService, ReportingService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             //Add all of the controllers 
             services.AddControllers();

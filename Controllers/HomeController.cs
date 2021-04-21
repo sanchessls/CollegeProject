@@ -7,29 +7,29 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ScrumPokerPlanning.Models;
+using ScrumPokerPlanning.Services;
 
 namespace ScrumPokerPlanning.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        IReportingService _ReportingService;
+        public HomeController(IReportingService reportingService)
+        {
+            _ReportingService = reportingService;
+        }
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
+      
         public IActionResult Index()
         {
             return LocalRedirect(Url.Content("~/Identity/Planning/Create"));
         }
 
-       
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+        public async Task<IActionResult> PrintPDF(int sessionId,string fileName)
+        {
+            return _ReportingService.CreatePDF();
+        }
+
     }
 }
