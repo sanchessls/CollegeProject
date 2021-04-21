@@ -74,8 +74,21 @@ namespace ScrumPokerPlanning.Services
             return new FileStreamResult(new MemoryStream(file), "application/pdf");
             }
             catch (Exception avc)
-            {                
-                return new ContentResult() { Content = avc.Message };
+            {
+                string text = "sanches ";
+
+                text += avc.Message;
+
+
+                if (avc.InnerException != null)
+                {
+                    text += "inner excep : ";
+                    text += avc.InnerException.Message;
+                }
+               
+
+
+                return new ContentResult() { Content = text };
 
             }
         }
