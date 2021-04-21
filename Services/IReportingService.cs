@@ -132,7 +132,7 @@ namespace ScrumPokerPlanning.Services
 
             var sb = new StringBuilder();
 
-            sb.Append(getStyle());
+            //sb.Append(getStyle());
             sb.Append(@"
                         <html>
                             <head>
