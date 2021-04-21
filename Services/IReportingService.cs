@@ -34,6 +34,10 @@ namespace ScrumPokerPlanning.Services
 
         public IActionResult CreatePDF()
         {
+            try
+            {
+
+        
             var globalSettings = new GlobalSettings
             {
                 ColorMode = ColorMode.Color,
@@ -68,7 +72,12 @@ namespace ScrumPokerPlanning.Services
             //return File(file, "application/pdf", "EmployeeReport.pdf");            
 
             return new FileStreamResult(new MemoryStream(file), "application/pdf");
-            
+            }
+            catch (Exception avc)
+            {                
+                return new ContentResult() { Content = avc.Message };
+
+            }
         }
     }
 
