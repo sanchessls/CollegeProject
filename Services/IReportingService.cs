@@ -85,6 +85,12 @@ namespace ScrumPokerPlanning.Services
                     text += "inner excep : ";
                     text += avc.InnerException.Message;
                 }
+
+                if (avc.StackTrace != null)
+                {
+                    text += " Stack trace excep : ";
+                    text += avc.StackTrace.ToString();
+                }
                
 
 
